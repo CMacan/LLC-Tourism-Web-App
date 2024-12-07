@@ -42,43 +42,84 @@
   </div>
 
   <!-- Destination Section -->
-  <section class="destination-section">
+  <!-- Destination Section -->
+<section class="destination-section">
     <h2>Destination</h2>
     <p>Discover the beautiful places in Lapu-Lapu City.</p>
     <div class="carousel">
-      <!-- Add images inside this carousel -->
+        <!-- Card 1 -->
+        <div class="card">
+            <img src="{% static '/assets/lapu-lapu.jpg' %}" alt="Place 1" class="card-img">
+            <div class="card-body">
+                <h5 class="card-title">Destination 1</h5>
+            </div>
+        </div>
+  
+        <!-- Card 2 -->
+        <div class="card">
+            <img src="{% static '/assets/lapu-lapu.jpg' %}" class="card-img">
+            <div class="card-body">
+                <h5 class="card-title">Destination 2</h5>
+            </div>
+        </div>
+  
+        <!-- Card 3 -->
+        <div class="card">
+            <img src="{% static '/assets/lapu-lapu.jpg' %}" class="card-img">
+            <div class="card-body">
+                <h5 class="card-title">Destination 3</h5>
+            </div>
+        </div>    
     </div>
   </section>
 
+
   <!-- Choices Section -->
-  <section class="choices-section">
+  <!-- Choices Section -->
+<section class="choices-section">
+    <!-- Button 1 -->
     <div class="choice">
-      <img src="attractions.jpg" alt="Attractions">
-      <p>Attractions</p>
+      <button class="choice-btn">
+        <img src="{% static '/assets/lapu-lapu.jpg' %}" alt="Attractions" class="choice-img">
+        <p class="choice-label">Attractions</p>
+      </button>
     </div>
+    
+    <!-- Button 2 -->
     <div class="choice">
-      <img src="food.jpg" alt="Food">
-      <p>Food</p>
+      <button class="choice-btn">
+        <img src="{% static '/assets/lapu-lapu.jpg' %}" class="choice-img">
+        <p class="choice-label">Food</p>
+      </button>
     </div>
+    
+    <!-- Button 3 -->
     <div class="choice">
-      <img src="activities.jpg" alt="Activities">
-      <p>Activities</p>
+      <button class="choice-btn">
+        <img src="{% static '/assets/lapu-lapu.jpg' %}" class="choice-img">
+        <p class="choice-label">Activities</p>
+      </button>
     </div>
+    
+    <!-- Button 4 -->
     <div class="choice">
-      <img src="lodging.jpg" alt="Lodging">
-      <p>Lodging</p>
+      <button class="choice-btn">
+        <img src="{% static '/assets/lapu-lapu.jpg' %}" class="choice-img">
+        <p class="choice-label">Lodging</p>
+      </button>
     </div>
   </section>
+  
 
   <!-- Cards Section -->
   <section class="cards-section">
     <div class="card">
-      <img src="destination.jpg" alt="Destination">
+      <img src="{% static '/assets/lapu-lapu.jpg' %}" alt="Destination">
       <p>Explore exciting destinations!</p>
       <button>Show Destination</button>
     </div>
     <div class="card">
-      <img src="hotels.jpg" alt="Hotels">
+      <img src="{% static '/assets/lapu-lapu.jpg' %}" alt="Hotels">
       <p>Find the best hotels for your stay!</p>
       <button>Show Hotels</button>
     </div>
