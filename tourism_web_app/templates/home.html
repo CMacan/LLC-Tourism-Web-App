@@ -1,9 +1,143 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLC Tourism</title>
+  <link rel="stylesheet" href="{% static '/style.css' %}">
+</head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+        <img src="{% static '/assets/logo.png' %}" alt="logo">
+        <span class="logo-text">LLC TOURISM</span>
+    </div>
+    <div class="nav-buttons">
+      <button>Destination</button>
+      <button>Activity</button>
+      <button>Accommodation</button>
+      <button>Food & Drinks</button>
+      <button>Let's Chat!</button>
+    </div>
+  </nav>
+  <div class="container">
+    <section class="image-band">
+      <img src="{% static '/assets/band.jpg' %}" alt="band">
+    </section>
+    
+    <section class="image-section">
+      <img src="{% static '/assets/lovetheph-logo.png' %}" alt="Lapu-Lapu City">
+      <div class="search-container">
+        <select>
+          <option>Select an option</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+        </select>
+        <input type="text" placeholder="Search here...">
+        <button>Search</button>
+      </div>
+    </section>
+  </div>
 
-<h1>Hello World!</h1>
-<p>Welcome to my first Django project!</p>
+  <!-- Destination Section -->
+  <section class="destination-section">
+    <h2>Destination</h2>
+    <p>Discover the beautiful places in Lapu-Lapu City.</p>
+    <div class="carousel">
+      <!-- Add images inside this carousel -->
+    </div>
+  </section>
 
+  <!-- Choices Section -->
+  <section class="choices-section">
+    <div class="choice">
+      <img src="attractions.jpg" alt="Attractions">
+      <p>Attractions</p>
+    </div>
+    <div class="choice">
+      <img src="food.jpg" alt="Food">
+      <p>Food</p>
+    </div>
+    <div class="choice">
+      <img src="activities.jpg" alt="Activities">
+      <p>Activities</p>
+    </div>
+    <div class="choice">
+      <img src="lodging.jpg" alt="Lodging">
+      <p>Lodging</p>
+    </div>
+  </section>
+
+  <!-- Cards Section -->
+  <section class="cards-section">
+    <div class="card">
+      <img src="destination.jpg" alt="Destination">
+      <p>Explore exciting destinations!</p>
+      <button>Show Destination</button>
+    </div>
+    <div class="card">
+      <img src="hotels.jpg" alt="Hotels">
+      <p>Find the best hotels for your stay!</p>
+      <button>Show Hotels</button>
+    </div>
+  </section>
+
+  <!-- Activities Section -->
+  <section class="activities-section">
+    <h2>Activities</h2>
+    <div class="carousel">
+      <!-- Add activity images here -->
+    </div>
+  </section>
+
+  <!-- Accommodation Section -->
+  <section class="accommodation-section">
+    <h2>Accommodation</h2>
+    <div class="carousel">
+      <!-- Add accommodation images here -->
+    </div>
+  </section>
+
+  <!-- Food & Drinks Section -->
+  <section class="food-drinks-section">
+    <h2>Food & Drinks</h2>
+    <div class="carousel">
+      <!-- Add food and drinks images here -->
+    </div>
+  </section>
+
+  <!-- Featured Articles Section -->
+  <section class="articles-section">
+    <h2>Featured Articles</h2>
+    <button>See More Articles</button>
+    <div class="article-container">
+      <div class="article-card">
+        <img src="article.jpg" alt="Article">
+        <p>Date Published: 2024-12-07</p>
+        <p>Publisher: John Doe</p>
+        <h3>Article Title</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h2>Stay Updated with Latest Articles</h2>
+    <div class="subscribe-container">
+      <label>Mactan Adventures</label>
+      <p>Explore the best adventures in Lapu-Lapu City.</p>
+      <input type="email" placeholder="Enter your email">
+      <button>Subscribe</button>
+    </div>
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#">Destination</a>
+      <a href="#">Activities</a>
+      <a href="#">Accommodation</a>
+      <a href="#">Food & Drinks</a>
+    </div>
+  </footer>
 </body>
 </html>
