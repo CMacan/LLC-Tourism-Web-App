@@ -124,7 +124,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'resources'),
     os.path.join(BASE_DIR, 'css'), 
     os.path.join(BASE_DIR, 'fonts'),
-    os.path.join(BASE_DIR, 'js'), # Add the external folder here
+    os.path.join(BASE_DIR, 'js'),
+    os.path.join(BASE_DIR, 'images'), # Add the external folder here
 ]
 
 

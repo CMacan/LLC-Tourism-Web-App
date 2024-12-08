@@ -1,13 +1,14 @@
 @font-face {
   font-family: "bootstrap-icons";
-  src: ("{% static'../fonts/bootstrap-icons.woff' %}") format("woff2"),
-url("../fonts/bootstrap-icons.woff2") format("woff");
+  src: url("/fonts/bootstrap-icons.woff2?30af91bf14e37666a085fb8a161ff36d") format("woff2"),
+url("/fonts/bootstrap-icons.woff?30af91bf14e37666a085fb8a161ff36d") format("woff");
 }
 
 .bi::before,
 [class^="bi-"]::before,
-[class*=" bi-"]::before {{% static' display: inline-block;
-  fon' %t-family: bootstrap-icons !important;
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
   font-style: normal;
   font-weight: normal !important;
   font-variant: normal;
