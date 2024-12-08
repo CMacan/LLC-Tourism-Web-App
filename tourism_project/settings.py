@@ -122,7 +122,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'  # URL for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'resources'),
-    os.path.join(BASE_DIR, 'css'),  # Add the external folder here
+    os.path.join(BASE_DIR, 'css'), 
+    os.path.join(BASE_DIR, 'fonts'),
+    os.path.join(BASE_DIR, 'js'), # Add the external folder here
 ]
 
 
