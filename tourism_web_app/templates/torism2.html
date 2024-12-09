@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static '/tourism2.css'  %}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <title>Lapu-Lapu City Tourism</title>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-logo">
+        <img src="{% static '/assets/logo.png' %}" alt="logo">
+      <span>Lapu-Lapu City Tourism</span>
+    </div>
+    <nav class="navbar-links">
+      <a href="#destinations">Destinations</a>
+      <a href="#activities">Activities</a>
+      <a href="#accommodations">Accommodations</a>
+      <a href="#food">Food & Drinks</a>
+      <a href="#chat">Let’s Chat!</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+        <section class="image-section">
+            <img src="{% static '/assets/lovetheph-logo.png' %}" alt="Lapu-Lapu City">
+            <div class="search-container">
+                <section class="search-section">
+                    <div class="search-bar">
+                        <select id="category">
+                        <option value="attractions">Attractions</option>
+                        <option value="food">Food</option>
+                        <option value="activities">Activities</option>
+                        </select>
+                        <input type="text" placeholder="What are you looking for?" />
+                        <button>Search</button>
+                    </div>
+                    </section>
+            </div>
+          </section>   
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+      <h2>Destinations</h2>
+      <div class="destination-card">
+        <img src="{% static '/assets/logo.png' %}" alt="logo">
+        <p>Attraction #1</p>
+      </div>
+      <div class="destination-card">
+        <img src="{% static '/assets/logo.png' %}" alt="logo">
+        <p>Attraction #2</p>
+      </div>
+      <div class="destination-card">
+        <img src="{% static '/assets/logo.png' %}" alt="logo">
+        <p>Attraction #2</p>
+      </div> 
+      <div class="destination-card">
+        <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+        <p>Attraction #2</p>
+      </div>
+      <div class="destination-card">
+        <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+        <p>Attraction #2</p>
+      </div> 
+    </section>
+
+    <section class="choice">
+        <div class="landing-page-container">
+            <div class="landing-page-swiper-wrapper">
+              <!-- Attractions Section -->
+              <div class="landing-page-item">
+                <div class="landing-page-image-container">
+                    <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                </div>
+                <span class="landing-page-text">Attractions</span>
+              </div>
+              
+              <!-- Food Section -->
+              <div class="landing-page-item">
+                <div class="landing-page-image-container">
+                    <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                </div>
+                <span class="landing-page-text">Food</span>
+              </div>
+              
+              <!-- Activities Section -->
+              <div class="landing-page-item">
+                <div class="landing-page-image-container">
+                    <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                </div>
+                <span class="landing-page-text">Activities</span>
+              </div>
+          
+              <!-- Events Section -->
+              <div class="landing-page-item">
+                <div class="landing-page-image-container">
+                    <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                </div>
+                <span class="landing-page-text">Events</span>
+              </div>
+          
+              <!-- Lodging Section -->
+              <div class="landing-page-item">
+                <div class="landing-page-image-container">
+                  <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                </div>
+                <span class="landing-page-text">Lodging</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+    <section class="hotel-destination-section">
+        <div class="search-container2">
+            <!-- Destinations Section -->
+            <div class="destination-section">
+                <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                <div class="content-container">
+                    <div class="text-container">
+                        <span class="heading">Search our most popular destinations</span>
+                    </div>
+                    <button class="show-button">
+                        <div class="button-content">
+                            <img src="{% static '/assets/maker_map_place_pointer_icon.png' %}" alt="maker_map_place_pointer_icon" class="button-icon" />
+                            <span class="button-text">Show Destinations</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Hotels Section -->
+            <div class="hotel-section">
+                <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+                <div class="content-container">
+                    <div class="text-container">
+                        <span class="heading">Search our most popular hotels</span>
+                    </div>
+                    <button class="show-button">
+                        <div class="button-content">
+                            <img src="{% static '/assets/maker_map_place_pointer_icon.png' %}" alt="maker_map_place_pointer_icon" class="button-icon" />
+                            <span class="button-text">Show Hotels</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="destinations" class="destinations">
+        <h2>Activities</h2>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Activities #1</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Activities #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Activities #2</p>
+        </div> 
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Activities #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Activities #2</p>
+        </div> 
+      </section>
+    
+    <!-- Accommodations Section -->
+    <section id="destinations" class="destinations">
+        <h2>Accommodations</h2>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Accommodations #1</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Accommodations #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Accommodations #2</p>
+        </div> 
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Accommodations #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Accommodations #2</p>
+        </div> 
+      </section>
+
+     <!-- Food & Drinks Section -->
+     <section id="destinations" class="destinations">
+        <h2>Food & Drinks</h2>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Restaurant #1</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Restaurant #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/assets/logo.png' %}" alt="logo">
+          <p>Restaurant #2</p>
+        </div> 
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Restaurant #2</p>
+        </div>
+        <div class="destination-card">
+          <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+          <p>Restaurant #2</p>
+        </div> 
+      </section>
+    
+      
+    
+    <!-- Articles -->
+    <section class="article">
+        <div class="container">
+            <div class="card">
+              <div class="card__header">
+                <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+              </div>
+              <div class="card__body">
+                <span class="tag tag-blue">Technology</span>
+                <h4>What's new in 2022 Tech</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+              </div>
+              <div class="card__footer">
+                <div class="user">
+                  <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
+                  <div class="user__info">
+                    <h5>Jane Doe</h5>
+                    <small>2h ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+              </div>
+              <div class="card__body">
+                <span class="tag tag-brown">Food</span>
+                <h4>Delicious Food</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+              </div>
+              <div class="card__footer">
+                <div class="user">
+                  <img src="https://i.pravatar.cc/40?img=2" alt="user__image" class="user__image">
+                  <div class="user__info">
+                    <h5>Jony Doe</h5>
+                    <small>Yesterday</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <img src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}" alt="Lodging" class="landing-page-image" />
+              </div>
+              <div class="card__body">
+                <span class="tag tag-red">Automobile</span>
+                <h4>Race to your heart content</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+              </div>
+              <div class="card__footer">
+                <div class="user">
+                  <img src="https://i.pravatar.cc/40?img=3" alt="user__image" class="user__image">
+                  <div class="user__info">
+                    <h5>John Doe</h5>
+                    <small>2d ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer">
+        <div class="row">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-youtube"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        </div>
+        
+        <div class="row">
+        <ul>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">Our Services</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Career</a></li>
+        </ul>
+        </div>
+        
+        <div class="row">
+        INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
+        </div>
+        </div>
+        </footer>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="english">
+  <head>
+    <title>exported project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;  -webkit-font-smoothing: antialiased;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;  color: inherit;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}details {  display: block;  margin: 0;  padding: 0;}summary::-webkit-details-marker {  display: none;}[data-thq="accordion"] [data-thq="accordion-content"] {  max-height: 0;  overflow: hidden;  transition: max-height 0.3s ease-in-out;  padding: 0;}[data-thq="accordion"] details[data-thq="accordion-trigger"][open] + [data-thq="accordion-content"] {  max-height: 300vh;}details[data-thq="accordion-trigger"][open] summary [data-thq="accordion-icon"] {  transform: rotate(180deg);}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-theme-neutral-dark);
+        background: var(--dl-color-theme-neutral-light);
+
+        fill: var(--dl-color-theme-neutral-dark);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link href="{% static '/tourism.css'  %}" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="./style.css" />
+    <div>
+      <link href="./index.css" rel="stylesheet" />
+
+      <div class="landing-page-container">
+        <div class="landing-page-landing-page">
+          <div class="landing-page-body">
+            <img
+              src="public/external/rectangle438912-365re-700h.png"
+              alt="Rectangle438912"
+              class="landing-page-rectangle43"
+            />
+            <span class="landing-page-text10">LAPU-LAPU CITY</span>
+            <img
+              src="public/external/dotlovethephlogo18512-0rgc-300h.png"
+              alt="dotlovethephlogo18512"
+              class="landing-page-dotlovethephlogo1"
+            />
+            <img
+              src="public/external/dotlovethephband18512-gm0x-200h.png"
+              alt="dotlovethephband18512"
+              class="landing-page-dotlovethephband1"
+            />
+          </div>
+          <div class="landing-page-group345">
+            <div class="landing-page-cta1">
+              <span class="landing-page-text11">Select a Category</span>
+              <div class="landing-page-iconly-light-outline-arrow-down4">
+                <div class="landing-page-arrow-down2">
+                  <img
+                    src="public/external/stroke1i120-0yr.svg"
+                    alt="Stroke1I120"
+                    class="landing-page-stroke1"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="landing-page-cta2">
+              <img
+                src="public/external/materialsymbolssearch1021-8ox.svg"
+                alt="materialsymbolssearch1021"
+                class="landing-page-materialsymbolssearch"
+              />
+              <span class="landing-page-text12">What are you looking for?</span>
+            </div>
+            <div class="landing-page-cta3">
+              <span class="landing-page-text13">Search</span>
+            </div>
+          </div>
+          <div class="landing-page-destinations1">
+            <span class="landing-page-text14">DESTINATIONS</span>
+            <div class="landing-page-group346">
+              <img
+                src="public/external/image1021-izki-500w.png"
+                alt="image1021"
+                class="landing-page-image10"
+              />
+              <span class="landing-page-text15">Attraction #1</span>
+            </div>
+            <div class="landing-page-group347">
+              <img
+                src="public/external/image1021-qjv-400h.png"
+                alt="image1021"
+                class="landing-page-image11"
+              />
+              <span class="landing-page-text16">Attraction #2</span>
+            </div>
+            <div class="landing-page-group348">
+              <img
+                src="public/external/image1021-624b-400h.png"
+                alt="image1021"
+                class="landing-page-image12"
+              />
+              <span class="landing-page-text17">Attraction #3</span>
+            </div>
+            <span class="landing-page-text18 MontserratRegular16px">
+              Welcome to the official travel app of the Lapu-Lapu, your ultimate
+              guide to experiencing our city!
+            </span>
+            <div class="landing-page-group349">
+              <img
+                src="public/external/materialsymbolscircle1021-tnby.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle1"
+              />
+              <img
+                src="public/external/materialsymbolscircle1021-eapo.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle2"
+              />
+              <img
+                src="public/external/materialsymbolscircle1021-x099.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle3"
+              />
+              <img
+                src="public/external/materialsymbolscircle1021-h76m.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle4"
+              />
+              <img
+                src="public/external/materialsymbolscircle1021-7028.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle5"
+              />
+              <img
+                src="public/external/materialsymbolscircle1021-6gqq.svg"
+                alt="materialsymbolscircle1021"
+                class="landing-page-materialsymbolscircle6"
+              />
+            </div>
+          </div>
+          <div class="landing-page-divoverflowhidden">
+            <div class="landing-page-divswiperwrapper">
+              <div class="landing-page-link10">
+                <div class="landing-page-divfeature-imageimage1">
+                  <div class="landing-page-image13"></div>
+                </div>
+                <span class="landing-page-text19">Attractions</span>
+              </div>
+              <div class="landing-page-link11">
+                <div class="landing-page-divfeature-imageimage2">
+                  <img
+                    src="public/external/image61021-v5i-200h.png"
+                    alt="image61021"
+                    class="landing-page-image6"
+                  />
+                </div>
+                <span class="landing-page-text20">Food</span>
+              </div>
+              <div class="landing-page-link12">
+                <div class="landing-page-divfeature-imageimage3">
+                  <img
+                    src="public/external/image71021-xw3-200h.png"
+                    alt="image71021"
+                    class="landing-page-image7"
+                  />
+                </div>
+                <span class="landing-page-text21">Activities</span>
+              </div>
+              <div class="landing-page-link13">
+                <div class="landing-page-divfeature-imageimage4">
+                  <img
+                    src="public/external/image81021-l7m4-200h.png"
+                    alt="image81021"
+                    class="landing-page-image8"
+                  />
+                </div>
+                <span class="landing-page-text22">Events</span>
+              </div>
+              <div class="landing-page-link14">
+                <div class="landing-page-divfeature-imageimage5">
+                  <img
+                    src="public/external/image91021-l1-200h.png"
+                    alt="image91021"
+                    class="landing-page-image9"
+                  />
+                </div>
+                <span class="landing-page-text23">Lodging</span>
+              </div>
+            </div>
+          </div>
+          <div class="landing-page-footer1">
+            <div class="landing-page-frame2608782">
+              <div class="landing-page-frame2608747">
+                <div class="landing-page-frame26087431">
+                  <span class="landing-page-text24">
+                    Stay Updated with the Latest Articles!
+                  </span>
+                  <div class="landing-page-frame2608755">
+                    <div class="landing-page-frame26087432">
+                      <span class="landing-page-text25">Mactan Adventures</span>
+                      <span class="landing-page-text26 MontserratMedium16px">
+                        Get insights, tips, incoming festivals, and
+                        announcements straight to your inbox.
+                      </span>
+                    </div>
+                    <div class="landing-page-frame2608741">
+                      <div class="landing-page-textfield1">
+                        <div class="landing-page-textfield2">
+                          <div class="landing-page-statelayer">
+                            <div class="landing-page-content">
+                              <div class="landing-page-labeltext">
+                                <span
+                                  class="landing-page-text27 MontserratRegular16px"
+                                >
+                                  Your email address
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="landing-page-button1">
+                        <div class="landing-page-stylelayer1">
+                          <span
+                            class="landing-page-text28 MontserratSemibold14px"
+                          >
+                            Subscribe
+                          </span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  src="public/external/emojionev1openmailboxwithloweredflag1599-6tl1.svg"
+                  alt="emojionev1openmailboxwithloweredflag1599"
+                  class="landing-page-emojionev1openmailboxwithloweredflag"
+                />
+              </div>
+              <span class="landing-page-text29">Home</span>
+              <span class="landing-page-text30">Destinations</span>
+              <span class="landing-page-text31">Activities</span>
+              <span class="landing-page-text32">Accomodations</span>
+              <span class="landing-page-text33">Food &amp; Drinks</span>
+              <div class="landing-page-footer2">
+                <div class="landing-page-section">
+                  <div class="landing-page-divelementorwidgetwrap1"></div>
+                  <div class="landing-page-group1261154705">
+                    <span class="landing-page-text34">
+                      ©2024 Lapu-Lapu City Department of Tourism – All rights
+                      reserved
+                    </span>
+                    <div class="landing-page-divelementorwidgetwrap2">
+                      <div class="landing-page-list-item1">
+                        <img
+                          src="public/external/imagebefore1591-vxen-200h.png"
+                          alt="IMAGEbefore1591"
+                          class="landing-page-imag-ebefore1"
+                        />
+                      </div>
+                      <span class="landing-page-text35">Privacy</span>
+                      <div class="landing-page-list-item2">
+                        <img
+                          src="public/external/imagebefore1591-zd7u-200h.png"
+                          alt="IMAGEbefore1591"
+                          class="landing-page-imag-ebefore2"
+                        />
+                      </div>
+                      <span class="landing-page-text36">Terms</span>
+                      <div class="landing-page-list-item3">
+                        <span class="landing-page-text37">Contact</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="landing-page-frame">
+            <span class="landing-page-text38">Featured Articles</span>
+            <img
+              src="public/external/link1021-4tz-200w.png"
+              alt="Link1021"
+              class="landing-page-link15"
+            />
+            <div class="landing-page-article-card1">
+              <div class="landing-page-group1261154706">
+                <span class="landing-page-text39">April 06 2023</span>
+                <span class="landing-page-text40">Mactan Adventures</span>
+                <span class="landing-page-text41">
+                  <span>Kenya vs Tanzania Safari: The Better African</span>
+                  <br />
+                  <span>Safari Experience</span>
+                </span>
+                <div class="landing-page-link16">
+                  <div class="landing-page-image14"></div>
+                  <div class="landing-page-divblog-cardbadge1">
+                    <span class="landing-page-text45">Trips</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="landing-page-article-card2">
+              <div class="landing-page-group1261154707">
+                <span class="landing-page-text46">April 07 2023</span>
+                <img
+                  src="public/external/link1021-gfp-200w.png"
+                  alt="Link1021"
+                  class="landing-page-link17"
+                />
+                <span class="landing-page-text47">Mactan Adventures</span>
+                <span class="landing-page-text48">
+                  Exploring the Serengeti: A Wildlife Adventure
+                </span>
+                <div class="landing-page-link18">
+                  <div class="landing-page-image15"></div>
+                  <div class="landing-page-divblog-cardbadge2">
+                    <span class="landing-page-text49">Trips</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="landing-page-article-card3">
+              <div class="landing-page-group1261154708">
+                <span class="landing-page-text50">April 08 2023</span>
+                <img
+                  src="public/external/link1021-ws8-200w.png"
+                  alt="Link1021"
+                  class="landing-page-link19"
+                />
+                <span class="landing-page-text51">Mactan Adventures</span>
+                <span class="landing-page-text52">
+                  <span>Into the Wild: An Unforgettable Safari</span>
+                  <br />
+                  <span>Journey</span>
+                </span>
+                <div class="landing-page-link20">
+                  <div class="landing-page-image16"></div>
+                  <div class="landing-page-divblog-cardbadge3">
+                    <span class="landing-page-text56">Trips</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="landing-page-button2">
+              <div class="landing-page-frame2">
+                <span class="landing-page-text57 MontserratMedium14px">
+                  See more articles
+                </span>
+              </div>
+            </button>
+          </div>
+          <div class="landing-page-frame2608781">
+            <div class="landing-page-frame2608787">
+              <img
+                src="public/external/rectangle401021-psg-700w.png"
+                alt="Rectangle401021"
+                class="landing-page-rectangle40"
+              />
+              <div class="landing-page-frame2608785">
+                <img
+                  src="public/external/rectangle321021-k21z-700w.png"
+                  alt="Rectangle321021"
+                  class="landing-page-rectangle32"
+                />
+                <div class="landing-page-frame26087841">
+                  <div class="landing-page-frame26087861">
+                    <span class="landing-page-text58 MontserratRegular16px">
+                      Search our most popular destinations
+                    </span>
+                  </div>
+                  <button class="landing-page-button3">
+                    <div class="landing-page-stylelayer2">
+                      <img
+                        src="public/external/paperplanei102-44l.svg"
+                        alt="PaperPlaneI102"
+                        class="landing-page-paper-plane1"
+                      />
+                      <span class="landing-page-text59 MontserratMedium14px">
+                        Show Destinations
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="landing-page-frame2608788">
+              <img
+                src="public/external/rectangle411021-7vr-700w.png"
+                alt="Rectangle411021"
+                class="landing-page-rectangle41"
+              />
+              <div class="landing-page-frame26087862">
+                <div class="landing-page-frame26087842">
+                  <div class="landing-page-frame26087863">
+                    <span class="landing-page-text60 MontserratRegular16px">
+                      Search our most popular hotels
+                    </span>
+                  </div>
+                  <button class="landing-page-button4">
+                    <div class="landing-page-stylelayer3">
+                      <img
+                        src="public/external/paperplanei102-4lg.svg"
+                        alt="PaperPlaneI102"
+                        class="landing-page-paper-plane2"
+                      />
+                      <span class="landing-page-text61 MontserratMedium14px">
+                        Show Hotels
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="landing-page-text62">ACTIVITIES</span>
+          <span class="landing-page-text63">Accommodations</span>
+          <span class="landing-page-text64">FOOD &amp; DRINKS</span>
+          <div class="landing-page-group351">
+            <img
+              src="public/external/image1021-5ae-700w.png"
+              alt="image1021"
+              class="landing-page-image17"
+            />
+            <span class="landing-page-text65">Island Hopping</span>
+          </div>
+          <div class="landing-page-group352">
+            <img
+              src="public/external/image1021-5l2n-500h.png"
+              alt="image1021"
+              class="landing-page-image18"
+            />
+            <span class="landing-page-text66">Snorkeling</span>
+          </div>
+          <div class="landing-page-room">
+            <img
+              src="public/external/fqqiavjejto1061-73a-500h.png"
+              alt="FqqiAvJejto1061"
+              class="landing-page-fqqi-av-jejto"
+            />
+            <span class="landing-page-text67">Belmont Hotel Mactan</span>
+          </div>
+          <img
+            src="public/external/gqbu78bdjfm1061-jdsu-500h.png"
+            alt="GqbU78bdJFM1061"
+            class="landing-page-gqb-u78bd-jfm"
+          />
+          <span class="landing-page-text68">Blue Water Maribago</span>
+          <img
+            src="public/external/image1081-f7xt-500h.png"
+            alt="image1081"
+            class="landing-page-image19"
+          />
+          <img
+            src="public/external/image1081-9kzg-500h.png"
+            alt="image1081"
+            class="landing-page-image20"
+          />
+          <span class="landing-page-text69">Restaurant #1</span>
+          <span class="landing-page-text70">Restaurant #2</span>
+          <div class="landing-page-navbar">
+            <div class="landing-page-home">
+              <div class="landing-page-frame26087901">
+                <img
+                  src="public/external/untitled352024112608535219813-7ua-200h.png"
+                  alt="Untitled352024112608535219813"
+                  class="landing-page-untitled35202411260853521"
+                />
+              </div>
+              <span class="landing-page-text71">llc tourism</span>
+            </div>
+            <div class="landing-page-destinations2">
+              <div class="landing-page-frame26087902"></div>
+              <span class="landing-page-text72">Destinations</span>
+            </div>
+            <div class="landing-page-activities">
+              <div class="landing-page-frame26087903"></div>
+              <span class="landing-page-text73">ACTIVITIES</span>
+            </div>
+            <div class="landing-page-accommodations">
+              <div class="landing-page-frame26087904"></div>
+              <span class="landing-page-text74">Accommodations</span>
+            </div>
+            <div class="landing-page-food-drinks1">
+              <div class="landing-page-frame26087905"></div>
+              <span class="landing-page-text75">FOOD &amp; DRINKS</span>
+            </div>
+            <div class="landing-page-food-drinks2">
+              <div class="landing-page-frame26087906"></div>
+              <span class="landing-page-text76">LET’S CHAT!</span>
+            </div>
+          </div>
+          <div class="landing-page-frame32">
+            <div class="landing-page-logo1">
+              <div class="landing-page-brandcolor"></div>
+              <div class="landing-page-logo2">
+                <div class="landing-page-wapp-gp-tlogo">
+                  <img
+                    src="public/external/vector9813-um69.svg"
+                    alt="Vector9813"
+                    class="landing-page-vector1"
+                  />
+                  <img
+                    src="public/external/vector9813-jaw.svg"
+                    alt="Vector9813"
+                    class="landing-page-vector2"
+                  />
+                  <img
+                    src="public/external/rectangle179813-60xo-200h.png"
+                    alt="Rectangle179813"
+                    class="landing-page-rectangle17"
+                  />
+                  <img
+                    src="public/external/ellipse189814-67v8-200h.png"
+                    alt="Ellipse189814"
+                    class="landing-page-ellipse18"
+                  />
+                  <img
+                    src="public/external/ellipse199814-c1ef-200h.png"
+                    alt="Ellipse199814"
+                    class="landing-page-ellipse19"
+                  />
+                  <img
+                    src="public/external/ellipse209814-r52g-200h.png"
+                    alt="Ellipse209814"
+                    class="landing-page-ellipse20"
+                  />
+                  <img
+                    src="public/external/ellipse219814-t20s-200h.png"
+                    alt="Ellipse219814"
+                    class="landing-page-ellipse21"
+                  />
+                  <img
+                    src="public/external/ellipse229814-rjm-200h.png"
+                    alt="Ellipse229814"
+                    class="landing-page-ellipse22"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
