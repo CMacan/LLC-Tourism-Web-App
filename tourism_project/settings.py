@@ -38,11 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD:tourism_project/tourism_project/settings.py
-    'tourism_web_app.apps'
-=======
     'tourism_web_app',
->>>>>>> origin/melchor-branch:tourism_project/settings.py
 ]
 
 MIDDLEWARE = [
@@ -60,7 +56,7 @@ ROOT_URLCONF = 'tourism_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

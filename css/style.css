@@ -1,0 +1,279 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 10px 20px;
+        color: white;
+    }
+    .logo {
+        display: flex;  /* Aligns the logo and text side by side */
+        align-items: center;  /* Vertically centers them */
+    }
+
+    .logo img {
+        width: 50px;  /* Adjust the size of the logo */
+        height: auto;
+        margin-right: 10px;  /* Adds space between the logo and the text */
+    }
+
+    .logo-text {
+        font-size: 24px;  /* Adjust the size of the text */
+        font-weight: bold;
+        color: #333;  /* Change color as needed */
+    }
+
+  
+  
+  .nav-buttons button {
+    margin: 0 5px;
+    background: white;
+    color: #007BFF;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
+  .image-band {
+    margin-bottom: 0;
+}
+
+  /* Image Section */
+  .image-section {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45deg, #2A1686, #3D1370, #640E44);
+  }
+  .image-section img {
+    display: block;         /* Removes space below the image */
+    width: 80%;             /* Adjust the width to 80% of the container's width */
+    height: auto;           /* Maintain the aspect ratio */
+    margin: 0 auto;         /* Centers the image horizontally */
+    max-width: 600px;       /* Limits the image width to a maximum of 600px */
+}
+  
+  .search-container {
+    width: 50%; /* Or any fixed width */
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 5px; /* Adjust the value to control the roundness */
+  }
+  
+  
+  .search-container select, .search-container input, .search-container button {
+    margin-top: 10px;  /* Remove any unnecessary top margin */
+    padding: 5px;
+    display: inline-block;  /* Makes them appear side by side */
+    vertical-align: middle; /* Ensures they align vertically */
+    margin-right: 10px;
+  }
+  
+  .search-container select:last-child,
+  .search-container input:last-child {
+    margin-right: 0;  /* Removes margin from the last element */
+}
+
+  /* Destination Section */
+/* Destination Section */
+.destination-section {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f4f4f4;
+}
+
+.destination-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.destination-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Card Container */
+.carousel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Allows wrapping of cards when screen is small */
+}
+
+/* Card Style */
+.card {
+    position: relative;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+/* Card Image */
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensures the image covers the card area without distortion */
+}
+
+/* Card Body */
+.card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for contrast */
+    padding: 10px;
+    color: white;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Hover Effects */
+.card:hover {
+    transform: translateY(-5px); /* Slight lift effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design: Adjust for smaller screens */
+@media (max-width: 768px) {
+    .carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
+
+
+  
+  /* Choices Section */
+  /* Choices Section */
+.choices-section {
+    display: flex;
+    justify-content: space-between; /* Creates space between each button */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 20px; /* Space between each button */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .choice {
+    flex: 1 1 200px; /* Allows flexibility, with a base size of 200px per button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Button Style */
+  .choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 250px; /* Maximum width of the button */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Button Image */
+  .choice-img {
+    width: 100%; /* Makes the image responsive */
+    height: auto;
+    max-height: 150px; /* Limit the height of the image */
+    object-fit: cover; /* Ensures the image maintains aspect ratio */
+    border-radius: 8px;
+  }
+  
+  /* Label Under the Image */
+  .choice-label {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Hover Effects for Button */
+  .choice-btn:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  }
+  
+  /* Responsive Design: Adjust for smaller screens */
+  @media (max-width: 768px) {
+    .choices-section {
+      justify-content: center; /* Center buttons on smaller screens */
+      gap: 10px;
+    }
+  }
+  
+  
+  /* Cards Section */
+  .cards-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+  .card {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  /* Carousel Sections */
+  .carousel {
+    display: flex;
+    overflow-x: scroll;
+    gap: 10px;
+  }
+  
+  /* Articles Section */
+  .articles-section {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .article-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-links a {
+    color: white;
+    margin: 0 5px;
+    text-decoration: none;
+  }
+  
