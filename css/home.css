@@ -603,4 +603,21 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
   cursor: pointer; /* Change cursor on hover */
 }
 
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-container i {
+  color: #3498db; /* Icon color */
+}
+
+.icon-container label {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #333; /* Text color */
+}
+
 
