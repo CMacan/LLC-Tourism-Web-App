@@ -25,47 +25,53 @@
 }
   
   /* Navbar Styling */
-  .navbar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2c3e50;
-    padding: 10px 20px;
-  }
-  
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-  
-  .navbar-logo span {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .navbar-links {
-    display: flex;
-  }
-  
-  .navbar-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-    transition: color 0.3s;
-  }
-  
-  .navbar-links a:hover {
-    color: #3498db;
-  }
+.navbar {
+  position: fixed; /* Ensures the navbar stays fixed at the top */
+  top: 0;          /* Aligns it to the top of the screen */
+  left: 0;         /* Aligns it to the left of the screen */
+  width: 100%;     /* Spans the full width of the screen */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  padding: 10px 20px;
+  z-index: 1000;   /* Ensures the navbar is above other elements */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: slight shadow */
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar-logo span {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+  color: #3498db;
+}
+
   
   /* Hero Section */
   .hero {
@@ -558,7 +564,43 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
     .footer .row a i{
     margin:0% 3%;
     }
+
+}
+.image-container {
+  width: 100%;
+  height: 60vh; /* This sets the height to 60% of the viewport height */
+  overflow: hidden;
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    height: 40vh; /* Smaller height for smaller screens */
+  }
+}
+.custom-label {
+  font-family: 'Roboto', 'sans-serif';
+}
+
+.explore-btn {
+  background-color: #3498db; /* Custom background color */
+  color: white; /* Text color */
+  width: 200px; /* Button width */
+  height: 50px; /* Button height */
+  font-size: 18px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  border: none; /* No border */
+  padding: 10px 20px; /* Inner padding for better spacing */
+}
+
+.explore-btn:hover {
+  background-color: #2980b9; /* Darker color when hovered */
+  cursor: pointer; /* Change cursor on hover */
+}
 
 

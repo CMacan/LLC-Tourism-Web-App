@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tourism_web_app',
+    'user_side',
+    'admin_side',
 ]
 
 MIDDLEWARE = [
