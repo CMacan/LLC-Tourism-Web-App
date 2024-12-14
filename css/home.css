@@ -9,6 +9,20 @@
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
   }
+
+  @font-face {
+    font-family: 'BARABARA-FINAL';
+    src: url('{% static "/resources/fonts/BARABARA-FINAL.ttf.woff" %}') format('woff'); /* Use .woff */
+    /* OR use .ttf if .woff is unavailable */
+    /* src: url('{% static "fonts/BARABARA-FINAL.ttf" %}') format('truetype'); */
+}
+
+.hero p {
+    font-family: 'BARABARA-FINAL';
+    color:#fff;
+    font-size: 5rem;
+    margin-top: 2rem;
+}
   
   /* Navbar Styling */
   .navbar {
@@ -71,11 +85,6 @@
   .hero h1 {
     font-size: 50px;
     margin-bottom: 20px;
-  }
-  
-  .hero p {
-    font-size: 20px;
-    font-weight: lighter;
   }
   
   /* Search Section */
