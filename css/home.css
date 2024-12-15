@@ -448,7 +448,7 @@ img {
   box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 1em;
   background: #ECE9E6;
-background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .card__body {
@@ -619,5 +619,19 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
   margin-top: 5px;
   color: #333; /* Text color */
 }
+
+.hero-section {
+  margin-top: 400px; /* Adjust this as needed */
+}
+
+.facilities-container {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  transform: translate(-30%, -40%);
+  width: 80%;
+  height: auto;
+}
+
 
 
