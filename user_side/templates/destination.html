@@ -1,196 +1,81 @@
-<!doctype html>
+{% extends "base.html" %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Demo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="{% static '/home.css'  %}" rel="stylesheet" />
-  </head>
-  <body>
-  <main>
-    <header class="navbar">
-        <div class="navbar-logo">
-          <img src="{% static '/assets/logo.png' %}" alt="logo" />
-          <span>Lapu-Lapu City Tourism</span>
-        </div>
-        <nav class="navbar-links">
-          <a href="{% url 'destination' %}">Destinations</a>
-          <a href="{% url 'activity' %}">Activities</a>
-          <a href="{% url 'accommodation' %}">Accommodations</a>
-          <a href="{% url 'food' %}">Food & Drinks</a>
-          <a href="#chat">Let’s Chat!</a>
-        </nav>
-    </header>
+{% block image_background %}
+  <img src="{% static '/assets/food.jpg' %}" alt="Lapu-Lapu City" class="img-fluid w-100"/>
+{% endblock %}
+{% block title %}
+  Room Rates
+{% endblock %} 
+{% block card_images %}
+  <!-- Card 1 -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/attraction.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Additional Card -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/events.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
+              </div>
+            </div>
 
-    <!-- Hero Image Section -->
-    <div class="container-fluid px-0">
-      <div class="row g-0">
-        <div class="col-12">
-          <div class="position-relative">
-            <div class="image-container">
-              <img
-                src="{% static '/assets/food.jpg' %}"
-                alt="Lapu-Lapu City"
-                class="img-fluid w-100"
-              />
-            </div>
-            <div class="position-absolute top-50 start-50 translate-middle text-center text-white">
-              <label class="fs-4 fw-bold d-block custom-label">Good people. Good thinking. Good feeling</label>
-              <button type="button" class="btn explore-btn mt-4">Explore</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Facilities Section (Overlay) -->
-    <div class="container-fluid position-relative" style="height: 25vh;">
-      <!-- Overlay Section -->
-      <div 
-        class="row justify-content-center position-absolute w-100" 
-        style="top: 15%; left: 0; transform: translateY(-50%);"
-      >
-        <div class="col-12 col-sm-8 col-md-5 col-lg-4 p-3 bg-white rounded shadow-sm">
-          <h3 class="text-center mb-3" style="font-size: 2vw;">FACILITIES</h3>
-          <div class="row text-center">
-            <!-- Icon 1 -->
-            <div class="col-6 col-md-4 mb-3">
-              <div class="icon-container p-3">
-                <i class="bi bi-house-door" style="font-size: 4vw;"></i>
-                <label class="d-block mt-2" style="font-size: 1.2vw;">Building</label>
+            <!-- Card 3 -->
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card">
+                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                </div>
               </div>
             </div>
-            <!-- Icon 2 -->
-            <div class="col-6 col-md-4 mb-3">
-              <div class="icon-container p-3">
-                <i class="bi bi-gear" style="font-size: 4vw;"></i>
-                <label class="d-block mt-2" style="font-size: 1.2vw;">Equipment</label>
-              </div>
-            </div>
-            <!-- Icon 3 -->
-            <div class="col-6 col-md-4 mb-3">
-              <div class="icon-container p-3">
-                <i class="bi bi-telephone" style="font-size: 4vw;"></i>
-                <label class="d-block mt-2" style="font-size: 1.2vw;">Communication</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hero Section (Room and Rates) -->
-    <div class="container">
-      <div class="col-12 p-4 bg-white rounded shadow-sm">
-        <h3 class="text-center mb-4" style="font-size: 2.5vw;">Destinations</h3>
-    
-        <!-- Row for Cards -->
-        <div class="row g-3 justify-content-center">
-          <!-- Card 1 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Card 2 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/attraction.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Card 3 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-    
-          <!-- Additional Card -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/events.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-           <!-- Card 3 -->
-           <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-           <!-- Card 3 -->
-           <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div> <!-- End of Row -->
-      </div>
-    </div>
-    <!-- Footer -->
-    <footer>
-      <div class="footer">
-        <div class="row d-inline">
-          <a href="#" class="mx-3"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="mx-3"><i class="fa fa-instagram"></i></a>
-          <a href="#" class="mx-3"><i class="fa fa-youtube"></i></a>
-          <a href="#" class="mx-3"><i class="fa fa-twitter"></i></a>
-        </div>
-
-        <div class="row justify-content-center text-center">
-          <ul class="list-unstyled">
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">Our Services</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Career</a></li>
-          </ul>
-        </div>
-
-        <div class="row justify-content-center text-center">
-          INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh
-        </div>
-      </div>
-    </footer>
-  </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+  {% endblock %}

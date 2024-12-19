@@ -33,11 +33,8 @@
         <div class="col-12">
           <div class="position-relative">
             <div class="image-container">
-              <img
-                src="{% static '/assets/food.jpg' %}"
-                alt="Lapu-Lapu City"
-                class="img-fluid w-100"
-              />
+              {% block image_background %}
+              {% endblock %}
             </div>
             <div class="position-absolute top-50 start-50 translate-middle text-center text-white">
               <label class="fs-4 fw-bold d-block custom-label">Good people. Good thinking. Good feeling</label>
@@ -87,81 +84,12 @@
     <!-- Hero Section (Room and Rates) -->
     <div class="container">
       <div class="col-12 p-4 bg-white rounded shadow-sm">
-        <h3 class="text-center mb-4" style="font-size: 2.5vw;">Room and Rates</h3>
+        <h3 class="text-center mb-4" style="font-size: 2.5vw;">{% block title %} Room and Rates {% endblock%}</h3>
     
         <!-- Row for Cards -->
         <div class="row g-3 justify-content-center">
-          <!-- Card 1 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Card 2 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/attraction.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Card 3 -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-    
-          <!-- Additional Card -->
-          <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/events.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          
-           <!-- Card 3 -->
-           <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-           <!-- Card 3 -->
-           <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-              <div class="card-body text-center d-flex flex-column align-items-center">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-              </div>
-            </div>
-          </div>
+          {% block card_images%}
+          {% endblock %}
         </div> <!-- End of Row -->
       </div>
     </div>
