@@ -6,7 +6,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin_destination/', views.admin_destination, name='admin_destination'),
     path('admin_accomodation/', views.admin_accomodation, name='admin_accomodation'),
-    path('admin_food/', views.admin_food, name='admin_food'),
+    path('admin_food_drink/', views.admin_food_drink, name='admin_food_drink'),
     path('admin_activities/', views.admin_activities, name='admin_activities'),
     path('admin_article/', views.admin_article, name='admin_article'),
 ]

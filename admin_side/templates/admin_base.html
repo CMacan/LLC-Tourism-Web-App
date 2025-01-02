@@ -25,7 +25,7 @@
       <div class="separator"></div>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"><i class="bi bi-house"></i> Dashboard</a>
+          <a class="nav-link text-white" href="{% url 'dashboard' %}"><i class="bi bi-house"></i> Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#destinationsDropdown" role="button" aria-expanded="false" aria-controls="destinationsDropdown">
@@ -33,8 +33,8 @@
           </a>
           <div class="collapse" id="destinationsDropdown">
             <ul class="list-unstyled ms-3">
-              <li><a href="#" class="text-white">Beaches</a></li>
-              <li><a href="#" class="text-white">Parks</a></li>
+              <li><a href="{% url 'admin_destination' %}" class="text-white">Beaches</a></li>
+              <li><a href="{% url 'admin_destination' %}" class="text-white">Parks</a></li>
             </ul>
           </div>
         </li>
@@ -44,8 +44,8 @@
           </a>
           <div class="collapse" id="activitiesDropdown">
             <ul class="list-unstyled ms-3">
-              <li><a href="#" class="text-white">Outdoor</a></li>
-              <li><a href="#" class="text-white">Indoor</a></li>
+              <li><a href="{% url 'admin_activities' %}" class="text-white">Outdoor</a></li>
+              <li><a href="{% url 'admin_activities' %}" class="text-white">Indoor</a></li>
             </ul>
           </div>
         </li>
@@ -55,8 +55,8 @@
           </a>
           <div class="collapse" id="accommodationDropdown">
             <ul class="list-unstyled ms-3">
-              <li><a href="#" class="text-white">Hotels</a></li>
-              <li><a href="#" class="text-white">Resorts</a></li>
+              <li><a href="{% url 'admin_accomodation' %}" class="text-white">Hotels</a></li>
+              <li><a href="{% url 'admin_accomodation' %}" class="text-white">Resorts</a></li>
             </ul>
           </div>
         </li>
@@ -66,8 +66,8 @@
           </a>
           <div class="collapse" id="foodDropdown">
             <ul class="list-unstyled ms-3">
-              <li><a href="#" class="text-white">Restaurants</a></li>
-              <li><a href="#" class="text-white">Cafes</a></li>
+              <li><a href="{% url 'admin_food_drink' %}" class="text-white">Restaurants</a></li>
+              <li><a href="{% url 'admin_food_drink' %}" class="text-white">Cafes</a></li>
             </ul>
           </div>
         </li>
@@ -77,8 +77,8 @@
           </a>
           <div class="collapse" id="articlesDropdown">
             <ul class="list-unstyled ms-3">
-              <li><a href="#" class="text-white">Travel Tips</a></li>
-              <li><a href="#" class="text-white">Local Stories</a></li>
+              <li><a href="{% url 'admin_article' %}" class="text-white">Travel Tips</a></li>
+              <li><a href="{% url 'admin_article' %}" class="text-white">Local Stories</a></li>
             </ul>
           </div>
         </li>

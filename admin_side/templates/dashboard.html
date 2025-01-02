@@ -6,10 +6,10 @@
         <h3 class="fw-bold">Dashboard</h3>
         <div class="dropdown">
           <button class="btn btn-outline-bg-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin Options
+            Administrator
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="{% url 'login' %}">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -26,8 +26,9 @@
           <canvas id="pieChart"></canvas>
           <div class="legend">
             <div class="legend-item">
-              <div class="legend-color" style="background-color: #ff6384;"></div> Accommodation
-            </div>
+              <div class="legend-color" style="background-color: #ff6384;">
+
+              </div>Accommodation</div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #36a2eb;"></div> Activities
             </div>
