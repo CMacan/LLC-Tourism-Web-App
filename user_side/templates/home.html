@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{% static '/home.css'  %}" rel="stylesheet" />
+    <link href="{% static 'user/home.css'  %}" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap"
@@ -22,20 +22,25 @@
     <header class="navbar">
       <div class="navbar-logo">
         <img src="{% static '/assets/logo.png' %}" alt="logo" />
-        <span>Lapu-Lapu City Tourism</span>
+        <span>LLC TOURISM</span>
       </div>
       <nav class="navbar-links">
-        <a href="#destinations">Destinations</a>
-        <a href="#activities">Activities</a>
-        <a href="#accommodations">Accommodations</a>
-        <a href="#food">Food & Drinks</a>
-        <a href="#chat">Let’s Chat!</a>
+        <a href="#destinations">DESTINATIONS</a>
+        <a href="#activities">ACTIVITIES</a>
+        <a href="#accommodations">ACCOMODATIONS</a>
+        <a href="#food">FOOD & DRINKS</a>
+        <a href="#chat">LET'S CHAT!</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
         <section class="image-section">
+          <img
+            class="band-image"
+            src="{% static '/assets/band.jpg' %}"
+            alt="Lapu-Lapu City"
+          />
           <img
             src="{% static '/assets/lovetheph-logo.png' %}"
             alt="Lapu-Lapu City"

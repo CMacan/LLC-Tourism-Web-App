@@ -33,10 +33,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c3e50;
-  padding: 10px 20px;
+  background-color:white;
   z-index: 1000;   /* Ensures the navbar is above other elements */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: slight shadow */
+  font-family: 'barabara-final', sans-serif;
 }
 
 .navbar-logo {
@@ -45,40 +45,43 @@
 }
 
 .navbar-logo img {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   margin-right: 10px;
 }
 
 .navbar-logo span {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+  font-size: 20px;
+  color: #1D519E;
 }
 
 .navbar-links {
   display: flex;
+  flex: 1; /* Allow links to take up remaining space */
+  justify-content: space-evenly;
 }
 
 .navbar-links a {
-  color: white;
+  color: #1D519E;
   text-decoration: none;
   margin: 0 15px;
-  font-size: 18px;
-  transition: color 0.3s;
+  padding: 15px 0px; 
+  border-radius: 4px;
+  font-size: 20px;
+  height: 100%;
+  transition: background-color 0.3s;
 }
 
 .navbar-links a:hover {
-  color: #3498db;
+  background-color: #F0F0F0;
 }
 
-  
   /* Hero Section */
   .hero {
     text-align: center;
     background: linear-gradient(45deg, #2A1686, #3D1370, #640E44);
     background-size: cover;
-    padding: 80px 20px;
+    padding: 80px 0px;
   }
   .hero .image-section img {
     display: block;         /* Removes space below the image */
@@ -87,11 +90,21 @@
     margin: 0 auto;         /* Centers the image horizontally */
     max-width: 600px;
   }
+
+  .hero .image-section .band-image {
+    width: 100%; /* Makes the image take the full width of its container */
+    max-width: 100%; /* Ensures it doesn't exceed a certain width */
+    height: auto; /* Maintains the aspect ratio */
+  }
+  
   
   .hero h1 {
     font-size: 50px;
     margin-bottom: 20px;
   }
+
+  
+
   
   /* Search Section */
   .search-section {
