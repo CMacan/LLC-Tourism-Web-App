@@ -78,8 +78,15 @@ WSGI_APPLICATION = 'tourism_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'LLC_TourismDB',
+        'USER': 'LLC_TourismDB_owner',       
+        'PASSWORD': 'HjOc5SMUmpL1',        
+        'HOST': 'ep-sparkling-mode-a1g50gzf.ap-southeast-1.aws.neon.tech',          
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',  # Enforces SSL connection
+        }
     }
 }
 
@@ -124,7 +131,6 @@ STATIC_URL = '/static/'  # URL for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'resources'),
     os.path.join(BASE_DIR, 'css'), 
-    os.path.join(BASE_DIR, 'fonts'),
     os.path.join(BASE_DIR, 'js'),
 ]
 
