@@ -4,6 +4,10 @@
     padding: 0;
     box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
   
   body {
     font-family: Arial, sans-serif;
@@ -47,7 +51,7 @@
 .navbar-logo img {
   width: 80px;
   height: 80px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .navbar-logo span {
@@ -55,31 +59,62 @@
   color: #1D519E;
 }
 
+.scroll-to-top {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit; /* Maintain text color */
+}
+
+.scroll-to-top img {
+  margin-right: 10px; /* Space between logo and text */
+}
+
 .navbar-links {
   display: flex;
-  flex: 1; /* Allow links to take up remaining space */
   justify-content: space-evenly;
 }
 
 .navbar-links a {
   color: #1D519E;
   text-decoration: none;
-  margin: 0 15px;
-  padding: 15px 0px; 
-  border-radius: 4px;
+  padding: 30px; 
   font-size: 20px;
   height: 100%;
   transition: background-color 0.3s;
+  text-align: center;
 }
 
 .navbar-links a:hover {
   background-color: #F0F0F0;
 }
 
+.navbar-links a[href="#chat"] {
+  color: #FFFFFF; 
+  background-color: #FDBF27; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  padding: 30px; 
+  transition: transform 0.2s ease; 
+}
+
+.navbar-links a[href="#chat"]:hover {
+  background-color: #FDBF27; /* Keep background color same */
+}
+
+.chat-text {
+  display: inline-block; /* Ensure the span behaves like text */
+  transition: transform 0.2s ease; /* Smooth scaling */
+}
+
+.navbar-links a[href="#chat"]:hover .chat-text {
+  transform: scale(1.1); /* Scale only the text */
+}
+
+
   /* Hero Section */
   .hero {
     text-align: center;
-    background: linear-gradient(45deg, #2A1686, #3D1370, #640E44);
+    background: linear-gradient(to bottom, #2A1686 0%, #3D1370 34%, #640E44 100%);
     background-size: cover;
     padding: 80px 0px;
   }
