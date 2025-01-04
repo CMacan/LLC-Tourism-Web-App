@@ -220,6 +220,13 @@
     font-family: 'Poppins', sans-serif;
     padding: 18px 50px; /* Adjust padding for size */
     border-radius: 4px; /* Optional rou*/
+    font-size: 16px; /* Font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-bar button:hover {
+    background-color: #c65a64; /* Darker shade on hover */
   }
 
   
