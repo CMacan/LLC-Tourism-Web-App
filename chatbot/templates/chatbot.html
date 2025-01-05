@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <script>
+      async function sendMessage() {
+        const userMessage = document.getElementById("user_message").value;
+        const csrfToken = "{{ csrf_token }}";
+
+        if (!userMessage) {
+          alert("Please enter a message.");
+          return;
+        }
+
+        try {
+          const response = await fetch("", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-CSRFToken": csrfToken,
+            },
+            body: `message=${encodeURIComponent(userMessage)}`,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const chatBox = document.getElementById("chat_box");
+            chatBox.innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
+            chatBox.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
+            document.getElementById("user_message").value = "";
+          } else {
+            console.error(
+              "Error in response:",
+              response.status,
+              response.statusText
+            );
+            alert("Failed to get a response from the bot.");
+          }
+        } catch (error) {
+          console.error("Error in fetch:", error);
+          alert("An error occurred while sending the message.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Chat with Bot</h1>
+    <div
+      id="chat_box"
+      style="
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 300px;
+        overflow-y: scroll;
+      "
+    ></div>
+    <input type="text" id="user_message" placeholder="Type your message here" />
+    <button onclick="sendMessage()">Send</button>
+  </body>
+</html>

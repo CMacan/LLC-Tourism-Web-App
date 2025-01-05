@@ -23,6 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3*_r@aa=t&(*3*vd*(k^wb#^+ov!r&8@!ft%*!rjiic*s4t&@+'
 
+GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
+GEMINI_API_URL = 'https://api.gemini.com/v1/chat'
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user_side',
     'admin_side',
+    'chatbot',
 ]
 
 MIDDLEWARE = [
