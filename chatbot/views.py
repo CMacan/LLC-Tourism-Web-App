@@ -12,7 +12,7 @@ def chatbot_view(request):
         if 'conversation_id' in response:
             request.session['conversation_id'] = response['conversation_id']
 
-        bot_reply = response.get('reply', "Sorry, I couldn't process that.")
+        bot_reply = response.get('reply', f"Sorry, I couldn't process that. Details: {response.get('error', 'Unknown error')}")
         return JsonResponse({"reply": bot_reply})
 
     return render(request, 'chatbot.html')
