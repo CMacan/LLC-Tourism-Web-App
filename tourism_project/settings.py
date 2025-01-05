@@ -24,7 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3*_r@aa=t&(*3*vd*(k^wb#^+ov!r&8@!ft%*!rjiic*s4t&@+'
 
 GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
