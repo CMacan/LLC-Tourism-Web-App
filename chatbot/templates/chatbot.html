@@ -5,7 +5,9 @@
     <script>
       async function sendMessage() {
         const userMessage = document.getElementById("user_message").value;
-        const csrfToken = "{{ csrf_token }}";
+        const csrfToken = document.querySelector(
+          "[name=csrfmiddlewaretoken]"
+        ).value; // CSRF token for Django
 
         if (!userMessage) {
           alert("Please enter a message.");
@@ -13,20 +15,20 @@
         }
 
         try {
-          const response = await fetch("", {
+          const response = await fetch("/chatbot/", {
             method: "POST",
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
               "X-CSRFToken": csrfToken,
             },
-            body: `message=${encodeURIComponent(userMessage)}`,
+            body: JSON.stringify({ message: userMessage }),
           });
 
           if (response.ok) {
             const data = await response.json();
             const chatBox = document.getElementById("chat_box");
             chatBox.innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
-            chatBox.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
+            chatBox.innerHTML += `<p><b>Bot:</b> ${data.response}</p>`;
             document.getElementById("user_message").value = "";
           } else {
             console.error(
@@ -54,7 +56,14 @@
         overflow-y: scroll;
       "
     ></div>
-    <input type="text" id="user_message" placeholder="Type your message here" />
-    <button onclick="sendMessage()">Send</button>
+    <form method="POST" onsubmit="return false;">
+      {% csrf_token %}
+      <input
+        type="text"
+        id="user_message"
+        placeholder="Type your message here"
+      />
+      <button type="button" onclick="sendMessage()">Send</button>
+    </form>
   </body>
 </html>

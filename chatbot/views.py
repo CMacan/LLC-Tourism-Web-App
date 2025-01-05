@@ -1,18 +1,37 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .utils import send_message_to_gemini
+from django.conf import settings
+import google.generativeai as genai
+import json
+
+# Configure the Gemini API
+genai.configure(api_key=settings.GEMINI_API_KEY)
 
 def chatbot_view(request):
-    if request.method == 'POST':
-        user_message = request.POST.get('message', '')
-        conversation_id = request.session.get('conversation_id', None)
-        response = send_message_to_gemini(user_message, conversation_id)
+    if request.method == "POST":
+        try:
+            # Log incoming data for debugging
+            print("Request Body:", request.body)
+            print("Headers:", request.headers)
 
-        # Update session with conversation_id for context
-        if 'conversation_id' in response:
-            request.session['conversation_id'] = response['conversation_id']
+            # Parse the incoming JSON data
+            data = json.loads(request.body)
+            user_message = data.get("message", "")
+            
+            if not user_message:
+                return JsonResponse({"error": "No message provided"}, status=400)
 
-        bot_reply = response.get('reply', f"Sorry, I couldn't process that. Details: {response.get('error', 'Unknown error')}")
-        return JsonResponse({"reply": bot_reply})
+            # Call the Gemini API
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            response = model.generate_content(user_message)
+            return JsonResponse({"response": response.text})
 
-    return render(request, 'chatbot.html')
+        except json.JSONDecodeError as e:
+            print("JSON Decode Error:", e)
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+        except Exception as e:
+            print("Unhandled Exception:", e)
+            return JsonResponse({"error": str(e)}, status=500)
+
+    # Render chatbot.html for non-POST requests
+    return render(request, "chatbot.html")

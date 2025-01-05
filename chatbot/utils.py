@@ -2,7 +2,6 @@ import requests
 from django.conf import settings
 
 def send_message_to_gemini(message, conversation_id=None):
-    url = settings.GEMINI_API_URL
     headers = {
         "Authorization": f"Bearer {settings.GEMINI_API_KEY}",
         "Content-Type": "application/json"
