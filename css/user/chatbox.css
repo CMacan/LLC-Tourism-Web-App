@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0px 20px;
   background-color: #007bff;
   color: #fff;
   border-bottom: 1px solid #ccc;
@@ -29,6 +29,7 @@
 #chatbot_title {
   font-size: 18px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 #exit_button {
@@ -59,12 +60,26 @@
 }
 
 .chatbot_message .profile_pic {
-  background-image: url("/resources/assets/logo.png");
+  background-image: url("/static/assets/logo.png");
   background-size: cover;
   background-position: center;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+}
+
+#profile_pic {
+  background-image: url("/static/assets/logo.png"); /* Replace with your image URL */
+  background-size: cover;
+  background-position: center;
+  width: 60px;
+  height: 60px;
+}
+
+#chatbot_title_with_pic {
+  display: flex;
+  align-items: center; /* Vertically align the profile picture and title */
+  gap: 5px; /* Add spacing between the picture and title */
   margin-right: 10px;
 }
 
@@ -87,7 +102,7 @@
 
 #user_message {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;

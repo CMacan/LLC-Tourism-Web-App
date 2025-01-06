@@ -52,7 +52,11 @@
             <section class="search-section">
               <div class="search-bar">
                 <i class="icon fa fa-search"></i>
-                <input type="text" placeholder="What are you looking for?" />
+                <input
+                  id="search_input"
+                  type="text"
+                  placeholder="What are you looking for?"
+                />
                 <select id="category">
                   <option value="destinations">Destinations</option>
                   <option value="attractions">Activities</option>
@@ -72,7 +76,10 @@
       <!-- Chatbot container -->
       <div id="chatbot_container">
         <div id="chatbot_header">
-          <div id="chatbot_title">LLC Tourism Chatbot Assistant</div>
+          <div id="chatbot_title_with_pic">
+            <div id="profile_pic"></div>
+            <div id="chatbot_title">LLC Tourism Chatbot Assistant</div>
+          </div>
           <button id="exit_button" onclick="toggleChatbot()">✖</button>
         </div>
         <div id="chat_box"></div>
@@ -82,6 +89,7 @@
             type="text"
             id="user_message"
             placeholder="Type your message here"
+            onkeydown="handleKeyPress(event)"
           />
           <button type="button" id="send_button" onclick="sendMessage()">
             Send
@@ -477,6 +485,13 @@
         } else {
           chatbotContainer.style.display = "flex";
           chatbotIcon.style.display = "none";
+        }
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevent default form submission
+          sendMessage(); // Call sendMessage function to handle the message
         }
       }
 
