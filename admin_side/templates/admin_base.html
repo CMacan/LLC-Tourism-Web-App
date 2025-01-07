@@ -177,6 +177,37 @@
         </li>
       </ul>
     </div>
+    <div class="content">
+      <div class="bg-color"></div>
+      <img src="{% static '/assets/band.jpg' %}" alt="Logo" class="band" />
+      <div class="top-header d-flex justify-content-between align-items-center">
+        <h3 id="page-title" class="fw-bold m-0">
+          {% if page_title %} {{ page_title }} {% else %} Dashboard {% endif %}
+        </h3>
+        <h5 class="text-center flex-grow-1 m-0">
+          Lapu-Lapu City Department of Tourism
+        </h5>
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-bg-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Administrator
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <li>
+              <a class="dropdown-item" href="/admin_side/login/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     {% block content %} {% endblock %}
     <script src="{% static '/admin.js'  %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

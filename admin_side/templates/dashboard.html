@@ -1,35 +1,22 @@
 {% extends "admin_base.html" %}
+{% load static %}
 {% block content %}
     <!-- Main Content -->
-    <div class="content ">
-      <div class="bg-color"></div>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">Dashboard</h3>
-        <div class="dropdown">
-          <button class="btn btn-outline-bg-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Administrator
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="/admin_side/login/">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-      <h5 class="text-center" style="margin-bottom: 40px" >Lapu-Lapu City Department of Tourism</h5>
-      <div class="card-container">
-        <div class="card">Total Destinations<br><span class="fw-bold">25</span></div>
-        <div class="card">Total Activities<br><span class="fw-bold">18</span></div>
-        <div class="card">Total Accommodations<br><span class="fw-bold">12</span></div>
-        <div class="card">Total Restaurants<br><span class="fw-bold">40</span></div>
-      </div>
+    <div class="card-container">
+      <div class="card">Total Destinations<br><span class="fw-bold">25</span></div>
+      <div class="card">Total Activities<br><span class="fw-bold">18</span></div>
+      <div class="card">Total Accommodations<br><span class="fw-bold">12</span></div>
+      <div class="card">Total Restaurants<br><span class="fw-bold">40</span></div>
+    </div>
+    <div class="dash-content">
       <div class="d-flex gap-3">
-        <div class="section flex-grow-1">
+        <div class="section pie-section">
           <h6>Top Categories of AI Chat Bot Inquiries</h6>
           <canvas id="pieChart"></canvas>
           <div class="legend">
             <div class="legend-item">
-              <div class="legend-color" style="background-color: #ff6384;">
-
-              </div>Accommodation</div>
+              <div class="legend-color" style="background-color: #ff6384;"></div>Accommodation
+            </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #36a2eb;"></div> Activities
             </div>
@@ -40,18 +27,35 @@
               <div class="legend-color" style="background-color: #4bc0c0;"></div> Destination
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background-color: #9966ff;"></div> Articles
-              </div>
+              <div class="legend-color" style="background-color: #9966ff;"></div> Articles
+            </div>
           </div>
         </div>
-        <div class="section" style="width: 300px;">
+        <div class="section info-section">
           <h6>Last User Action</h6>
           <p>Updated activity: 5 mins ago</p>
           <hr>
-          <h6>Current Weather</h6>
-          <p>28°C, Partly Cloudy</p>
+          <!-- Weather Widget Card -->
+          <div class="weather-card">
+            <h6>Current Weather</h6>
+            <a class="weatherwidget-io" href="https://forecast7.com/en/10d27124d00/lapu-lapu-city/" 
+              data-label_1="LAPU-LAPU CITY" data-label_2="WEATHER" data-theme="pure">
+              LAPU-LAPU CITY WEATHER
+            </a>
+          </div>
+          <script>
+            !function(d,s,id){
+              var js,fjs=d.getElementsByTagName(s)[0];
+              if(!d.getElementById(id)){
+                js=d.createElement(s);
+                js.id=id;
+                js.src='https://weatherwidget.io/js/widget.min.js';
+                fjs.parentNode.insertBefore(js,fjs);
+              }
+            }(document,'script','weatherwidget-io-js');
+          </script>
         </div>
-      </div>
+      </div>           
     </div>
     {% endblock %}
   </body>
