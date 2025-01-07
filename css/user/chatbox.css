@@ -74,7 +74,9 @@
   background-position: center;
   width: 60px;
   height: 60px;
+  margin-top: 5px; /* Move the profile picture down slightly */
 }
+
 
 #chatbot_title_with_pic {
   display: flex;

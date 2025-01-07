@@ -2,6 +2,7 @@
 {% block content %}
     <!-- Main Content -->
     <div class="content ">
+      <div class="bg-color"></div>
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold">Dashboard</h3>
         <div class="dropdown">
@@ -9,7 +10,7 @@
             Administrator
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="{% url 'login' %}">Logout</a></li>
+            <li><a class="dropdown-item" href="/admin_side/login/">Logout</a></li>
           </ul>
         </div>
       </div>
