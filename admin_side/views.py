@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect 
 from .models import Restaurant
 from .models import Destination
+from .forms import DestinationForm
 from django.http import HttpResponse
 from django.http import JsonResponse
 
@@ -21,33 +22,16 @@ def admin_destination(request):
 
 def add_destination_entry(request):
     if request.method == 'POST':
-        # Get form data
-        name = request.POST.get('name')
-        location = request.POST.get('location')
-        description = request.POST.get('description')
-        category = request.POST.get('category')
-        rating = request.POST.get('rating')
-        popular = request.POST.get('popular') == 'on'  # Handle checkbox
-        image = request.FILES.get('image')  # Handle image upload
-
-        # Create and save the destination
-        destination = Destination.objects.create(
-            name=name,
-            location=location,
-            description=description,
-            category=category,
-            rating=rating,
-            popular=popular,
-            image=image
-        )
-
-        # Return a response to indicate success (optional)
-        return JsonResponse({'status': 'success'}, status=200)
-
-    return JsonResponse({'status': 'error'}, status=400)
+        form = DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    return JsonResponse({'status': 'invalid_method'})
 
 def destination_list(request):
-    destinations = Destination.objects.all()  # Fetch all destinations from the database
+    destinations = Destination.objects.all()
     return render(request, 'admin_destination.html', {'destinations': destinations})
 
 
