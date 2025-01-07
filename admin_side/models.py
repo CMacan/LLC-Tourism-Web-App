@@ -6,7 +6,6 @@ class Destination(models.Model):
     location = models.CharField(max_length=255)  # City/Region
     image = models.ImageField(upload_to='destinations/', null=True, blank=True)
     category = models.CharField(max_length=100, choices=[('Beach', 'Beach'), ('Mountain', 'Mountain'), ('City', 'City'), ('Cultural', 'Cultural')])
-    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     popular = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -1,6 +1,6 @@
 {% extends "admin_base.html" %} {% load static %} {% block content %}
 <!-- Main Content -->
-<div class="content">
+<div class="destination-content">
   <!-- Search and Add -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="input-group" style="width: 70%">
@@ -8,33 +8,40 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search for items or hotels"
+        placeholder="Search for destinations..."
       />
     </div>
-    <button class="btn btn-primary d-flex align-items-center">
-      <i class="bi bi-plus-circle me-2"></i> Add Entry
+    <button
+      class="btn btn-success"
+      style="font-family: 'Roboto', sans-serif"
+      data-bs-toggle="modal"
+      data-bs-target="#addDestinationModal"
+    >
+      <i class="bi bi-plus-circle me-2"></i> Add Destination
     </button>
   </div>
   <!-- Items Section -->
+  <!-- Items Section -->
   <div class="row mt-4">
+    <!-- Loop through destinations here -->
+    {% for destination in destinations %}
     <div class="col-md-4 mb-3">
       <div class="card h-100">
-        <!-- Image Container -->
         <div class="img-container" style="height: 200px; overflow: hidden">
           <img
-            src="{% static '/assets/food.jpg' %}"
+            src="{{ destination.image.url }}"
             class="card-img-top"
-            alt="Item Image"
+            alt="Destination Image"
             style="width: 100%; height: 100%; object-fit: cover"
           />
         </div>
         <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Beach</span>
-          <p class="card-text text-muted">123 Street, City</p>
+          <h6 class="card-title">{{ destination.name }}</h6>
+          <span class="badge bg-primary mb-2">{{ destination.category }}</span>
+          <p class="card-text text-muted">{{ destination.location }}</p>
           <div class="d-flex justify-content-center gap-2 mt-3">
             <button
-              class="btn btn-warning btn-sm"
+              class="btn btn-primary btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
             >
@@ -47,191 +54,154 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/attraction.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/food.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/food.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/food.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/food.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <!-- Image Container -->
-        <div class="img-container" style="height: 200px; overflow: hidden">
-          <img
-            src="{% static '/assets/food.jpg' %}"
-            class="card-img-top"
-            alt="Item Image"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-        <div class="card-body text-center">
-          <h6 class="card-title">Hotel Name</h6>
-          <span class="badge bg-primary mb-2">Resort</span>
-          <p class="card-text text-muted">123 Street, City</p>
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <button
-              class="btn btn-warning btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeletion()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Repeat similar cards for uniform layout -->
+    {% endfor %}
   </div>
 
-  <!-- Update Modal -->
+  <!-- Add Destination Modal -->
+  <div
+    class="modal fade"
+    id="addDestinationModal"
+    tabindex="-1"
+    aria-labelledby="addDestinationModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDestinationModalLabel">
+            Add New Destination
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" style="background-color: white">
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label
+                  for="destinationName"
+                  class="form-label"
+                  style="color: #333"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="destinationName"
+                  placeholder="Enter destination name"
+                />
+              </div>
+              <div class="col-md-6">
+                <label
+                  for="destinationLocation"
+                  class="form-label"
+                  style="color: #333"
+                  >Location</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="destinationLocation"
+                  placeholder="Enter location"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label
+                  for="destinationDescription"
+                  class="form-label"
+                  style="color: #333"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="destinationDescription"
+                  rows="3"
+                  placeholder="Enter description"
+                ></textarea>
+              </div>
+              <div class="col-md-6">
+                <label
+                  for="destinationImage"
+                  class="form-label"
+                  style="color: #333"
+                  >Image</label
+                >
+                <input type="file" class="form-control" id="destinationImage" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label
+                  for="destinationCategory"
+                  class="form-label"
+                  style="color: #333"
+                  >Category</label
+                >
+                <select class="form-select" id="destinationCategory">
+                  <option value="Beach">Beach</option>
+                  <option value="Mountain">Mountain</option>
+                  <option value="City">City</option>
+                  <option value="Cultural">Cultural</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label
+                  for="destinationRating"
+                  class="form-label"
+                  style="color: #333"
+                  >Rating</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="destinationRating"
+                  min="1"
+                  max="5"
+                  placeholder="Enter rating"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label
+                  for="destinationPopular"
+                  class="form-label"
+                  style="color: #333"
+                  >Popular</label
+                >
+                <input
+                  type="checkbox"
+                  class="form-check-input ms-3"
+                  id="destinationPopular"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">
+            Save Destination
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Modal (Example) -->
   <div
     class="modal fade"
     id="updateModal"
@@ -253,26 +223,38 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="itemName" class="form-label">Name</label>
+              <label for="updateItemName" class="form-label">Name</label>
               <input
                 type="text"
                 class="form-control"
-                id="itemName"
+                id="updateItemName"
                 placeholder="Enter name"
               />
             </div>
             <div class="mb-3">
-              <label for="itemAddress" class="form-label">Address</label>
+              <label for="updateItemDescription" class="form-label"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="updateItemDescription"
+                placeholder="Enter description"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="updateItemLocation" class="form-label"
+                >Location</label
+              >
               <input
                 type="text"
                 class="form-control"
-                id="itemAddress"
-                placeholder="Enter address"
+                id="updateItemLocation"
+                placeholder="Enter location"
               />
             </div>
             <div class="mb-3">
-              <label for="itemImage" class="form-label">Image</label>
-              <input type="file" class="form-control" id="itemImage" />
+              <label for="updateItemImage" class="form-label">Image</label>
+              <input type="file" class="form-control" id="updateItemImage" />
             </div>
           </form>
         </div>
@@ -298,5 +280,5 @@
       }
     }
   </script>
-  {% endblock %}
 </div>
+{% endblock %}
