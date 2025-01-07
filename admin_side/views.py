@@ -15,11 +15,9 @@ def dashboard(request):
 
 # DESTINATIONS
 def admin_destination(request):
-    destinations = Destination.objects.all()
-    return render(request, 'admin_destination.html', {
-        'page_title': 'Destinations',
-        'destinations': destinations
-    })
+    destinations = Destination.objects.all()  # Check if this is correct
+    return render(request, 'admin_destination.html', {'destinations': destinations})
+
 
 def add_destination_entry(request):
     if request.method == 'POST':
