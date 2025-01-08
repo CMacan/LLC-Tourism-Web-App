@@ -5,17 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="{% static 'user/home.css'  %}" rel="stylesheet" />
+    <link href="{% static 'user/chatbox.css'  %}" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap"
       rel="stylesheet"
     />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
     <title>Lapu-Lapu City Tourism</title>
   </head>
   <body>
@@ -53,7 +52,11 @@
             <section class="search-section">
               <div class="search-bar">
                 <i class="icon fa fa-search"></i>
-                <input type="text" placeholder="What are you looking for?" />
+                <input
+                  id="search_input"
+                  type="text"
+                  placeholder="What are you looking for?"
+                />
                 <select id="category">
                   <option value="destinations">Destinations</option>
                   <option value="attractions">Activities</option>
@@ -66,6 +69,33 @@
           </div>
         </section>
       </section>
+
+      <!-- Chatbot icon -->
+      <div id="chatbot_icon" onclick="toggleChatbot()">💬</div>
+
+      <!-- Chatbot container -->
+      <div id="chatbot_container">
+        <div id="chatbot_header">
+          <div id="chatbot_title_with_pic">
+            <div id="profile_pic"></div>
+            <div id="chatbot_title">LLC Tourism Chatbot Assistant</div>
+          </div>
+          <button id="exit_button" onclick="toggleChatbot()">✖</button>
+        </div>
+        <div id="chat_box"></div>
+        <form id="input_area" method="POST" onsubmit="return false;">
+          {% csrf_token %}
+          <input
+            type="text"
+            id="user_message"
+            placeholder="Type your message here"
+            onkeydown="handleKeyPress(event)"
+          />
+          <button type="button" id="send_button" onclick="sendMessage()">
+            Send
+          </button>
+        </form>
+      </div>
 
       <!-- Destinations Section -->
       <section id="destinations" class="destinations">
@@ -84,7 +114,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -92,7 +122,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -155,7 +185,7 @@
             <div class="landing-page-item">
               <div class="landing-page-image-container">
                 <img
-                  src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+                  src="{% static '/assets/logo.png' %}"
                   alt="Lodging"
                   class="landing-page-image"
                 />
@@ -171,7 +201,7 @@
           <!-- Destinations Section -->
           <div class="destination-section">
             <img
-              src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+              src="{% static '/assets/logo.png' %}"
               alt="Lodging"
               class="landing-page-image"
             />
@@ -197,7 +227,7 @@
           <!-- Hotels Section -->
           <div class="hotel-section">
             <img
-              src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+              src="{% static '/assets/logo.png' %}"
               alt="Lodging"
               class="landing-page-image"
             />
@@ -237,7 +267,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -245,7 +275,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -270,7 +300,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -278,7 +308,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -303,7 +333,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -311,7 +341,7 @@
         </div>
         <div class="destination-card">
           <img
-            src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+            src="{% static '/assets/logo.png' %}"
             alt="Lodging"
             class="landing-page-image"
           />
@@ -325,7 +355,7 @@
           <div class="card">
             <div class="card__header">
               <img
-                src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+                src="{% static '/assets/logo.png' %}"
                 alt="Lodging"
                 class="landing-page-image"
               />
@@ -356,7 +386,7 @@
           <div class="card">
             <div class="card__header">
               <img
-                src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+                src="{% static '/assets/logo.png' %}"
                 alt="Lodging"
                 class="landing-page-image"
               />
@@ -387,7 +417,7 @@
           <div class="card">
             <div class="card__header">
               <img
-                src="{% static '/slideshow/white-wall-living-room-have-sofa-decoration-3d-rendering.jpg' %}"
+                src="{% static '/assets/logo.png' %}"
                 alt="Lodging"
                 class="landing-page-image"
               />
@@ -445,5 +475,74 @@
         </div>
       </footer>
     </main>
+    <script>
+      function toggleChatbot() {
+        const chatbotContainer = document.getElementById("chatbot_container");
+        const chatbotIcon = document.getElementById("chatbot_icon");
+        if (chatbotContainer.style.display === "flex") {
+          chatbotContainer.style.display = "none";
+          chatbotIcon.style.display = "flex";
+        } else {
+          chatbotContainer.style.display = "flex";
+          chatbotIcon.style.display = "none";
+        }
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevent default form submission
+          sendMessage(); // Call sendMessage function to handle the message
+        }
+      }
+
+      async function sendMessage() {
+        const userMessage = document.getElementById("user_message").value;
+        const csrfToken = document.querySelector(
+          "[name=csrfmiddlewaretoken]"
+        ).value;
+
+        if (!userMessage) {
+          alert("Please enter a message.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/chatbot/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({ message: userMessage }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const chatBox = document.getElementById("chat_box");
+            chatBox.innerHTML += `
+              <div class="chat_message user_message">
+                <p><b>You:</b> ${userMessage}</p>
+              </div>`;
+            chatBox.innerHTML += `
+              <div class="chat_message chatbot_message">
+                <div class="profile_pic"></div>
+                <p><b>Lapu-Lapu AI:</b> ${data.response}</p>
+              </div>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+            document.getElementById("user_message").value = "";
+          } else {
+            console.error(
+              "Error in response:",
+              response.status,
+              response.statusText
+            );
+            alert("Failed to get a response from the bot.");
+          }
+        } catch (error) {
+          console.error("Error in fetch:", error);
+          alert("An error occurred while sending the message.");
+        }
+      }
+    </script>
   </body>
 </html>

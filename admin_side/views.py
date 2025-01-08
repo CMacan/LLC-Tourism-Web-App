@@ -1,22 +1,72 @@
 from django.shortcuts import render, redirect 
 from .models import Restaurant
+from .models import Destination
+from .forms import DestinationForm
 from django.http import HttpResponse
-
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 def login(request):
     return render(request, 'login.html')
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html', {
+        'page_title': 'Dashboard'
+    })
 
+# DESTINATIONS
 def admin_destination(request):
-    return render(request, 'admin_destination.html')
+    destinations = Destination.objects.all()  # Check if this is correct
+    return render(request, 'admin_destination.html', {'destinations': destinations})
 
+
+def add_destination_entry(request):
+    if request.method == 'POST':
+        form = DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    return JsonResponse({'status': 'invalid_method'})
+
+def destination_list(request):
+    destinations = Destination.objects.all()
+    return render(request, 'admin_destination.html', {'destinations': destinations})
+
+def update_destination_entry(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+    if request.method == 'POST':
+        form = DestinationForm(request.POST, request.FILES, instance=destination)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        form = DestinationForm(instance=destination)
+        return render(request, 'admin_destination.html', {'form': form, 'destination': destination})
+    
+def delete_destination_entry(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+    if request.method == 'POST':
+        destination.delete()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'invalid_method'})
+
+
+# ACCOMMODATIONS 
 def admin_accomodation(request):
-    return render(request, 'admin_accomodation.html')
+    return render(request, 'admin_accomodation.html', {
+        'page_title': 'Accommodations'
+    })
 
+
+# RESTAURANTS
 def admin_food_drink(request):
-    return render(request, 'admin_food_drink.html')
+    return render(request, 'admin_food_drink.html', {
+        'page_title': 'Food & Drinks'
+    })
 
 def add_restaurant_entry(request):
     if request.method == 'POST':
@@ -37,8 +87,19 @@ def add_restaurant_entry(request):
         return redirect('admin_food_drink')  # Redirect to your admin page
     return HttpResponse(status=400)
 
-def admin_article(request):
-    return render(request, 'admin_article.html')
+def restaurant_list(request):
+    # Fetch all restaurants from the database
+    restaurants = Restaurant.objects.all()
+    return render(request, 'admin_destination.html', {'restaurants': restaurants})
 
+# ARTICLES
+def admin_article(request):
+    return render(request, 'admin_article.html', {
+        'page_title': 'Articles'
+    })
+
+# ACTIVITIES
 def admin_activities(request):
-    return render(request, 'admin_activities.html')
+    return render(request, 'admin_activities.html', {
+        'page_title': 'Activities'
+    })
