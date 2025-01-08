@@ -7,6 +7,8 @@ urlpatterns = [
     path('admin_destination/', views.admin_destination, name='admin_destination'),
     path('add-destination/', views.add_destination_entry, name='add_destination_entry'),
     path('list-destination/', views.destination_list, name='destination_list'),
+    path('update-destination/<int:pk>/', views.update_destination_entry, name='update_destination_entry'),
+    path('delete-destination/<int:pk>/', views.delete_destination_entry, name='delete_destination_entry'),
 
     path('admin_accomodation/', views.admin_accomodation, name='admin_accomodation'),
 

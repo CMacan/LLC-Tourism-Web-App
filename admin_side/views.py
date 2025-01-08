@@ -4,7 +4,7 @@ from .models import Destination
 from .forms import DestinationForm
 from django.http import HttpResponse
 from django.http import JsonResponse
-
+from django.shortcuts import get_object_or_404
 
 def login(request):
     return render(request, 'login.html')
@@ -33,6 +33,26 @@ def add_destination_entry(request):
 def destination_list(request):
     destinations = Destination.objects.all()
     return render(request, 'admin_destination.html', {'destinations': destinations})
+
+def update_destination_entry(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+    if request.method == 'POST':
+        form = DestinationForm(request.POST, request.FILES, instance=destination)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        form = DestinationForm(instance=destination)
+        return render(request, 'admin_destination.html', {'form': form, 'destination': destination})
+    
+def delete_destination_entry(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+    if request.method == 'POST':
+        destination.delete()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'invalid_method'})
 
 
 # ACCOMMODATIONS 
