@@ -17,36 +17,36 @@ class Destination(models.Model):
     def __str__(self):
         return self.name
     
-# class Activity(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.TextField()
-#     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='activities')
-#     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-#     duration = models.DurationField(null=True, blank=True)  # For example, 2 hours
-#     image = models.ImageField(upload_to='activities/', null=True, blank=True)
-#     category = models.CharField(max_length=100, choices=[('Adventure', 'Adventure'), ('Relaxation', 'Relaxation'), ('Cultural', 'Cultural'), ('Educational', 'Educational')])
-#     rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
+class Activity(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='activities')
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    duration = models.DurationField(null=True, blank=True)  # For example, 2 hours
+    image = models.ImageField(upload_to='activities/', null=True, blank=True)
+    category = models.CharField(max_length=100, choices=[('Adventure', 'Adventure'), ('Relaxation', 'Relaxation'), ('Cultural', 'Cultural'), ('Educational', 'Educational')])
+    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
-# class Accommodation(models.Model):
-#     name = models.CharField(max_length=255)
-#     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accommodations')
-#     address = models.CharField(max_length=255)
-#     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
-#     description = models.TextField()
-#     contact_number = models.CharField(max_length=15, null=True, blank=True)
-#     email = models.EmailField(null=True, blank=True)
-#     website = models.URLField(null=True, blank=True)
-#     image = models.ImageField(upload_to='accommodations/', null=True, blank=True)
-#     amenities = models.JSONField(null=True, blank=True)  # Example: ["WiFi", "Pool", "Breakfast"]
-#     rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
+class Accommodation(models.Model):
+    name = models.CharField(max_length=255)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accommodations')
+    address = models.CharField(max_length=255)
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    contact_number = models.CharField(max_length=15, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to='accommodations/', null=True, blank=True)
+    amenities = models.JSONField(null=True, blank=True)  # Example: ["WiFi", "Pool", "Breakfast"]
+    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=200, unique=True)  # Restaurant name
@@ -67,16 +67,16 @@ class Restaurant(models.Model):
         return self.name
     
 
-# class Article(models.Model):
-#     title = models.CharField(max_length=255)
-#     content = models.TextField()
-#     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='articles', null=True, blank=True)
-#     author = models.CharField(max_length=255)
-#     published_date = models.DateField()
-#     image = models.ImageField(upload_to='articles/', null=True, blank=True)
-#     tags = models.CharField(max_length=255, null=True, blank=True)  # Example: "Travel, Tips, Beach"
-#     created_at = models.DateTimeField(auto_now_add=True)
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='articles', null=True, blank=True)
+    author = models.CharField(max_length=255)
+    published_date = models.DateField()
+    image = models.ImageField(upload_to='articles/', null=True, blank=True)
+    tags = models.CharField(max_length=255, null=True, blank=True)  # Example: "Travel, Tips, Beach"
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.title
 

@@ -5,6 +5,9 @@ from .forms import DestinationForm
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_http_methods
+import os
+
 
 def login(request):
     return render(request, 'login.html')
@@ -14,45 +17,105 @@ def dashboard(request):
         'page_title': 'Dashboard'
     })
 
+
 # DESTINATIONS
 def admin_destination(request):
     destinations = Destination.objects.all()  # Check if this is correct
     return render(request, 'admin_destination.html', {'destinations': destinations})
 
 
-def add_destination_entry(request):
-    if request.method == 'POST':
-        form = DestinationForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors})
-    return JsonResponse({'status': 'invalid_method'})
+@require_http_methods(["POST"])
+def add_destination(request):
+    try:
+        # Get form data
+        name = request.POST.get('name')
+        location = request.POST.get('location')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        rating = request.POST.get('rating')
+        popular = request.POST.get('popular') == 'on'
+        image = request.FILES.get('image')
+
+        # Create your destination object
+        destination = Destination.objects.create(
+            name=name,
+            location=location,
+            description=description,
+            category=category,
+            rating=rating,
+            popular=popular,
+            image=image
+        )
+
+        return JsonResponse({'success': True, 'message': 'Destination added successfully'})
+        
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
 
 def destination_list(request):
-    destinations = Destination.objects.all()
-    return render(request, 'admin_destination.html', {'destinations': destinations})
+    destinations = Destination.objects.all().order_by('-id')  # Most recent first
+    return render(request, 'admin_side/admin_destination.html', {
+        'destinations': destinations
+    })
 
-def update_destination_entry(request, pk):
-    destination = get_object_or_404(Destination, pk=pk)
-    if request.method == 'POST':
-        form = DestinationForm(request.POST, request.FILES, instance=destination)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors})
-    else:
-        form = DestinationForm(instance=destination)
-        return render(request, 'admin_destination.html', {'form': form, 'destination': destination})
-    
-def delete_destination_entry(request, pk):
-    destination = get_object_or_404(Destination, pk=pk)
-    if request.method == 'POST':
+def get_destination(request, id):
+    try:
+        destination = Destination.objects.get(id=id)
+        data = {
+            'id': destination.id,
+            'name': destination.name,
+            'location': destination.location,
+            'description': destination.description,
+            'category': destination.category,
+            'rating': destination.rating,
+            'popular': destination.popular,
+        }
+        return JsonResponse(data)
+    except Destination.DoesNotExist:
+        return JsonResponse({'error': 'Destination not found'}, status=404)
+
+
+@require_http_methods(["POST"])
+def update_destination(request, id):
+    try:
+        destination = Destination.objects.get(id=id)
+        
+        # Update text fields
+        destination.name = request.POST.get('name')
+        destination.location = request.POST.get('location')
+        destination.description = request.POST.get('description')
+        destination.category = request.POST.get('category')
+        destination.rating = request.POST.get('rating')
+        destination.popular = request.POST.get('popular') == 'on'
+        
+        # Handle image update
+        if 'image' in request.FILES:
+            # Delete old image if it exists
+            if destination.image:
+                if os.path.isfile(destination.image.path):
+                    os.remove(destination.image.path)
+            destination.image = request.FILES['image']
+        
+        destination.save()
+        return JsonResponse({'success': True, 'message': 'Destination updated successfully'})
+    except Destination.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Destination not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
+
+@require_http_methods(["POST"])
+def delete_destination(request, id):
+    try:
+        destination = Destination.objects.get(id=id)
         destination.delete()
-        return JsonResponse({'status': 'success'})
-    return JsonResponse({'status': 'invalid_method'})
+        return JsonResponse({'success': True, 'message': 'Destination deleted successfully'})
+    except Destination.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Destination not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
 
 
 # ACCOMMODATIONS 

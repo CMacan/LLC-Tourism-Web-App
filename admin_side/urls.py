@@ -5,10 +5,13 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin_destination/', views.admin_destination, name='admin_destination'),
-    path('add-destination/', views.add_destination_entry, name='add_destination_entry'),
-    path('list-destination/', views.destination_list, name='destination_list'),
-    path('update-destination/<int:pk>/', views.update_destination_entry, name='update_destination_entry'),
-    path('delete-destination/<int:pk>/', views.delete_destination_entry, name='delete_destination_entry'),
+    path('admin_destination/add-destination/', views.add_destination, name='add_destination'),
+    path('admin_side/list-destination/', views.destination_list, name='destination_list'),
+    path('admin_destination/update/<int:id>/', views.update_destination, name='update_destination'),
+    path('admin_destination/delete/<int:id>/', views.delete_destination, name='delete_destination'),
+    path('admin_destination/get/<int:id>/', views.get_destination, name='get_destination'),
+
+
 
     path('admin_accomodation/', views.admin_accomodation, name='admin_accomodation'),
 
