@@ -1,3 +1,63 @@
 # Ignore Python cache files
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environment directories
+venv/
+.env/
+
+# Ignore environment variables files
+.env
+.env.*
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore compiled C extensions
+*.so
+
+# Ignore mypy cache
+.mypy_cache/
+
+# Ignore Pyre type checker cache
+.pyre/
+
+# Ignore coverage reports
+.coverage
+*.cover
+*.coverage.*
+htmlcov/
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore tox and nox
+.tox/
+.nox/
+
+# Ignore editable installs
+*.egg-info/
+*.eggs/
+
+# Ignore dist and build directories
+dist/
+build/
+*.egg
+
+# Ignore logs
+*.log
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Django migrations
+**/migrations/
+
+# Ignore static files and media uploads
+staticfiles/
+media/
