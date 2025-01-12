@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect 
-from .models import Restaurant
-from .models import Destination
-from .forms import DestinationForm
+from .models import Restaurant, Destination, Activity
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
+from django.core.exceptions import ValidationError
 import os
 
 
@@ -162,7 +161,116 @@ def admin_article(request):
     })
 
 # ACTIVITIES
-def admin_activities(request):
-    return render(request, 'admin_activities.html', {
+def admin_activity(request):
+    activities = Activity.objects.all().order_by('-created_at')  # Add ordering if desired
+    return render(request, 'admin_activity.html', {
+        'activities': activities,
         'page_title': 'Activities'
     })
+
+
+@require_http_methods(["POST"])
+def add_activity(request):
+    try:
+        print("Received POST data:", request.POST)
+        print("Received FILES:", request.FILES)
+        
+        # Get form data
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        price = request.POST.get('price')
+        image = request.FILES.get('image')
+
+        # Validate required fields
+        if not all([name, description, category]):
+            return JsonResponse({
+                'success': False,
+                'message': 'Missing required fields'
+            }, status=400)
+
+        # Create activity object
+        activity = Activity.objects.create(
+            name=name,
+            description=description,
+            category=category,
+            price=price if price else None,
+            image=image if image else None
+        )
+
+        return JsonResponse({
+            'success': True, 
+            'message': 'Activity added successfully',
+            'id': activity.id
+        })
+        
+    except Exception as e:
+        import traceback
+        print("Error:", str(e))
+        print("Traceback:", traceback.format_exc())
+        return JsonResponse({
+            'success': False,
+            'message': str(e)
+        }, status=400)
+
+
+def activity_list(request):
+    activity = Activity.objects.all().order_by('-id')  # Most recent first
+    return render(request, 'admin_side/admin_activity.html', {
+        'activities': activity
+    })
+
+def get_activity(request, id):
+    try:
+        activity = Activity.objects.get(id=id)
+        data = {
+            'id': activity.id,
+            'name': activity.name,
+            'description': activity.description,
+            'category': activity.category,
+            'rating': activity.rating,
+        }
+        return JsonResponse(data)
+    except Activity.DoesNotExist:
+        return JsonResponse({'error': 'Activity not found'}, status=404)
+
+
+@require_http_methods(["POST"])
+def update_activity(request, id):
+    try:
+        activity = Activity.objects.get(id=id)
+        
+        # Update text fields
+        activity.name = request.POST.get('name')
+        activity.location = request.POST.get('location')
+        activity.description = request.POST.get('description')
+        activity.category = request.POST.get('category')
+        activity.rating = request.POST.get('rating')
+        activity.popular = request.POST.get('popular') == 'on'
+        
+        # Handle image update
+        if 'image' in request.FILES:
+            # Delete old image if it exists
+            if activity.image:
+                if os.path.isfile(activity.image.path):
+                    os.remove(activity.image.path)
+            activity.image = request.FILES['image']
+        
+        activity.save()
+        return JsonResponse({'success': True, 'message': 'Activity updated successfully'})
+    except Activity.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Activity not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
+
+@require_http_methods(["POST"])
+def delete_activity(request, id):
+    try:
+        activity = Activity.objects.get(id=id)
+        activity.delete()
+        return JsonResponse({'success': True, 'message': 'Activity deleted successfully'})
+    except Activity.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Activity not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)

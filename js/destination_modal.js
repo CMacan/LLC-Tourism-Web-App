@@ -193,3 +193,121 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('[data-bs-target="#updateModal"]');
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const activityId = this.getAttribute('data-id');
+            if (activityId) {
+                populateUpdateModal(activityId);
+            } else {
+                console.error('No activity ID found on button');
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the search input and clear button elements
+    const searchInput = document.getElementById('searchDestination');
+    const clearButton = document.getElementById('clearSearch');
+
+    // Function to filter destinations
+    function filterDestinations() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const destinationCards = document.querySelectorAll('.col-md-4.mb-3[data-id]');
+        let hasResults = false;
+
+        destinationCards.forEach(card => {
+            const name = card.querySelector('.card-title').textContent.toLowerCase().trim();
+            const category = card.querySelector('.badge').textContent.toLowerCase().trim();
+            const location = card.querySelector('.card-text.text-muted').textContent.toLowerCase().trim();
+
+            if (name.includes(searchTerm) || 
+                category.includes(searchTerm) || 
+                location.includes(searchTerm)) {
+                card.style.display = 'block';
+                hasResults = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Handle no results message
+        handleNoResults(hasResults, searchTerm);
+    }
+
+    // Function to handle "No results" message
+    function handleNoResults(hasResults, searchTerm) {
+        let noResultsMessage = document.getElementById('no-results-message');
+        
+        if (!hasResults && searchTerm !== '') {
+            if (!noResultsMessage) {
+                noResultsMessage = document.createElement('div');
+                noResultsMessage.id = 'no-results-message';
+                noResultsMessage.className = 'col-12 text-center mt-3';
+                noResultsMessage.innerHTML = `
+                    <div class="alert alert-info">
+                        No destinations found matching "${searchTerm}"
+                    </div>`;
+                document.querySelector('.row.mt-4').appendChild(noResultsMessage);
+            }
+        } else if (noResultsMessage) {
+            noResultsMessage.remove();
+        }
+    }
+
+    // Function to clear search
+    function clearSearch() {
+        searchInput.value = '';
+        filterDestinations();
+        searchInput.focus();
+    }
+
+    // Debounce function to improve performance
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Event listeners
+    if (searchInput) {
+        // Real-time search with debounce
+        searchInput.addEventListener('input', debounce(() => {
+            filterDestinations();
+        }, 300));
+
+        // Handle Enter key
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                filterDestinations();
+            }
+        });
+
+        // Handle Escape key
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                clearSearch();
+            }
+        });
+    }
+
+    // Clear button functionality
+    if (clearButton) {
+        clearButton.addEventListener('click', clearSearch);
+    }
+});
+
+
+
+
+

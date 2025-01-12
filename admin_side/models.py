@@ -20,11 +20,10 @@ class Destination(models.Model):
 class Activity(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='activities')
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     duration = models.DurationField(null=True, blank=True)  # For example, 2 hours
-    image = models.ImageField(upload_to='activities/', null=True, blank=True)
-    category = models.CharField(max_length=100, choices=[('Adventure', 'Adventure'), ('Relaxation', 'Relaxation'), ('Cultural', 'Cultural'), ('Educational', 'Educational')])
+    image = models.ImageField(upload_to='activity/', null=True, blank=True)
+    category = models.CharField(max_length=100, choices=[('adventure', 'Adventure'), ('relaxation', 'Relaxation'), ('cultural', 'Cultural'), ('educational', 'Educational')])
     rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -33,7 +32,6 @@ class Activity(models.Model):
 
 class Accommodation(models.Model):
     name = models.CharField(max_length=255)
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accommodations')
     address = models.CharField(max_length=255)
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
@@ -70,7 +68,6 @@ class Restaurant(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='articles', null=True, blank=True)
     author = models.CharField(max_length=255)
     published_date = models.DateField()
     image = models.ImageField(upload_to='articles/', null=True, blank=True)

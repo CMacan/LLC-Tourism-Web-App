@@ -19,7 +19,12 @@ urlpatterns = [
 
     path('add-restaurant/', views.add_restaurant_entry, name='add_restaurant_entry'),
 
-    path('admin_activities/', views.admin_activities, name='admin_activities'),
-    
+    path('admin_activity/', views.admin_activity, name='admin_activity'),
+    path('admin_activity/add-activity/', views.add_activity, name='add_activity'),
+    path('admin_side/list-activity/', views.activity_list, name='activity_list'),
+    path('admin_activity/update/<int:id>/', views.update_activity, name='update_activity'),
+    path('admin_activity/delete/<int:id>/', views.delete_activity, name='delete_activity'),
+    path('admin_activity/get/<int:id>/', views.get_activity, name='get_activity'),
+
     path('admin_article/', views.admin_article, name='admin_article'),
 ]

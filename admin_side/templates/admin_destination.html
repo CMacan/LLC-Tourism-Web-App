@@ -9,10 +9,18 @@
     <div class="input-group" style="width: 70%">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input
-        type="text"
-        class="form-control"
-        placeholder="Search for destinations..."
+          type="text"
+          class="form-control"
+          id="searchDestination"
+          placeholder="Search for destination..."
       />
+      <button 
+          class="btn btn-outline-secondary" 
+          type="button"
+          id="clearSearch"
+      >
+          <i class="bi bi-x"></i>
+      </button>
     </div>
     <button
       class="btn btn-success"
@@ -27,7 +35,8 @@
   <!-- Items Section -->
   <div class="row mt-4">
     {% for destination in destinations %}
-<div class="col-md-4 mb-3 data-id="{{ destination.id }}">
+    <div class="col-md-4 mb-3" data-id="{{ destination.id }}">  
+
     <div class="card h-100">
         <div class="img-container" style="height: 200px; overflow: hidden">
             <img
@@ -176,5 +185,5 @@
     </div>
 </div>
 
-<script src="{% static '/modal.js'  %}"></script>
+<script src="{% static '/destination_modal.js'  %}"></script>
 {% endblock %}
