@@ -125,7 +125,26 @@
       </div>
   </div>
 </div>
-
+<style>
+    <style>
+      .modal-lg {
+        max-width: 800px;
+      }
+      .form-check-inline {
+          margin-right: 1.5rem;
+          margin-bottom: 0.5rem;
+      }
+      
+      .modal-body {
+          max-height: calc(100vh - 210px);
+          overflow-y: auto;
+      }
+      
+      .form-text {
+          font-size: 0.875em;
+          color: #6c757d;
+      }
+  </style>
 {% comment %} <!-- Update Modal --> {% endcomment %}
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
