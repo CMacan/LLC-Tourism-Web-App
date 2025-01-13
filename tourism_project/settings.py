@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import psycopg2
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,16 +81,18 @@ WSGI_APPLICATION = 'tourism_project.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# Load environment variables from .env file
+load_dotenv()
 
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Lapu_Lapu_Tourism',  # Your database name
-        'USER': 'Lapu_Lapu_Tourism_User',        # Your PostgreSQL username
-        'PASSWORD': '123456', # Your PostgreSQL password
-        'HOST': 'localhost',      # Or IP address of your PostgreSQL server
-        'PORT': '5432',           # Default PostgreSQL port
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
