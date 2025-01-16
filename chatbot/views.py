@@ -32,6 +32,3 @@ def chatbot_view(request):
         except Exception as e:
             print("Unhandled Exception:", e)
             return JsonResponse({"error": str(e)}, status=500)
-
-    # Render chatbot.html for non-POST requests
-    return render(request, "chatbot.html")
