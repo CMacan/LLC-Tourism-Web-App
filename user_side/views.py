@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from admin_side.models import Destination, Activity
 from django.core.cache import cache
 import logging
@@ -52,8 +52,35 @@ def home(request):
 def accommodation(request):
     return render(request, 'accomodation.html')
 
-def activity(request):
-    return render(request, 'activity.html')
+
+def destination_list(request):
+    destination_list = Destination.objects.all()
+    page = request.GET.get('page', 1)
+    
+    # Show 9 destinations per page
+    paginator = Paginator(destination_list, 9)
+    
+    try:
+        destinations = paginator.page(page)
+    except PageNotAnInteger:
+        destinations = paginator.page(1)
+    except EmptyPage:
+        destinations = paginator.page(paginator.num_pages)
+    
+    return render(request, 'user_side/destination.html', {'destinations': destinations})
+
+
+def destination_detail(request, destination_id):
+    try:
+        destination = Destination.objects.get(id=destination_id)
+        context = {
+            'destination': destination,
+        }
+        return render(request, 'destination_detail.html', context)
+    except Destination.DoesNotExist:
+        # Handle case when destination is not found
+        return render(request, '404.html')
+
 
 def destination(request):
     return render(request, 'destination.html')
