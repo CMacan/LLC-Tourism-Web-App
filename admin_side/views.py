@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect,  get_object_or_404
 from .models import Restaurant, Destination, Activity, Accommodation
-from django.http import HttpResponse
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.csrf import csrf_exempt
-import json
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
+import json
 import os
+import logging
 
 
 def login(request):
@@ -127,38 +126,53 @@ def admin_food_drink(request):
 
 @ensure_csrf_cookie
 def restaurant_list(request):
-    restaurants = Restaurant.objects.all().order_by('-created_at')
+    restaurants = Restaurant.objects.all().order_by('-1')
     return render(request, 'admin_side/admin_food_drink.html', {'restaurants': restaurants})
 
+
+logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def create_restaurant(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.POST.get('data'))
-            photo = request.FILES.get('photo')
-            
+            # Log incoming data for debugging
+            logger.debug(f"POST data: {request.POST}")
+            logger.debug(f"FILES data: {request.FILES}")
+
+            # Create restaurant object
             restaurant = Restaurant.objects.create(
-                name=data['name'],
-                address=data['address'],
-                cuisine_type=data.get('cuisine_type'),
-                rating=data.get('rating') if data.get('rating') else None,
-                price_range=data.get('price_range'),
-                opening_hours=data.get('opening_hours'),
-                website=data.get('website'),
-                contact_number=data.get('contact_number'),
-                menu_url=data.get('menu_url'),
-                is_open=data.get('is_open', True),
-                photo=photo
+                name=request.POST.get('name'),
+                address=request.POST.get('address'),
+                price_range=request.POST.get('pricePerNight'),
+                contact_num=request.Post.get('contactNumber'),
+                rating=request.POST.get('rating') if request.POST.get('rating') else None,
+                website=request.POST.get('websiteURL'),
             )
-            
+
+            # Handle photo upload
+            if 'image' in request.FILES:
+                restaurant.photo = request.FILES['image']
+                restaurant.save()
+
             return JsonResponse({
                 'status': 'success',
                 'message': 'Restaurant created successfully',
                 'id': restaurant.id
             })
+
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
+            logger.error(f"Error creating restaurant: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Method not allowed'
+    }, status=405)
+
 
 @csrf_exempt
 def update_restaurant(request, id):
