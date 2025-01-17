@@ -53,7 +53,7 @@ def accommodation(request):
     return render(request, 'accomodation.html')
 
 
-def destination_list(request):
+def user_side_destination_list(request):
     destination_list = Destination.objects.all()
     page = request.GET.get('page', 1)
     
@@ -67,7 +67,7 @@ def destination_list(request):
     except EmptyPage:
         destinations = paginator.page(paginator.num_pages)
     
-    return render(request, 'user_side/destination.html', {'destinations': destinations})
+    return render(request, 'destination.html', {'destinations': destinations})
 
 
 def destination_detail(request, destination_id):
@@ -81,27 +81,23 @@ def destination_detail(request, destination_id):
         # Handle case when destination is not found
         return render(request, '404.html')
 
+# def article(request):
+#     return render(request, 'articles.html')
 
-def destination(request):
-    return render(request, 'destination.html')
-
-def article(request):
-    return render(request, 'articles.html')
-
-def food(request):
-    return render(request, 'food_drinks.html')
+# def food(request):
+#     return render(request, 'food_drinks.html')
 
 
-def attractions_view(request):
-    return render(request, 'admin_side/attractions.html')
+# def attractions_view(request):
+#     return render(request, 'admin_side/attractions.html')
 
-def food_view(request):
-    return render(request, 'admin_side/food.html')
+# def food_view(request):
+#     return render(request, 'admin_side/food.html')
 
-def activities_view(request):
-    return render(request, 'admin_side/activities.html')
+# def activities_view(request):
+#     return render(request, 'admin_side/activities.html')
 
-def events_view(request):
-    return render(request, 'admin_side/events.html')
+# def events_view(request):
+#     return render(request, 'admin_side/events.html')
 
 

@@ -29,6 +29,8 @@ def add_destination(request):
         # Get form data
         name = request.POST.get('name')
         location = request.POST.get('location')
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
         description = request.POST.get('description')
         category = request.POST.get('category')
         rating = request.POST.get('rating')
@@ -39,6 +41,8 @@ def add_destination(request):
         destination = Destination.objects.create(
             name=name,
             location=location,
+            latitude=latitude,
+            longitude=longitude,
             description=description,
             category=category,
             rating=rating,
@@ -65,6 +69,8 @@ def get_destination(request, id):
             'id': destination.id,
             'name': destination.name,
             'location': destination.location,
+            'latitude': destination.latitude,
+            'longitude': destination.longitude,
             'description': destination.description,
             'category': destination.category,
             'rating': destination.rating,
@@ -83,6 +89,8 @@ def update_destination(request, id):
         # Update text fields
         destination.name = request.POST.get('name')
         destination.location = request.POST.get('location')
+        destination.latitude = request.POST.get('latitude')
+        destination.longitude = request.POST.get('longitude')
         destination.description = request.POST.get('description')
         destination.category = request.POST.get('category')
         destination.rating = request.POST.get('rating')

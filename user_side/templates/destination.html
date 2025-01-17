@@ -50,9 +50,10 @@
                           </div>
                       </div>
   
-                      <a href="{% url 'destination_detail' destination.id %}" 
-                         class="btn btn-outline-primary mt-3">
-                          View Details
+                      <a href="{{ destination.google_maps_link }}" 
+                        target="_blank" 
+                        class="btn btn-outline-primary mt-3">
+                        View on Google Maps
                       </a>
                   </div>
               </div>

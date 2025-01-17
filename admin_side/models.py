@@ -3,6 +3,8 @@ from django.db import models
 class Destination(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)  
     description = models.TextField()
     image = models.ImageField(upload_to='destination_images/')
     category = models.CharField(max_length=50, choices=[
@@ -16,6 +18,14 @@ class Destination(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def google_maps_link(self):
+        """Returns the Google Maps URL."""
+        if self.latitude and self.longitude:
+            return f"https://www.google.com/maps?q={self.latitude},{self.longitude}"
+        elif self.location:
+            return f"https://www.google.com/maps?q={self.location}"
+        return None
     
 class Activity(models.Model):
     name = models.CharField(max_length=255)
