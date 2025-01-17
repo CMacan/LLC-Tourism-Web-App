@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 import json
 import os
 import logging
-
+from django.core.exceptions import ValidationError
 
 def login(request):
     return render(request, 'login.html')
@@ -127,116 +127,193 @@ def delete_destination(request, id):
 
 # RESTAURANTS
 def admin_food_drink(request):
+    # Get all restaurants and pass them to the template
+    restaurants = Restaurant.objects.all().order_by('-created_at')  # or any field you want to sort by
     return render(request, 'admin_food_drink.html', {
-        'page_title': 'Food & Drinks'
+        'page_title': 'Food & Drinks',
+        'restaurants': restaurants
     })
 
 
 @ensure_csrf_cookie
-def restaurant_list(request):
-    restaurants = Restaurant.objects.all().order_by('-1')
-    return render(request, 'admin_side/admin_food_drink.html', {'restaurants': restaurants})
-
-
-logger = logging.getLogger(__name__)
-
-@csrf_exempt
 def create_restaurant(request):
     if request.method == 'POST':
         try:
-            # Log incoming data for debugging
-            logger.debug(f"POST data: {request.POST}")
-            logger.debug(f"FILES data: {request.FILES}")
+            # Print received data for debugging
+            print("Received POST data:", request.POST)
+            print("Received FILES:", request.FILES)
 
-            # Create restaurant object
+            # Validate required fields
+            required_fields = ['name', 'address', 'facebook', 'instagram']
+            for field in required_fields:
+                if not request.POST.get(field):
+                    raise ValidationError(f'{field} is required')
+
+            # Create new restaurant
             restaurant = Restaurant.objects.create(
                 name=request.POST.get('name'),
                 address=request.POST.get('address'),
-                price_range=request.POST.get('pricePerNight'),
-                contact_num=request.Post.get('contactNumber'),
-                rating=request.POST.get('rating') if request.POST.get('rating') else None,
-                website=request.POST.get('websiteURL'),
+                facebook_link=request.POST.get('facebook'),
+                instagram_link=request.POST.get('instagram'),
+                website=request.POST.get('website', ''),
+                rating=request.POST.get('rating', 0.0),
             )
 
-            # Handle photo upload
+            # Handle image
             if 'image' in request.FILES:
-                restaurant.photo = request.FILES['image']
+                print("Processing image upload...")
+                image_file = request.FILES['image']
+                print(f"Image file name: {image_file.name}")
+                restaurant.image = image_file
                 restaurant.save()
+                print(f"Image saved. URL: {restaurant.image.url}")
 
             return JsonResponse({
                 'status': 'success',
-                'message': 'Restaurant created successfully',
-                'id': restaurant.id
+                'message': 'Restaurant added successfully',
+                'restaurant': {
+                    'id': restaurant.id,
+                    'name': restaurant.name,
+                    'address': restaurant.address,
+                    'facebook_link': restaurant.facebook_link,
+                    'instagram_link': restaurant.instagram_link,
+                    'website': restaurant.website,
+                    'rating': float(restaurant.rating),
+                    'image_url': restaurant.image.url if restaurant.image else None,
+                }
             })
 
-        except Exception as e:
-            logger.error(f"Error creating restaurant: {str(e)}")
+        except ValidationError as e:
             return JsonResponse({
                 'status': 'error',
                 'message': str(e)
-            }, status=500)
+            }, status=400)
+        except Exception as e:
+            print("Error:", str(e))
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Server error: {str(e)}'
+            }, status=400)
 
     return JsonResponse({
         'status': 'error',
-        'message': 'Method not allowed'
+        'message': 'Invalid request method'
     }, status=405)
 
+def restaurant_list(request):
+    restaurant = Restaurant.objects.all().order_by('-created_at')  # Add ordering if desired
+    return render(request, 'admin_food_drink.html', {
+        'restaurant': restaurant,
+        'page_title': 'Restaurant'
+    })
 
-@csrf_exempt
-def update_restaurant(request, id):
-    if request.method == 'POST':
-        try:
-            restaurant = get_object_or_404(Restaurant, id=id)
-            data = json.loads(request.POST.get('data'))
-            
-            restaurant.name = data['name']
-            restaurant.address = data['address']
-            restaurant.cuisine_type = data.get('cuisine_type')
-            restaurant.rating = data.get('rating') if data.get('rating') else None
-            restaurant.price_range = data.get('price_range')
-            restaurant.opening_hours = data.get('opening_hours')
-            restaurant.website = data.get('website')
-            restaurant.contact_number = data.get('contact_number')
-            restaurant.menu_url = data.get('menu_url')
-            restaurant.is_open = data.get('is_open', True)
-            
-            if 'photo' in request.FILES:
-                restaurant.photo = request.FILES['photo']
-            
-            restaurant.save()
-            
-            return JsonResponse({'status': 'success', 'message': 'Restaurant updated successfully'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
+@require_http_methods(["GET"])
+def get_restaurant(request, restaurant_id):
+    try:
+        print(f"Fetching restaurant with ID: {restaurant_id}")  # Debug print
+        restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+        
+        data = {
+            'status': 'success',
+            'restaurant': {
+                'id': restaurant.id,
+                'name': restaurant.name,
+                'address': restaurant.address,
+                'facebook': restaurant.facebook_link,  # Match the form field names
+                'instagram': restaurant.instagram_link,  # Match the form field names
+                'website': restaurant.website or '',
+                'rating': str(restaurant.rating) if restaurant.rating is not None else '0',
+                'image_url': restaurant.image.url if restaurant.image else None
+            }
+        }
+        print(f"Returning data: {data}")  # Debug print
+        return JsonResponse(data)
+        
+    except Restaurant.DoesNotExist:
+        print(f"Restaurant {restaurant_id} not found")  # Debug print
+        return JsonResponse({
+            'status': 'error',
+            'message': f'Restaurant with ID {restaurant_id} not found'
+        }, status=404)
+    except Exception as e:
+        print(f"Error: {str(e)}")  # Debug print
+        return JsonResponse({
+            'status': 'error',
+            'message': str(e)
+        }, status=500)  # Changed to 500 for server errors
 
-@csrf_exempt
-def delete_restaurant(request, id):
-    if request.method == 'POST':
-        try:
-            restaurant = get_object_or_404(Restaurant, id=id)
-            restaurant.delete()
-            return JsonResponse({'status': 'success', 'message': 'Restaurant deleted successfully'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
+@require_http_methods(["POST"])
+def update_restaurant(request, restaurant_id):
+    try:
+        restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+        
+        # Update fields
+        restaurant.name = request.POST.get('name', restaurant.name)
+        restaurant.address = request.POST.get('address', restaurant.address)
+        restaurant.facebook_link = request.POST.get('facebook', restaurant.facebook_link)
+        restaurant.instagram_link = request.POST.get('instagram', restaurant.instagram_link)
+        restaurant.website = request.POST.get('website', restaurant.website)
+        restaurant.rating = request.POST.get('rating', restaurant.rating)
 
-def get_restaurant(request, id):
-    restaurant = get_object_or_404(Restaurant, id=id)
-    data = {
-        'id': restaurant.id,
-        'name': restaurant.name,
-        'address': restaurant.address,
-        'cuisine_type': restaurant.cuisine_type,
-        'rating': str(restaurant.rating) if restaurant.rating else None,
-        'price_range': restaurant.price_range,
-        'opening_hours': restaurant.opening_hours,
-        'website': restaurant.website,
-        'contact_number': restaurant.contact_number,
-        'menu_url': restaurant.menu_url,
-        'is_open': restaurant.is_open,
-        'photo_url': restaurant.photo.url if restaurant.photo else None
-    }
-    return JsonResponse(data)
+        # Handle image update
+        if 'image' in request.FILES:
+            # Delete old image if it exists
+            if restaurant.image:
+                restaurant.image.delete()
+            restaurant.image = request.FILES['image']
 
+        restaurant.save()
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Restaurant updated successfully',
+            'restaurant': {
+                'id': restaurant.id,
+                'name': restaurant.name,
+                'address': restaurant.address,
+                'facebook_link': restaurant.facebook_link,
+                'instagram_link': restaurant.instagram_link,
+                'website': restaurant.website,
+                'rating': float(restaurant.rating),
+                'image_url': restaurant.image.url if restaurant.image else None,
+            }
+        })
+    except Exception as e:
+        return JsonResponse({
+            'status': 'error',
+            'message': str(e)
+        }, status=400)
+
+@require_http_methods(["DELETE"])
+def delete_restaurant(request, restaurant_id):
+    try:
+        # Print for debugging
+        print(f"Attempting to delete restaurant with ID: {restaurant_id}")
+        
+        restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+        restaurant_name = restaurant.name  # Store name before deletion
+        
+        # Delete the restaurant
+        restaurant.delete()
+        
+        # Print success message
+        print(f"Successfully deleted restaurant: {restaurant_name}")
+        
+        return JsonResponse({
+            'status': 'success',
+            'message': f'Restaurant {restaurant_name} deleted successfully'
+        })
+    except Restaurant.DoesNotExist:
+        return JsonResponse({
+            'status': 'error',
+            'message': f'Restaurant with ID {restaurant_id} not found'
+        }, status=404)
+    except Exception as e:
+        print(f"Error deleting restaurant: {str(e)}")  # Print error for debugging
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Error deleting restaurant'
+        }, status=400)
 
 # ARTICLES
 def admin_article(request):
@@ -261,9 +338,9 @@ def add_activity(request):
         
         # Get form data
         name = request.POST.get('name')
+        address = request.POST.get('address')
         description = request.POST.get('description')
         category = request.POST.get('category')
-        price = request.POST.get('price')
         image = request.FILES.get('image')
 
         # Validate required fields
@@ -276,9 +353,9 @@ def add_activity(request):
         # Create activity object
         activity = Activity.objects.create(
             name=name,
+            address=address if address else None,
             description=description,
             category=category,
-            price=price if price else None,
             image=image if image else None
         )
 
@@ -309,6 +386,7 @@ def get_activity(request, id):
         activity = Activity.objects.get(id=id)
         data = {
             'id': activity.id,
+            'address': activity.address,
             'name': activity.name,
             'description': activity.description,
             'category': activity.category,
@@ -326,6 +404,7 @@ def update_activity(request, id):
         
         # Update text fields
         activity.name = request.POST.get('name')
+        activity.address = request.POST.get('address')
         activity.location = request.POST.get('location')
         activity.description = request.POST.get('description')
         activity.category = request.POST.get('category')

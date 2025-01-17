@@ -83,46 +83,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
 // Function to add a new restaurant
-function addRestaurant() {
-    const restaurantData = {
-      name: document.getElementById('add-name').value,
-      pricePerNight: document.getElementById('add-price').value,
-      address: document.getElementById('add-address').value,
-      contactNumber: document.getElementById('add-contact').value,
-      websiteURL: document.getElementById('add-website').value,
-      rating: document.getElementById('add-rating').value,
-      image: document.getElementById('add-image').value
-    };
-  
-    fetch('/admin_side/restaurants/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(restaurantData)
+function addRestaurant(e) {
+    e.preventDefault();
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const restaurantData = new FormData(document.getElementById('addRestaurantForm'));
+
+    fetch('/admin_side/restaurants/create/', {  // Make sure this matches your URL pattern
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            // Remove Content-Type header - let the browser set it with boundary for FormData
+        },
+        body: restaurantData,
+        // Don't set Content-Type header when sending FormData
     })
     .then(response => {
-      if (response.headers.get('content-type').includes('application/json')) {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.message || 'Something went wrong');
+            });
+        }
         return response.json();
-      } else {
-        throw new Error('Invalid JSON response');
-      }
     })
     .then(data => {
-      // Handle the successful response here
-      console.log('Restaurant added successfully:', data);
-      // Optionally, update the UI or show a success message
+        console.log('Restaurant added successfully:', data);
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addRestaurantModal'));
+        modal.hide();
+        
+        // Show success message
+        alert('Restaurant added successfully!');
+        
+        // Optionally reload the page or update the UI
+        window.location.reload();
     })
     .catch(error => {
-      console.error('Error:', error);
-      // Handle the error here, such as showing an error message to the user
+        console.error('Error:', error);
+        alert('Error adding restaurant: ' + error.message);
     });
-  }
-  
-  // Event listener for the "Add Restaurant" button
-  document.getElementById('addRestaurantButton').addEventListener('click', addRestaurant);
-  
+}
+
+// Event listener for the form
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('addRestaurantForm');
+    if (form) {
+        form.addEventListener('submit', addRestaurant);
+    }
+});
 
 
 document.getElementById('updateRestaurantForm')?.addEventListener('submit', function(e) {
@@ -155,51 +165,154 @@ document.getElementById('updateRestaurantForm')?.addEventListener('submit', func
     .catch(error => console.error('Error:', error));
 });
 
-// Delete confirmation
-function confirmDeletion(id) {
+function deleteRestaurant(restaurantId) {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const restaurantCard = document.querySelector(`[data-id="${restaurantId}"]`);
+
+    fetch(`/admin_side/restaurants/delete/${restaurantId}/`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json',  // Add this line
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.message || 'Something went wrong');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Remove the restaurant card with animation
+        if (restaurantCard) {
+            restaurantCard.style.opacity = '0';
+            restaurantCard.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                restaurantCard.remove();
+            }, 300);
+        }
+        
+        // Show success message
+        alert(data.message || 'Restaurant deleted successfully!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting restaurant: ' + error.message);
+    });
+}
+
+function confirmDeletion(restaurantId) {
     if (confirm('Are you sure you want to delete this restaurant?')) {
-        fetch(`/admin_side/retaurants/${id}/delete/`, {
-            method: 'POST'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert('Restaurant deleted successfully!');
-                location.reload();
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+        deleteRestaurant(restaurantId);
     }
 }
 
-// Update modal population
-function populateUpdateModal(id) {
-    fetch(`/admin_side/restaurants/${id}/`)
-    .then(response => response.json())
-    .then(data => {
-        const form = document.getElementById('updateRestaurantForm');
-        form.setAttribute('data-id', id);
-        
-        // Populate form fields
-        form.querySelector('#update-name').value = data.name;
-        form.querySelector('#update-address').value = data.address;
-        form.querySelector('#update-price').value = data.price_per_night;
-        form.querySelector('#update-contact').value = data.contact_number || '';
-        form.querySelector('#update-website').value = data.website || '';
-        form.querySelector('#update-rating').value = data.rating || '';
-    
-    })
-    .catch(error => console.error('Error:', error));
+// Function to populate the update modal
+// food_modal.js
+function populateUpdateModal(restaurantId) {
+    console.log("Fetching restaurant data for ID:", restaurantId);
+
+    fetch(`/admin_side/restaurants/${restaurantId}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Received data:", data);
+
+            if (data.status === 'success' && data.restaurant) {
+                const restaurant = data.restaurant;
+
+                // Set the restaurant ID in the hidden field
+                document.getElementById('update-restaurant-id').value = restaurant.id;
+                
+                // Populate other fields
+                document.getElementById('update-name').value = restaurant.name || '';
+                document.getElementById('update-address').value = restaurant.address || '';
+                document.getElementById('update-facebook').value = restaurant.facebook || '';
+                document.getElementById('update-instagram').value = restaurant.instagram || '';
+                document.getElementById('update-website').value = restaurant.website || '';
+                document.getElementById('update-rating').value = restaurant.rating || '0';
+
+                // Handle image preview
+                const currentImageDiv = document.getElementById('current-image');
+                if (restaurant.image_url) {
+                    currentImageDiv.innerHTML = `
+                        <img src="${restaurant.image_url}" 
+                             alt="Current image" 
+                             class="img-thumbnail"
+                             style="max-width: 200px; max-height: 200px;">
+                        <p class="mt-2 text-muted">Current image will be kept if no new image is selected.</p>
+                    `;
+                } else {
+                    currentImageDiv.innerHTML = '<p class="text-muted">No current image</p>';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading restaurant data');
+        });
 }
 
-// Add click handlers to update buttons
-document.querySelectorAll('[data-bs-target="#updateModal"]').forEach(button => {
-    button.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
-        if (id) {
-            populateUpdateModal(id);
+// Handle form submission
+document.getElementById('updateRestaurantForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const restaurantId = formData.get('restaurant_id'); // Get ID from hidden field
+    
+    console.log("Updating restaurant ID:", restaurantId); // Debug log
+
+    if (!restaurantId) {
+        console.error("No restaurant ID found");
+        alert("Error: Restaurant ID is missing");
+        return;
+    }
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(`/admin_side/restaurants/update/${restaurantId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('updateModal'));
+            modal.hide();
+            
+            // Show success message
+            alert('Restaurant updated successfully!');
+            
+            // Reload the page
+            window.location.reload();
+        } else {
+            throw new Error(data.message || 'Update failed');
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating restaurant: ' + error.message);
     });
 });
+
+// Event listener for update button clicks
+document.addEventListener('click', function(e) {
+    const updateButton = e.target.closest('[data-bs-target="#updateModal"]');
+    if (updateButton) {
+        const restaurantId = updateButton.getAttribute('data-id');
+        if (restaurantId) {
+            console.log("Update button clicked for restaurant ID:", restaurantId);
+            populateUpdateModal(restaurantId);
+        } else {
+            console.error("No restaurant ID found on update button");
+        }
+    }
+});
+
+
+

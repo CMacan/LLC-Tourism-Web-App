@@ -24,9 +24,9 @@ urlpatterns = [
     path('admin_food_drink/', views.admin_food_drink, name='admin_food_drink'),
     path('restaurants/', views.restaurant_list, name='restaurant_list'),
     path('restaurants/create/', views.create_restaurant, name='create_restaurant'),
-    path('restaurants/<int:id>/update/', views.update_restaurant, name='update_restaurant'),
-    path('restaurants/<int:id>/delete/', views.delete_restaurant, name='delete_restaurant'),
-    path('restaurants/<int:id>/', views.get_restaurant, name='get_restaurant'),
+    path('restaurants/delete/<int:restaurant_id>/', views.delete_restaurant, name='delete_restaurant'),
+    path('restaurants/<int:restaurant_id>/', views.get_restaurant, name='get_restaurant'),
+    path('restaurants/update/<int:restaurant_id>/', views.update_restaurant, name='update_restaurant'),
 
 
     path('admin_activity/', views.admin_activity, name='admin_activity'),

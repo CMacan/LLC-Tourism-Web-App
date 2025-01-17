@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from admin_side.models import Destination, Activity
+from admin_side.models import Destination, Activity, Accommodation
 from django.core.cache import cache
 import logging
 
@@ -49,10 +49,6 @@ def home(request):
     return render(request, 'home2.html', context)
 
 
-def accommodation(request):
-    return render(request, 'accomodation.html')
-
-
 def user_side_destination_list(request):
     destination_list = Destination.objects.all()
     page = request.GET.get('page', 1)
@@ -69,23 +65,41 @@ def user_side_destination_list(request):
     
     return render(request, 'destination.html', {'destinations': destinations})
 
-
-def destination_detail(request, destination_id):
+def accommodation(request):
+    accommodation_list = Accommodation.objects.all()
+    page = request.GET.get('page', 1)
+    
+    # Show 9 destinations per page
+    paginator = Paginator(accommodation_list, 9)
+    
     try:
-        destination = Destination.objects.get(id=destination_id)
-        context = {
-            'destination': destination,
-        }
-        return render(request, 'destination_detail.html', context)
-    except Destination.DoesNotExist:
-        # Handle case when destination is not found
-        return render(request, '404.html')
+        accommodation = paginator.page(page)
+    except PageNotAnInteger:
+        accommodation = paginator.page(1)
+    except EmptyPage:
+        accommodation = paginator.page(paginator.num_pages)
+
+    return render(request, 'accomodation.html', {'accommodations': accommodation})
+
 
 # def article(request):
 #     return render(request, 'articles.html')
 
-# def food(request):
-#     return render(request, 'food_drinks.html')
+def food(request):
+    food_list = Activity.objects.all()
+    page = request.GET.get('page', 1)
+    
+    # Show 9 destinations per page
+    paginator = Paginator(food_list, 9)
+    
+    try:
+        food = paginator.page(page)
+    except PageNotAnInteger:
+        food = paginator.page(1)
+    except EmptyPage:
+        food = paginator.page(paginator.num_pages)
+
+    return render(request, 'food_drinks.html', {'foods': food})
 
 
 # def attractions_view(request):
@@ -94,8 +108,21 @@ def destination_detail(request, destination_id):
 # def food_view(request):
 #     return render(request, 'admin_side/food.html')
 
-# def activities_view(request):
-#     return render(request, 'admin_side/activities.html')
+def activity(request):
+    activity_list = Activity.objects.all()
+    page = request.GET.get('page', 1)
+    
+    # Show 9 destinations per page
+    paginator = Paginator(activity_list, 9)
+    
+    try:
+        activity = paginator.page(page)
+    except PageNotAnInteger:
+        activity = paginator.page(1)
+    except EmptyPage:
+        activity = paginator.page(paginator.num_pages)
+
+    return render(request, 'activity.html', {'activities': activity})
 
 # def events_view(request):
 #     return render(request, 'admin_side/events.html')
