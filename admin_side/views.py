@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect,  get_object_or_404
-from .models import Restaurant, Destination, Activity, Accommodation
+from django.shortcuts import render,  get_object_or_404
+from django.http import HttpResponseBadRequest
+from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
 import json
 import os
-import logging
 from django.core.exceptions import ValidationError
 
 def login(request):
@@ -316,10 +316,106 @@ def delete_restaurant(request, restaurant_id):
         }, status=400)
 
 # ARTICLES
+def ensure_default_tags():
+    default_tags = [
+        'Travel', 'Tips', 'Beach', 'Adventure', 'Food',
+        'Culture', 'Nature', 'City', 'History', 'Photography'
+    ]
+    
+    for tag_name in default_tags:
+        Tag.objects.get_or_create(name=tag_name)
+
+
 def admin_article(request):
-    return render(request, 'admin_article.html', {
-        'page_title': 'Articles'
-    })
+    articles = Article.objects.all()
+    tags = Tag.objects.all()
+    return render(request, 'admin_article.html', {'articles': articles, 'tags': tags})
+
+@csrf_exempt
+def article_detail(request, id):
+    try:
+        article = get_object_or_404(Article, id=id)
+        if request.method == 'GET':
+            return JsonResponse({
+                'id': article.id,
+                'title': article.title,
+                'content': article.content,
+                'author': article.author,
+                'tags': list(article.tags.values_list('id', flat=True))
+            })
+        else:
+            return HttpResponseBadRequest("Invalid HTTP method.")
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+@csrf_exempt
+def create_article(request):
+    if request.method == 'POST':
+        try:
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            author = request.POST.get('author')
+            tags = request.POST.getlist('tags')  # Use `getlist` for multiple tags
+            image = request.FILES.get('image')  # Get the uploaded image
+
+            article = Article.objects.create(
+                title=title,
+                content=content,
+                author=author,
+                image=image  # Save the uploaded image
+            )
+
+            # Add tags to the article
+            article.tags.set(tags)
+            article.save()
+
+            return JsonResponse({'message': 'Article created successfully', 'article_id': article.id})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
+
+
+@csrf_exempt
+def update_article(request, id):
+    if request.method == 'POST':
+        try:
+            article = get_object_or_404(Article, id=id)
+
+            # Handle form data
+            title = request.POST.get('title', article.title)
+            content = request.POST.get('content', article.content)
+            author = request.POST.get('author', article.author)
+            tags = request.POST.getlist('tags')  # Use getlist for multiple tags
+            image = request.FILES.get('image')  # Handle uploaded image, if provided
+
+            # Update fields
+            article.title = title
+            article.content = content
+            article.author = author
+
+            if image:  # Update image only if a new one is uploaded
+                article.image = image
+
+            # Update tags
+            article.tags.set(tags)
+            article.save()
+
+            return JsonResponse({'message': 'Article updated successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
+
+
+@csrf_exempt
+def delete_article(request, id):
+    if request.method == 'DELETE':
+        try:
+            article = get_object_or_404(Article, id=id)
+            article.delete()
+            return JsonResponse({'message': 'Article deleted successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
 
 # ACTIVITIES
 def admin_activity(request):

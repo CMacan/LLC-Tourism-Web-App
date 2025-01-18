@@ -324,42 +324,34 @@
     <div class="container my-5">
         <h2 class="text-center mb-4">Featured Blog Posts</h2>
         <div class="row g-4">
-            <!-- Blog Post 1 -->
+            {% for post in featured_articles %}
             <div class="col-md-4">
                 <div class="card article-card">
-                    <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="Article Image">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Article Image">
+                    {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">5 Must-Visit Beaches in Lapu-Lapu</h5>
-                        <p class="card-text">Experience pristine waters, white sand, and breathtaking views.</p>
-                        <a href="#" class="btn btn-primary read-more">Read More</a>
+                        <h5 class="card-title text-center">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                        <div class="card-body text-center">
+                            <a href="{% url 'article_detail' post.id %}" class="btn btn-primary read-more">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Blog Post 2 -->
-            <div class="col-md-4">
-                <div class="card article-card">
-                    <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="Article Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Top Restaurants to Try Local Delicacies</h5>
-                        <p class="card-text">Savor the flavors of Lapu-Lapu with these must-try spots.</p>
-                        <a href="#" class="btn btn-primary read-more">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Blog Post 3 -->
-            <div class="col-md-4">
-                <div class="card article-card">
-                    <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="Article Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Historical Landmarks You Can't Miss</h5>
-                        <p class="card-text">Step back in time with these iconic sites in Lapu-Lapu City.</p>
-                        <a href="#" class="btn btn-primary read-more">Read More</a>
-                    </div>
-                </div>
-            </div>
+            {% empty %}
+            <p>No featured blog posts available.</p>
+            {% endfor %}
         </div>
     </div>
-</div> 
+    <div class="text-center mt-5 mb-3">
+        <a href="{% url 'article_list' %}" class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn">
+            <span class="btn-text">Go to Articles</span>
+            <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
 </main>
 <script src="{% static '/chatbot.js'  %}"></script>
 {% endblock %}

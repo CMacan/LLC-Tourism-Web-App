@@ -19,22 +19,14 @@
                       <img src="{{ activity.image.url }}" 
                            class="card-img-top" 
                            alt="{{ activity.name }}">
-                      {% if activity.popular %}
-                      <span class="popular-badge">Popular</span>
-                      {% endif %}
-                  </div>
+                    </div>
                   <div class="card-body d-flex flex-column">
-                      <!-- Centered Title -->
                       <h5 class="card-title text-center mb-3">{{ activity.name }}</h5>
-                      
-                      <!-- Description -->
-                      <p class="card-text text-muted mb-3">{{ activity.description|truncatechars:100 }}</p>
-                      
-                      <!-- Location and Category side by side -->
+                      <p class="card-text text-muted text-center mb-3">{{ activity.description|truncatechars:100 }}</p>
                       <div class="info-row mb-3">
                           <div class="info-item">
                               <i class="fas fa-map-marker-alt"></i>
-                              <span>{{ activity.location }}</span>
+                              <span>{{ activity.address }}</span>
                           </div>
                           <div class="info-item">
                               <i class="fas fa-tag"></i>
@@ -92,30 +84,6 @@
     </nav>
 </div>
 {% endif %}
-
-<div id="detail-template" class="d-none">
-    <div class="container my-5">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <img src="{{ image_url }}" alt="{{ title }}" class="img-fluid rounded shadow">
-            </div>
-            <div class="col-md-6">
-                <h1 class="fw-bold mb-4">{{ title }}</h1>
-                {% if category %}
-                <p><strong>Category:</strong> {{ category }}</p>
-                {% endif %}
-                {% if location %}
-                <p><strong>Location:</strong> {{ location }}</p>
-                {% endif %}
-                <p>{{ description }}</p>
-                {% if rating %}
-                <p><strong>Rating:</strong> ⭐ {{ rating }} / 5</p>
-                {% endif %}
-                <a href="" class="btn btn-primary mt-3">Go to Other Page</a>
-            </div>
-        </div>
-    </div>
-</div>
 <style>
   .header-section {
       padding: 2rem 0;

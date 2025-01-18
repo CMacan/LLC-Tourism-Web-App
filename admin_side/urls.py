@@ -36,5 +36,10 @@ urlpatterns = [
     path('admin_activity/delete/<int:id>/', views.delete_activity, name='delete_activity'),
     path('admin_activity/get/<int:id>/', views.get_activity, name='get_activity'),
 
-    path('admin_article/', views.admin_article, name='admin_article'),
+
+    path('articles/', views.admin_article, name='admin_article'),
+    path('articles/<int:id>/', views.article_detail, name='article_detail'),
+    path('articles/create/', views.create_article, name='create_article'),
+    path('articles/<int:id>/update/', views.update_article, name='update_article'),
+    path('articles/<int:id>/delete/', views.delete_article, name='delete_article'),
 ]
