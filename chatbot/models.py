@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class Inquiry(models.Model):
+    category = models.CharField(max_length=255)  # e.g., "Hotels", "Beaches"
+    timestamp = models.DateTimeField(auto_now_add=True)
+
