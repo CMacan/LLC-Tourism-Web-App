@@ -1,8 +1,18 @@
 from django.db import models
+from django.utils import timezone
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Destination(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)  
     description = models.TextField()
     image = models.ImageField(upload_to='destination_images/')
     category = models.CharField(max_length=50, choices=[
@@ -17,9 +27,18 @@ class Destination(models.Model):
     def __str__(self):
         return self.name
     
+    def google_maps_link(self):
+        """Returns the Google Maps URL."""
+        if self.latitude and self.longitude:
+            return f"https://www.google.com/maps?q={self.latitude},{self.longitude}"
+        elif self.location:
+            return f"https://www.google.com/maps?q={self.location}"
+        return None
+    
 class Activity(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    address = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     duration = models.DurationField(null=True, blank=True)  # For example, 2 hours
     image = models.ImageField(upload_to='activity/', null=True, blank=True)
@@ -45,33 +64,34 @@ class Accommodation(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['-rating']
+        verbose_name_plural = 'Accommodations'
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=200, unique=True)  # Restaurant name
     address = models.TextField()  # Full address
-    contact_number = models.CharField(max_length=15, blank=True, null=True)  # Optional contact number
-    cuisine_type = models.CharField(max_length=100, blank=True, null=True)  # Type of cuisine (e.g., Filipino, Seafood)
     rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)  # Average rating (e.g., 4.5)
-    price_range = models.CharField(max_length=50, blank=True, null=True)  # Price range (e.g., "₱₱₱")
     opening_hours = models.CharField(max_length=100, blank=True, null=True)  # Opening hours (e.g., "9 AM - 9 PM")
     website = models.URLField(blank=True, null=True)  # Website link
-    menu_url = models.URLField(blank=True, null=True)  # Link to the menu
-    is_open = models.BooleanField(default=True)  # Whether the restaurant is currently open
+    facebook_link = models.URLField(blank=True, null=True)
+    instagram_link = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the record was created
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp for the last update
-    photo = models.ImageField(upload_to='restaurant_photos/', blank=True, null=True)  # Photo upload
+    image = models.ImageField(upload_to='restaurant_photos/', blank=True, null=True)  # Photo upload
 
     def __str__(self):
         return self.name
-    
+
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     author = models.CharField(max_length=255)
-    published_date = models.DateField()
+    published_date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='articles/', null=True, blank=True)
-    tags = models.CharField(max_length=255, null=True, blank=True)  # Example: "Travel, Tips, Beach"
+    tags = models.ManyToManyField(Tag)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

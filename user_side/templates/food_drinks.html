@@ -1,81 +1,181 @@
 {% extends "base.html" %}
 {% load static %}
-{% block image_background %}
-  <img src="{% static '/assets/food.jpg' %}" alt="Lapu-Lapu City" class="img-fluid w-100"/>
+{% block home%}
 {% endblock %}
-{% block title %}
-  Room Rates
-{% endblock %} 
-{% block card_images %}
-  <!-- Card 1 -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/food.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+{% block page-content %}
+<div class="container my-5">
+    <div class="header-section mb-5 text-center position-relative">
+        <h2 class="text-uppercase fw-bold display-6">RESTAURANT</h2>
+        <div class="title-underline mx-auto position-relative" style="width: 100px; height: 4px; background-color: #007BFF;">
+            <span class="position-absolute top-50 start-50 translate-middle rounded-circle" style="width: 15px; height: 15px; background-color: #FFC107;"></span>
+        </div>
+    </div>
+    <div class="row g-4">
+        {% if restaurants %}
+            {% for restaurant in restaurants %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card restaurant-card h-100">
+                    <div class="image-wrapper">
+                        <img src="{{ restaurant.image.url }}" 
+                             class="card-img-top" 
+                             alt="{{ restaurant.name }}">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center mb-3">{{ restaurant.name }}</h5>
+                        <p class="text-muted text-center mb-2">
+                            <i class="fas fa-map-marker-alt"></i> {{ restaurant.address }}
+                        </p>
+                        <div class="info-row mb-3">
+                            <div class="info-item">
+                                {{ restaurant.opening_hours }}
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-star"></i> {{ restaurant.rating }}/5
+                            </div>
+                        </div>
+                        <div class="social-links mt-3 mb-3 text-center">
+                            {% if restaurant.facebook_link %}
+                            <a href="{{ restaurant.facebook_link }}" 
+                               target="_blank" 
+                               class="me-3 text-decoration-none social-icon">
+                                <i class="fab fa-facebook fa-2x text-primary"></i>
+                            </a>
+                            {% endif %}
+                            {% if restaurant.instagram_link %}
+                            <a href="{{ restaurant.instagram_link }}" 
+                               target="_blank" 
+                               class="text-decoration-none social-icon">
+                                <i class="fab fa-instagram fa-2x text-danger"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <a href="{{ restaurant.website }}" 
+                           target="_blank" 
+                           class="btn btn-outline-primary mt-3">
+                           Visit Restaurant Website
+                        </a>
+                    </div>
                 </div>
-              </div>
             </div>
-            
-            <!-- Card 2 -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/attraction.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-      
-            <!-- Additional Card -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/events.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
+        {% else %}
+        <div class="col-12 text-center">
+            <p class="text-muted">No restaurant options available.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
-            <!-- Card 3 -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <div class="card">
-                <img src="{% static '/assets/activity.jpg' %}" class="card-img-top" alt="..." style="height: 250px; object-fit: cover;">
-                <div class="card-body text-center d-flex flex-column align-items-center">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-  {% endblock %}
+<style>
+  .header-section {
+    padding: 2rem 0;
+}
+
+.title-underline {
+    width: 80px;
+    height: 3px;
+    background: #007bff;
+    margin-top: 1rem;
+}
+
+.restaurant-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.image-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.restaurant-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ensures the card body fills available space */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    max-height: 3rem; /* Limit the height of titles */
+    overflow: hidden; /* Hide overflow text for long titles */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+    white-space: nowrap;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.info-item i {
+    margin-right: 8px;
+    color: #007bff;
+}
+
+.social-links {
+    margin-bottom: 1rem;
+}
+
+.social-icon i {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+    color: #0056b3; /* Adjust hover color */
+}
+
+.btn-outline-primary {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    margin-top: auto; /* Pushes the button to the bottom */
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+</style>
+{% endblock %}

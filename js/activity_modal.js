@@ -112,6 +112,7 @@ function populateUpdateModal(activityId) {
         .then(data => {
             document.getElementById('updateActivityId').value = activityId;
             document.getElementById('updateName').value = data.name;
+            document.getElementById('updateAddress').value = data.address;
             document.getElementById('updateDescription').value = data.description;
             document.getElementById('updateCategory').value = data.category;
             document.getElementById('updateRating').value = data.rating;

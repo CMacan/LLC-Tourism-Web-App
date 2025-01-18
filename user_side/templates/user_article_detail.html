@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block home %}
+{% endblock %}
+
+{% block page-content %}
+<div class="container my-5">
+    <div class="header-section mb-5 text-center position-relative">
+        <h2 class="text-uppercase fw-bold display-6">{{ article.title }}</h2>
+        <div class="title-underline mx-auto position-relative" style="width: 100px; height: 4px; background-color: #007BFF;">
+            <span class="position-absolute top-50 start-50 translate-middle rounded-circle" style="width: 15px; height: 15px; background-color: #FFC107;"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="image-wrapper">
+                {% if article.image %}
+                    <img src="{{ article.image.url }}" class="img-fluid" alt="{{ article.title }}">
+                {% else %}
+                    <img src="{% static 'images/default-article.jpg' %}" class="img-fluid" alt="Default Article Image">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="article-info">
+                <p><strong>By:</strong> {{ article.author }}</p>
+                <p><strong>Published on:</strong> {{ article.published_date|date:"F j, Y" }}</p>
+                <p><strong>Tags:</strong> 
+                    {% for tag in article.tags.all %}
+                        <span class="badge bg-primary">{{ tag.name }}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="article-content mt-4">
+        <p>{{ article.content }}</p>
+    </div>
+</div>
+{% endblock %}
