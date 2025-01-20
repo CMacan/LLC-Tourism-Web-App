@@ -89,13 +89,18 @@ def accommodation(request):
 
 class ArticleListView(ListView):
     model = Article
-    template_name = 'user_articles_list.html'
+    template_name = 'articles_list.html'
     context_object_name = 'articles'
+    ordering = ['-published_date']
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'user_article_detail.html'
+    template_name = 'article_detail.html'
     context_object_name = 'article'
+
+    def get(self, request, *args, **kwargs):
+        print("Article Detail View Triggered")
+        return super().get(request, *args, **kwargs)
 
 def food(request):
     restaurant_list = Restaurant.objects.all()

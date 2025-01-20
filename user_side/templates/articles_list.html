@@ -19,7 +19,7 @@
                     <h5 class="card-title text-center">{{ post.title }}</h5>
                     <p class="card-text">{{ post.content|truncatechars:100 }}</p>
                     <div class="card-body text-center">
-                        <a href="{% url 'user_article_detail' post.id %}" class="btn btn-primary read-more">Read More</a>
+                        <a href="{% url 'article_detail' pk=post.pk %}" class="btn btn-primary read-more">Read More</a>
                     </div>
                 </div>
             </div>

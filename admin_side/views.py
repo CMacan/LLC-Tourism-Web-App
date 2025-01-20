@@ -99,8 +99,11 @@ def verify_otp(request):
                 'error': 'Invalid OTP'
             }, status=400)
             
-        except OTPModel.DoesNotExist:
-            return JsonResponse({'error': 'Invalid OTP'}, status=400)
+        except Exception as e:
+            logger.error(f"Error in verify_otp view: {str(e)}")
+            return JsonResponse({
+                'error': 'Internal server error'
+            }, status=500)
     
     return JsonResponse({
         'error': 'Invalid request method'
@@ -452,17 +455,21 @@ def create_article(request):
             title = request.POST.get('title')
             content = request.POST.get('content')
             author = request.POST.get('author')
-            tags = request.POST.getlist('tags')  # Use `getlist` for multiple tags
-            image = request.FILES.get('image')  # Get the uploaded image
+            author_image = request.FILES.get('author_image') 
+            author_bio = request.POST.get('author_bio')
+            tags = request.POST.getlist('tags')  
+            image = request.FILES.get('image')  
 
             article = Article.objects.create(
                 title=title,
                 content=content,
                 author=author,
-                image=image  # Save the uploaded image
+                author_image=author_image,
+                author_bio=author_bio,  
+                image=image  
             )
 
-            # Add tags to the article
+
             article.tags.set(tags)
             article.save()
 
@@ -478,22 +485,25 @@ def update_article(request, id):
         try:
             article = get_object_or_404(Article, id=id)
 
-            # Handle form data
             title = request.POST.get('title', article.title)
             content = request.POST.get('content', article.content)
             author = request.POST.get('author', article.author)
-            tags = request.POST.getlist('tags')  # Use getlist for multiple tags
-            image = request.FILES.get('image')  # Handle uploaded image, if provided
+            author_image = request.FILES.get('author_image', article.author_image)  
+            author_bio = request.POST.get('author_bio', article.author_bio)  
+            tags = request.POST.getlist('tags')  
+            image = request.FILES.get('image')  
 
-            # Update fields
+            
             article.title = title
             article.content = content
             article.author = author
+            article.author_bio = author_bio  
+            if author_image: 
+                article.author_image = author_image  
 
-            if image:  # Update image only if a new one is uploaded
+            if image:  
                 article.image = image
 
-            # Update tags
             article.tags.set(tags)
             article.save()
 
