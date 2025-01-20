@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('login/', views.login, name='login'),
+    path('send-otp/', views.send_otp, name='send_otp'),
+    path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('dashboard/', views.dashboard, name='dashboard'),
 
     path('admin_destination/', views.admin_destination, name='admin_destination'),
@@ -36,5 +38,10 @@ urlpatterns = [
     path('admin_activity/delete/<int:id>/', views.delete_activity, name='delete_activity'),
     path('admin_activity/get/<int:id>/', views.get_activity, name='get_activity'),
 
-    path('admin_article/', views.admin_article, name='admin_article'),
+
+    path('articles/', views.admin_article, name='admin_article'),
+    path('articles/<int:id>/', views.article_detail, name='article_detail'),
+    path('articles/create/', views.create_article, name='create_article'),
+    path('articles/<int:id>/update/', views.update_article, name='update_article'),
+    path('articles/<int:id>/delete/', views.delete_article, name='delete_article'),
 ]

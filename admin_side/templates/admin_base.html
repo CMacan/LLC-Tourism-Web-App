@@ -47,133 +47,58 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link nav-font-color dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#destinationsDropdown"
+            class="nav-link nav-font-color"
+            href="{% url 'admin_destination' %}"
             role="button"
             aria-expanded="false"
             aria-controls="destinationsDropdown"
           >
             <i class="bi bi-geo"></i> Destinations
           </a>
-          <div class="collapse" id="destinationsDropdown">
-            <ul class="list-unstyled ms-3">
-              <li>
-                <a href="{% url 'admin_destination' %}" class="nav-font-color"
-                  >Beaches</a
-                >
-              </li>
-              <li>
-                <a href="{% url 'admin_destination' %}" class="nav-font-color"
-                  >Parks</a
-                >
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
           <a
-            class="nav-link nav-font-color dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#activitiesDropdown"
+            class="nav-link nav-font-color"
+            href="{% url 'admin_activity' %}"
             role="button"
             aria-expanded="false"
             aria-controls="activitiesDropdown"
           >
             <i class="bi bi-calendar-event"></i> Activities
           </a>
-          <div class="collapse" id="activitiesDropdown">
-            <ul class="list-unstyled ms-3">
-              <li>
-                <a href="{% url 'admin_activity' %}" class="nav-font-color"
-                  >Outdoor</a
-                >
-              </li>
-              <li>
-                <a href="{% url 'admin_activity' %}" class="nav-font-color"
-                  >Indoor</a
-                >
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
           <a
-            class="nav-link nav-font-color dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#accommodationDropdown"
+            class="nav-link nav-font-color"
+            href="{% url 'admin_accomodation' %}"
             role="button"
             aria-expanded="false"
             aria-controls="accommodationDropdown"
           >
             <i class="bi bi-building"></i> Accommodation
           </a>
-          <div class="collapse" id="accommodationDropdown">
-            <ul class="list-unstyled ms-3">
-              <li>
-                <a href="{% url 'admin_accomodation' %}" class="nav-font-color"
-                  >Hotels</a
-                >
-              </li>
-              <li>
-                <a href="{% url 'admin_accomodation' %}" class="nav-font-color"
-                  >Resorts</a
-                >
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
           <a
-            class="nav-link nav-font-color dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#foodDropdown"
+            class="nav-link nav-font-color"
+            href="{% url 'admin_food_drink' %}"
             role="button"
             aria-expanded="false"
             aria-controls="foodDropdown"
           >
             <i class="bi bi-cup-straw"></i> Food & Drinks
           </a>
-          <div class="collapse" id="foodDropdown">
-            <ul class="list-unstyled ms-3">
-              <li>
-                <a href="{% url 'admin_food_drink' %}" class="nav-font-color"
-                  >Restaurants</a
-                >
-              </li>
-              <li>
-                <a href="{% url 'admin_food_drink' %}" class="nav-font-color"
-                  >Cafes</a
-                >
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
           <a
-            class="nav-link nav-font-color dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#articlesDropdown"
+            class="nav-link nav-font-color"
+            href="{% url 'admin_article' %}"
             role="button"
             aria-expanded="false"
             aria-controls="articlesDropdown"
           >
             <i class="bi bi-newspaper"></i> Articles
           </a>
-          <div class="collapse" id="articlesDropdown">
-            <ul class="list-unstyled ms-3">
-              <li>
-                <a href="{% url 'admin_article' %}" class="nav-font-color"
-                  >Travel Tips</a
-                >
-              </li>
-              <li>
-                <a href="{% url 'admin_article' %}" class="nav-font-color"
-                  >Local Stories</a
-                >
-              </li>
-            </ul>
-          </div>
         </li>
       </ul>
     </div>

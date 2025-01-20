@@ -1,11 +1,69 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from admin_side.models import Destination, Activity, Accommodation
+from admin_side.models import Destination, Activity, Accommodation, Restaurant, Article
 from django.core.cache import cache
+from django.views.generic import ListView, DetailView
 import logging
+from django.db.models import Q
 
 logger = logging.getLogger(__name__)
 
+
+
+def search_api(request):
+    query = request.GET.get('q', '')
+    category = request.GET.get('category', 'destinations')
+    
+    if len(query) < 2:
+        return JsonResponse([], safe=False)
+
+    results = []
+    
+    try:
+        if category == 'destinations':
+            items = Destination.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Destination'
+            
+        elif category == 'activities':
+            items = Activity.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Activity'
+            
+        elif category == 'hotels':
+            items = Hotel.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Hotel'
+            
+        elif category == 'restaurants':
+            items = Restaurant.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Restaurant'
+
+        for item in items:
+            results.append({
+                'title': item.name,
+                'description': item.description[:100] + '...' if len(item.description) > 100 else item.description,
+                'image': item.image.url if hasattr(item, 'image') and item.image else None,
+                'category': model_type,
+                'url': item.get_absolute_url(),
+            })
+
+        return JsonResponse(results, safe=False)
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+    
 def home(request):
     try:
         # Try to get all cached items
@@ -16,13 +74,13 @@ def home(request):
             cached_items = {}
             
             # Use select_related() to reduce database queries if you have foreign keys
-            destinations =(Destination.objects.filter(
+            destinations = Destination.objects.filter(
                 image__isnull=False
-            ).select_related().order_by('?')[:5])
+            ).select_related().order_by('?')[:5]
             
-            activities =(Activity.objects.filter(
+            activities = Activity.objects.filter(
                 image__isnull=False
-            ).select_related().order_by('?')[:5])
+            ).select_related().order_by('?')[:5]
             
             if destinations or activities:  # Only cache if we have data
                 cached_items = {
@@ -39,15 +97,18 @@ def home(request):
             'random_activities': [],
         }
 
+    # Fetch the latest articles to display as featured blog posts
+    featured_articles = Article.objects.all().order_by('-published_date')[:3]  # Get 3 latest articles
+
     # Add any additional context data needed by the template
     context = {
         'random_destinations': cached_items.get('random_destinations', []),
         'random_activities': cached_items.get('random_activities', []),
+        'featured_articles': featured_articles,  # Add featured articles here
         'page_title': 'Home',  # Optional: Add page title
     }
 
-    return render(request, 'home2.html', context)
-
+    return render(request, 'home.html', context)
 
 def user_side_destination_list(request):
     destination_list = Destination.objects.all()
@@ -64,6 +125,7 @@ def user_side_destination_list(request):
         destinations = paginator.page(paginator.num_pages)
     
     return render(request, 'destination.html', {'destinations': destinations})
+
 
 def accommodation(request):
     accommodation_list = Accommodation.objects.all()
@@ -82,31 +144,37 @@ def accommodation(request):
     return render(request, 'accomodation.html', {'accommodations': accommodation})
 
 
-# def article(request):
-#     return render(request, 'articles.html')
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'articles_list.html'
+    context_object_name = 'articles'
+    ordering = ['-published_date']
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article_detail.html'
+    context_object_name = 'article'
+
+    def get(self, request, *args, **kwargs):
+        print("Article Detail View Triggered")
+        return super().get(request, *args, **kwargs)
 
 def food(request):
-    food_list = Activity.objects.all()
+    restaurant_list = Restaurant.objects.all()
     page = request.GET.get('page', 1)
     
     # Show 9 destinations per page
-    paginator = Paginator(food_list, 9)
+    paginator = Paginator(restaurant_list, 9)
     
     try:
-        food = paginator.page(page)
+        restaurant = paginator.page(page)
     except PageNotAnInteger:
-        food = paginator.page(1)
+        restaurant = paginator.page(1)
     except EmptyPage:
-        food = paginator.page(paginator.num_pages)
+        restaurant = paginator.page(paginator.num_pages)
 
-    return render(request, 'food_drinks.html', {'foods': food})
+    return render(request, 'food_drinks.html', {'restaurants': restaurant})
 
-
-# def attractions_view(request):
-#     return render(request, 'admin_side/attractions.html')
-
-# def food_view(request):
-#     return render(request, 'admin_side/food.html')
 
 def activity(request):
     activity_list = Activity.objects.all()
@@ -123,8 +191,5 @@ def activity(request):
         activity = paginator.page(paginator.num_pages)
 
     return render(request, 'activity.html', {'activities': activity})
-
-# def events_view(request):
-#     return render(request, 'admin_side/events.html')
 
 

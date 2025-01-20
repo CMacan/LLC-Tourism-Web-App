@@ -1,4 +1,12 @@
 from django.db import models
+from django.utils import timezone
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Destination(models.Model):
     name = models.CharField(max_length=100)
@@ -75,15 +83,15 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     author = models.CharField(max_length=255)
-    published_date = models.DateField()
+    published_date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='articles/', null=True, blank=True)
-    tags = models.CharField(max_length=255, null=True, blank=True)  # Example: "Travel, Tips, Beach"
+    tags = models.ManyToManyField(Tag)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

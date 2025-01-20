@@ -1,15 +1,115 @@
-from django.shortcuts import render, redirect,  get_object_or_404
-from .models import Restaurant, Destination, Activity, Accommodation
+from django.shortcuts import render,  get_object_or_404
+from django.http import HttpResponseBadRequest
+from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
 import json
 import os
-import logging
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.conf import settings
+import random
+import logging
 
+
+logger = logging.getLogger(__name__)
 def login(request):
     return render(request, 'login.html')
+
+@ensure_csrf_cookie
+def send_otp(request):
+    if request.method == 'POST':
+        try:
+            # Parse JSON data
+            data = json.loads(request.body)
+            email = data.get('email')
+
+            if not email:
+                return JsonResponse({
+                    'error': 'Email is required'
+                }, status=400)
+
+            # Generate OTP
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            
+            # Store OTP in session
+            request.session['otp'] = otp
+            request.session['email'] = email
+            
+            try:
+                # Send email
+                send_mail(
+                    subject='Your Login Verification Code',
+                    message=f'Your verification code is: {otp}',
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
+                
+                return JsonResponse({
+                    'message': 'OTP sent successfully'
+                })
+                
+            except Exception as e:
+                logger.error(f"Email sending failed: {str(e)}")
+                return JsonResponse({
+                    'error': 'Failed to send email'
+                }, status=500)
+
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'error': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            logger.error(f"Error in send_otp view: {str(e)}")
+            return JsonResponse({
+                'error': 'Internal server error'
+            }, status=500)
+    
+    return JsonResponse({
+        'error': 'Invalid request method'
+    }, status=405)
+
+@ensure_csrf_cookie
+def verify_otp(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+            otp = data.get('otp')
+            
+            stored_otp = request.session.get('otp')
+            stored_email = request.session.get('email')
+            
+            if not all([email, otp, stored_otp, stored_email]):
+                return JsonResponse({
+                    'error': 'Missing required data'
+                }, status=400)
+            
+            if email == stored_email and otp == stored_otp:
+                request.session.flush()
+
+                return JsonResponse({
+                    'message': 'Success'
+                })
+
+            
+            return JsonResponse({
+                'error': 'Invalid OTP'
+            }, status=400)
+            
+        except Exception as e:
+            logger.error(f"Error in verify_otp view: {str(e)}")
+            return JsonResponse({
+                'error': 'Internal server error'
+            }, status=500)
+    
+    return JsonResponse({
+        'error': 'Invalid request method'
+    }, status=405)
+
+
 
 def dashboard(request):
     return render(request, 'dashboard.html', {
@@ -316,10 +416,113 @@ def delete_restaurant(request, restaurant_id):
         }, status=400)
 
 # ARTICLES
+def ensure_default_tags():
+    default_tags = [
+        'Travel', 'Tips', 'Beach', 'Adventure', 'Food',
+        'Culture', 'Nature', 'City', 'History', 'Photography'
+    ]
+    
+    for tag_name in default_tags:
+        Tag.objects.get_or_create(name=tag_name)
+
+
 def admin_article(request):
-    return render(request, 'admin_article.html', {
-        'page_title': 'Articles'
-    })
+    articles = Article.objects.all()
+    tags = Tag.objects.all()
+    return render(request, 'admin_article.html', {'articles': articles, 'tags': tags})
+
+@csrf_exempt
+def article_detail(request, id):
+    try:
+        article = get_object_or_404(Article, id=id)
+        if request.method == 'GET':
+            return JsonResponse({
+                'id': article.id,
+                'title': article.title,
+                'content': article.content,
+                'author': article.author,
+                'tags': list(article.tags.values_list('id', flat=True))
+            })
+        else:
+            return HttpResponseBadRequest("Invalid HTTP method.")
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+@csrf_exempt
+def create_article(request):
+    if request.method == 'POST':
+        try:
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            author = request.POST.get('author')
+            author_image = request.FILES.get('author_image') 
+            author_bio = request.POST.get('author_bio')
+            tags = request.POST.getlist('tags')  
+            image = request.FILES.get('image')  
+
+            article = Article.objects.create(
+                title=title,
+                content=content,
+                author=author,
+                author_image=author_image,
+                author_bio=author_bio,  
+                image=image  
+            )
+
+
+            article.tags.set(tags)
+            article.save()
+
+            return JsonResponse({'message': 'Article created successfully', 'article_id': article.id})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
+
+
+@csrf_exempt
+def update_article(request, id):
+    if request.method == 'POST':
+        try:
+            article = get_object_or_404(Article, id=id)
+
+            title = request.POST.get('title', article.title)
+            content = request.POST.get('content', article.content)
+            author = request.POST.get('author', article.author)
+            author_image = request.FILES.get('author_image', article.author_image)  
+            author_bio = request.POST.get('author_bio', article.author_bio)  
+            tags = request.POST.getlist('tags')  
+            image = request.FILES.get('image')  
+
+            
+            article.title = title
+            article.content = content
+            article.author = author
+            article.author_bio = author_bio  
+            if author_image: 
+                article.author_image = author_image  
+
+            if image:  
+                article.image = image
+
+            article.tags.set(tags)
+            article.save()
+
+            return JsonResponse({'message': 'Article updated successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
+
+
+@csrf_exempt
+def delete_article(request, id):
+    if request.method == 'DELETE':
+        try:
+            article = get_object_or_404(Article, id=id)
+            article.delete()
+            return JsonResponse({'message': 'Article deleted successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return HttpResponseBadRequest("Invalid HTTP method.")
 
 # ACTIVITIES
 def admin_activity(request):
