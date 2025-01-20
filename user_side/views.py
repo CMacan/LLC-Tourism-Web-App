@@ -51,7 +51,7 @@ def home(request):
         'page_title': 'Home',  # Optional: Add page title
     }
 
-    return render(request, 'home2.html', context)
+    return render(request, 'home.html', context)
 
 def user_side_destination_list(request):
     destination_list = Destination.objects.all()

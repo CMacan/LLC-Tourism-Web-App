@@ -7,9 +7,106 @@ from django.views.decorators.http import require_http_methods
 import json
 import os
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.conf import settings
+import random
+import logging
 
+
+logger = logging.getLogger(__name__)
 def login(request):
     return render(request, 'login.html')
+
+@ensure_csrf_cookie
+def send_otp(request):
+    if request.method == 'POST':
+        try:
+            # Parse JSON data
+            data = json.loads(request.body)
+            email = data.get('email')
+
+            if not email:
+                return JsonResponse({
+                    'error': 'Email is required'
+                }, status=400)
+
+            # Generate OTP
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            
+            # Store OTP in session
+            request.session['otp'] = otp
+            request.session['email'] = email
+            
+            try:
+                # Send email
+                send_mail(
+                    subject='Your Login Verification Code',
+                    message=f'Your verification code is: {otp}',
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
+                
+                return JsonResponse({
+                    'message': 'OTP sent successfully'
+                })
+                
+            except Exception as e:
+                logger.error(f"Email sending failed: {str(e)}")
+                return JsonResponse({
+                    'error': 'Failed to send email'
+                }, status=500)
+
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'error': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            logger.error(f"Error in send_otp view: {str(e)}")
+            return JsonResponse({
+                'error': 'Internal server error'
+            }, status=500)
+    
+    return JsonResponse({
+        'error': 'Invalid request method'
+    }, status=405)
+
+@ensure_csrf_cookie
+def verify_otp(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+            otp = data.get('otp')
+            
+            stored_otp = request.session.get('otp')
+            stored_email = request.session.get('email')
+            
+            if not all([email, otp, stored_otp, stored_email]):
+                return JsonResponse({
+                    'error': 'Missing required data'
+                }, status=400)
+            
+            if email == stored_email and otp == stored_otp:
+                request.session.flush()
+
+                return JsonResponse({
+                    'message': 'Success'
+                })
+
+            
+            return JsonResponse({
+                'error': 'Invalid OTP'
+            }, status=400)
+            
+        except OTPModel.DoesNotExist:
+            return JsonResponse({'error': 'Invalid OTP'}, status=400)
+    
+    return JsonResponse({
+        'error': 'Invalid request method'
+    }, status=405)
+
+
 
 def dashboard(request):
     return render(request, 'dashboard.html', {
