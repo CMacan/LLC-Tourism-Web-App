@@ -1,12 +1,69 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from admin_side.models import Destination, Activity, Accommodation, Restaurant, Article
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 import logging
+from django.db.models import Q
 
 logger = logging.getLogger(__name__)
 
+
+
+def search_api(request):
+    query = request.GET.get('q', '')
+    category = request.GET.get('category', 'destinations')
+    
+    if len(query) < 2:
+        return JsonResponse([], safe=False)
+
+    results = []
+    
+    try:
+        if category == 'destinations':
+            items = Destination.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Destination'
+            
+        elif category == 'activities':
+            items = Activity.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Activity'
+            
+        elif category == 'hotels':
+            items = Hotel.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Hotel'
+            
+        elif category == 'restaurants':
+            items = Restaurant.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )[:5]
+            model_type = 'Restaurant'
+
+        for item in items:
+            results.append({
+                'title': item.name,
+                'description': item.description[:100] + '...' if len(item.description) > 100 else item.description,
+                'image': item.image.url if hasattr(item, 'image') and item.image else None,
+                'category': model_type,
+                'url': item.get_absolute_url(),
+            })
+
+        return JsonResponse(results, safe=False)
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+    
 def home(request):
     try:
         # Try to get all cached items

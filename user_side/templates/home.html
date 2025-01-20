@@ -22,34 +22,39 @@
             
             <!-- Search Container -->
             <div class="row justify-content-center">
-              <div class="col-12 col-md-8 col-lg-6">
-                <div class="search-wrapper bg-white rounded-pill p-2 shadow">
-                  <div class="d-flex align-items-center">
-                    <div class="px-3">
-                      <i class="fas fa-search text-muted"></i>
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="search-wrapper bg-white rounded-pill p-2 shadow">
+                        <form id="searchForm" class="d-flex align-items-center">
+                            <div class="px-3">
+                                <i class="fas fa-search text-muted"></i>
+                            </div>
+                            <input
+                                type="text"
+                                id="search_input"
+                                class="form-control border-0 shadow-none"
+                                placeholder="What are you looking for?"
+                                autocomplete="off"
+                            />
+                            <select 
+                                id="category"
+                                class="form-select border-0 shadow-none"
+                                style="max-width: 150px;"
+                            >
+                                <option value="destinations">Destinations</option>
+                                <option value="activities">Activities</option>
+                                <option value="hotels">Hotels</option>
+                                <option value="restaurants">Restaurants</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 ms-2 search-btn">
+                                <span class="button-text">Search</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </form>
                     </div>
-                    <input
-                      type="text"
-                      id="search_input"
-                      class="form-control border-0 shadow-none"
-                      placeholder="What are you looking for?"
-                    />
-                    <select 
-                      id="category"
-                      class="form-select border-0 shadow-none"
-                      style="max-width: 150px;"
-                    >
-                      <option value="destinations">Destinations</option>
-                      <option value="attractions">Activities</option>
-                      <option value="attractions">Hotels</option>
-                      <option value="food">Restaurants</option>
-                    </select>
-                    <button class="btn btn-primary rounded-pill px-4 ms-2">
-                      Search
-                    </button>
-                  </div>
+                    <!-- Search Results Container -->
+                    <div id="searchResults" class="search-results mt-3 d-none">
+                    </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -335,6 +340,7 @@
     </div>
 </main>
 <script src="{% static '/chatbot.js'  %}"></script>
+<script src="{% static '/home.js'  %}"></script>
 {% endblock %}
 {% block page-content%}
 {% endblock %}
