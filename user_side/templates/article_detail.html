@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <article>
+                <h1 class="mb-4">{{ article.title }}</h1>
+                <div class="article-meta mb-4">
+                    <span class="author">By {{ article.author }}</span>
+                    <span class="date">{{ article.published_date|date:"F j, Y" }}</span>
+                </div>
+                {% if article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid mb-4">
+                {% endif %}
+                <div class="article-content">
+                    {{ article.content|safe|linebreaks }}
+                </div>
+                {% if article.tags.all %}
+                <div class="tags mt-4">
+                    {% for tag in article.tags.all %}
+                    <span class="badge bg-secondary me-2">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

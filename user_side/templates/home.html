@@ -3,7 +3,6 @@
 {% block home %}
 <main>
       <div class="container-fluid p-0">
-        <!-- Top Band Image -->
         <div class="band-container">
           <img
             class="img-fluid w-100"
@@ -12,8 +11,6 @@
             style="height: 10vh;"
           />
         </div>
-  
-        <!-- Logo Section with Gradient Background -->
         <div class="logo-section">
           <div class="container text-center">
             <img
@@ -87,10 +84,10 @@
         <div class="row justify-content-center g-4">
             <!-- Destinations Circle -->
             <div class="col-auto"> <!-- Changed to col-auto -->
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'user_side_destination_list' %}" class="text-decoration-none">
                     <div class="circle-container">
                         <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Destinations">
+                            <img src="{% static '/assets/destination.jpg' %}" alt="Destinations">
                             <div class="circle-overlay">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
@@ -102,10 +99,10 @@
     
             <!-- Activities Circle -->
             <div class="col-auto">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'activity' %}" class="text-decoration-none">
                     <div class="circle-container">
                         <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Activities">
+                            <img src="{% static '/assets/Island.jpg' %}" alt="Activities">
                             <div class="circle-overlay">
                                 <i class="fas fa-hiking"></i>
                             </div>
@@ -117,10 +114,10 @@
     
             <!-- Hotels Circle -->
             <div class="col-auto">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'accommodation' %}" class="text-decoration-none">
                     <div class="circle-container">
                         <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Hotels">
+                            <img src="{% static '/assets/hotel.jpg' %}" alt="Hotels">
                             <div class="circle-overlay">
                                 <i class="fas fa-hotel"></i>
                             </div>
@@ -132,10 +129,10 @@
     
             <!-- Restaurants Circle -->
             <div class="col-auto">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'food' %}" class="text-decoration-none">
                     <div class="circle-container">
                         <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Restaurants">
+                            <img src="{% static '/assets/restaurant.jpg' %}" alt="Restaurants">
                             <div class="circle-overlay">
                                 <i class="fas fa-utensils"></i>
                             </div>
@@ -145,27 +142,12 @@
                 </a>
             </div>
     
-            <!-- Events Circle -->
-            <div class="col-auto">
-                <a href="" class="text-decoration-none">
-                    <div class="circle-container">
-                        <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Event">
-                            <div class="circle-overlay">
-                                <i class="fas fa-calendar-alt"></i> <!-- Changed icon -->
-                            </div>
-                        </div>
-                        <h3 class="circle-label">Events</h3>
-                    </div>
-                </a>
-            </div>
-    
             <!-- Article Circle -->
             <div class="col-auto">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'article_list' %}" class="text-decoration-none">
                     <div class="circle-container">
                         <div class="circle-image-wrapper">
-                            <img src="{% static '/assets/food.jpg' %}" alt="Article">
+                            <img src="{% static '/assets/blog.png' %}" alt="Article">
                             <div class="circle-overlay">
                                 <i class="fas fa-newspaper"></i> <!-- Changed icon -->
                             </div>
@@ -179,7 +161,6 @@
     <div class="container-fluid py-5"> <!-- Changed to container-fluid for more width -->
         <!-- Section Title -->
         <div class="text-center mb-5 section-header">
-            <span class="section-subtitle">Explore!</span>
             <h2 class="display-5 fw-bold text-primary mb-2">Popular Activities</h2>
             <div class="title-underline mx-auto"></div>
             <p class="text-muted mt-3">Discover exciting adventures and experiences in Lapu-Lapu City</p>
@@ -220,7 +201,7 @@
     
         <!-- See More Button -->
         <div class="text-center mt-5">
-            <a href="" class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn">
+            <a href="{% url 'activity' %}" class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn">
                 <span class="btn-text">Explore All Activities</span>
                 <i class="fas fa-arrow-right ms-2"></i>
             </a>
@@ -270,7 +251,7 @@
     
         <!-- See More Button -->
         <div class="text-center mt-5">
-            <a href="" class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn">
+            <a href="{% url 'user_side_destination_list' %}" class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn">
                 <span class="btn-text">Explore All Destination</span>
                 <i class="fas fa-arrow-right ms-2"></i>
             </a>
@@ -288,13 +269,13 @@
             <div class="col-md-5">
                 <div class="category-card">
                     <div class="category-image">
-                        <img src="{% static '/assets/food.jpg' %}" 
+                        <img src="{% static '/assets/hotel2.jpg' %}" 
                             alt="Hotels"
                             class="img-fluid rounded">
                         <div class="image-overlay"></div>
                     </div>
                     <div class="category-button">
-                        <a href="" class="btn btn-light btn-lg category-btn">
+                        <a href="{% url 'accommodation' %}" class="btn btn-light btn-lg category-btn">
                             <i class="fas fa-hotel me-2"></i>
                             <span class="btn-label">Hotels</span>
                         </a>
@@ -306,13 +287,13 @@
             <div class="col-md-5">
                 <div class="category-card">
                     <div class="category-image">
-                        <img src="{% static '/assets/food.jpg' %}" 
+                        <img src="{% static '/assets/restaurant2.jpg' %}" 
                             alt="Restaurants"
                             class="img-fluid rounded">
                         <div class="image-overlay"></div>
                     </div>
                     <div class="category-button">
-                        <a href="" class="btn btn-light btn-lg category-btn">
+                        <a href="{% url 'food' %}" class="btn btn-light btn-lg category-btn">
                             <i class="fas fa-utensils me-2"></i>
                             <span class="btn-label">Restaurants</span>
                         </a>

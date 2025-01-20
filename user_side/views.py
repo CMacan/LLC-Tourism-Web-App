@@ -69,6 +69,7 @@ def user_side_destination_list(request):
     
     return render(request, 'destination.html', {'destinations': destinations})
 
+
 def accommodation(request):
     accommodation_list = Accommodation.objects.all()
     page = request.GET.get('page', 1)
