@@ -94,31 +94,39 @@
   background-color: #F0F0F0;
 }
 
-.navbar-links a[href="#chat"] {
-    color: #FFFFFF; 
-    background-color: #FDBF27; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    padding: 0 30px; 
-    height: 70px; 
-    line-height: 70px; 
+.chat-button {
+    color: #FFFFFF;
+    background-color: #FDBF27;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 0 30px;
+    height: 70px;
+    line-height: 70px;
     display: inline-block;
-    text-align: center; 
-    transition: transform 0.2s ease; 
+    text-align: center;
+    border: none; /* Remove default button border */
+    cursor: pointer;
+    transition: transform 0.2s ease;
     box-sizing: border-box;
+    font-size: 16px; /* Adjust font size if needed */
 }
 
-.navbar-links a[href="#chat"]:hover {
-  background-color: #FDBF27; 
+.chat-button:hover {
+    background-color: #FDBF27;
+}
+
+.chat-button:focus {
+    outline: none; /* Remove focus outline */
 }
 
 .chat-text {
-  display: inline-block; 
-  transition: transform 0.2s ease;
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
 
-.navbar-links a[href="#chat"]:hover .chat-text {
-  transform: scale(1.1); 
+.chat-button:hover .chat-text {
+    transform: scale(1.1);
 }
+
 
 .band-container {
     margin-top: 70px;
