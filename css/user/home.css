@@ -33,6 +33,7 @@
   z-index: 1000;   /* Ensures the navbar is above other elements */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: slight shadow */
   font-family: 'barabara-final', sans-serif;
+  padding:0 15px;
 }
 
 .navbar-logo {
@@ -42,14 +43,14 @@
 }
 
 .navbar-logo img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   margin-left: 10px;
   margin-top: 5px;
 }
 
 .navbar-logo span {
-  font-size: 20px;
+  font-size: 18px;
   color: #1D519E;
 }
 
@@ -65,18 +66,22 @@
 }
 
 .navbar-links {
-  display: flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap */
+    gap: 10px; /* Add spacing between items */
 }
 
 .navbar-links a {
-  color: #1D519E;
-  text-decoration: none;
-  padding: 20px 30px; 
-  font-size: 20px;
-  height: 100%;
-  transition: background-color 0.3s;
-  text-align: center;
+    color: #1D519E;
+    text-decoration: none;
+    padding: 10px 15px; /* Adjust padding for smaller screens */
+    font-size: 16px; /* Reduce font size */
+    transition: background-color 0.3s, font-size 0.3s;
+    text-align: center;
+    flex: 1; /* Allow items to shrink and grow */
+    max-width: 120px; /* Prevent items from being too wide */
 }
 
 .navbar-links a:hover {
@@ -92,24 +97,38 @@
 }
 
 .navbar-links a[href="#chat"]:hover {
-  background-color: #FDBF27; /* Keep background color same */
+  background-color: #FDBF27; 
 }
 
 .chat-text {
-  display: inline-block; /* Ensure the span behaves like text */
-  transition: transform 0.2s ease; /* Smooth scaling */
+  display: inline-block; 
+  transition: transform 0.2s ease;
 }
 
 .navbar-links a[href="#chat"]:hover .chat-text {
-  transform: scale(1.1); /* Scale only the text */
+  transform: scale(1.1); 
 }
 
+.band-container {
+    margin-top: 70px;
+    position: relative; 
+    z-index: 1; 
+}
+
+.band-image {
+    width: 100%; 
+    height: auto;
+    object-fit: cover; 
+    max-width: 100%; 
+  }
+  
 
 /* Logo section with gradient background */
 .logo-section {
     background: linear-gradient(to bottom, #2A1686 0%, #3D1370 34%, #640E44 100%);
-    padding: 3rem 0;
+    padding: 10rem 0;
     position: relative;
+    z-index: 0;
 }
 
 /* Logo styling */
@@ -240,18 +259,38 @@
 }
 
 .logo-section::before {
-    content: '';
+    content: none;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: none;
 }
 
+.logo-section::after {
+    content: none !important;
+    display: none !important;
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+
+    .navbar {
+        height: auto; /* Allow navbar height to adjust */
+        flex-direction: column; /* Stack logo and links */
+        padding: 10px;
+      }
+    
+      .navbar-links {
+        justify-content: center; /* Center align links */
+      }
+    
+      .navbar-links a {
+        padding: 8px 10px; /* Reduce padding further */
+        font-size: 14px; /* Smaller font size */
+      }
+    
     .band-container {
         height: 30vh; /* Smaller height on mobile */
     }
@@ -440,7 +479,21 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
+    .navbar-links a {
+        font-size: 12px; /* Further reduce font size */
+        padding: 5px 8px; /* Smaller padding */
+      }
+    
+      .navbar-logo img {
+        width: 50px; /* Smaller logo */
+        height: 50px;
+      }
+    
+      .navbar-logo span {
+        font-size: 16px; /* Adjust logo text size */
+      }
+
     .col-auto {
         width: 100%; /* Show 1 per row on very small screens */
     }
