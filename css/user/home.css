@@ -76,6 +76,7 @@
     flex-grow: 1; 
     flex-wrap: nowrap; 
     overflow: hidden;
+    max-width: 800px;
 }
 
 .navbar-links a {
