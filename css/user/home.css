@@ -52,7 +52,7 @@
 }
 
 .navbar-logo span {
-  font-size: 18px;
+  font-size: 20px;
   color: #1D519E;
 }
 
@@ -71,8 +71,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    flex-wrap: wrap; 
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     overflow: hidden;
 }
 
@@ -82,11 +81,13 @@
     padding: 0 15px; 
     height: 70px; 
     line-height: 70px; 
-    font-size: 16px;
+    font-size: 17px; 
     transition: background-color 0.3s, font-size 0.3s;
     text-align: center;
-    display: inline-block; 
-    box-sizing: border-box;
+    flex-shrink: 0; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 .navbar-links a:hover {
