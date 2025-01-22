@@ -28,9 +28,9 @@ SECRET_KEY = 'django-insecure-3*_r@aa=t&(*3*vd*(k^wb#^+ov!r&8@!ft%*!rjiic*s4t&@+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mydomain']
 
 
 # Application definition
@@ -101,20 +101,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tourism_project.wsgi.application'
 
 
-# Database
-# Load environment variables from .env file
-load_dotenv()
+import environ
 
-# Database settings
+env = environ.Env()
+environ.Env.read_env()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+    'default': env.db('DATABASE_URL', default='postgres://localhost/dbname')
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
