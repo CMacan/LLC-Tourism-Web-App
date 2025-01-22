@@ -22,20 +22,17 @@
           </a>
         </div>        
         <nav class="navbar-links">
-          <a href="{% url 'user_side_destination_list' %}">Destinations</a>
-          <a href="{% url 'activity' %}">Activities</a>
-          <a href="{% url 'accommodation' %}">Accommodations</a>
-          <a href="{% url 'food' %}">Food & Drinks</a>
-          <a href="#chat">Let's Chat!</a>
+          <a href="{% url 'user_side_destination_list' %}">DESTINATIONS</a>
+          <a href="{% url 'activity' %}">ACTIVITIES</a>
+          <a href="{% url 'accommodation' %}">ACCOMODATIONS</a>
+          <a href="{% url 'food' %}">FOOD & DRINKS</a>
+          <a href="#chat">LET'S CHAT!</a>
         </nav>
       </header>
 
       <!-- Wrap content blocks in a div -->
       <div id="content-wrapper">
-        {% block home%}
-        {% endblock %}
-        {% block page-content%}
-        {% endblock %}
+        {% block home%} {% endblock %} {% block page-content%} {% endblock %}
       </div>
 
       <!-- Footer -->
