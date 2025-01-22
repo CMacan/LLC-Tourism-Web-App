@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block home %}
 <main>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0" style="position: relative; z-index: 10">
     <div class="band-container">
       <img
         class="img-fluid w-100"
@@ -41,7 +41,7 @@
           </div>
           <div class="dropdown">
             <button onclick="toggleDropdown()">
-              <span id="selected-category">Destinations</span>
+              <span id="selected-category">Destinations </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -82,7 +82,7 @@
     <div id="chatbot_header">
       <div id="chatbot_title_with_pic">
         <div id="profile_pic"></div>
-        <div id="chatbot_title">LLC Tourism Chatbot Assistant</div>
+        <div id="chatbot_title">LLC Tourism Chat Assistant</div>
       </div>
       <button id="exit_button" onclick="toggleChatbot()">✖</button>
     </div>
@@ -190,6 +190,7 @@
       </div>
     </div>
   </div>
+
   <div class="container-fluid py-5">
     <!-- Changed to container-fluid for more width -->
     <!-- Section Title -->

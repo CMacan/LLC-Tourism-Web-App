@@ -160,6 +160,7 @@
 }
 
 .search-bar-container {
+    position: relative;
     width: 100%;
     max-width: 600px;
     background-color: white;
@@ -170,6 +171,7 @@
     align-items: center;
     gap: 16px;
     flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+    overflow: visible;
   }
   
   .search-input {
@@ -215,10 +217,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    justify-content: space-between;
+    width: auto; 
+    min-width: 160px;
   }
   
   .dropdown button svg {
-    margin-left: 8px;
+    margin-left: auto;
   }
   
   .dropdown-menu {
@@ -230,8 +235,8 @@
     border: 1px solid #dcdcdc;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    z-index: 20;
+    overflow: visible;
+    z-index: 9999;
   }
   
   .dropdown-menu button {
@@ -365,10 +370,14 @@
 }
 
 /* Circle container styles */
+
+
 .circle-container {
     text-align: center;
     transition: transform 0.3s ease;
     margin: 0 10px; /* Add horizontal spacing between circles */
+    position: relative;
+    z-index: 1;
 }
 
 .circle-container:hover {
@@ -420,6 +429,7 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 10;
 }
 
 .circle-container:hover .circle-overlay {
