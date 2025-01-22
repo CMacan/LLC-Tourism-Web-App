@@ -33,7 +33,7 @@
   z-index: 1000;   
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
   font-family: 'barabara-final', sans-serif;
-  padding:0 15px;
+  padding:0px;
   box-sizing: border-box;
 }
 
@@ -72,7 +72,6 @@
     justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap; 
-    gap: 10px; 
     flex-wrap: nowrap; 
     overflow: hidden;
 }
@@ -80,10 +79,14 @@
 .navbar-links a {
     color: #1D519E;
     text-decoration: none;
-    padding: 10px 15px; 
-    font-size: 16px; 
+    padding: 0 15px; 
+    height: 70px; 
+    line-height: 70px; 
+    font-size: 16px;
     transition: background-color 0.3s, font-size 0.3s;
     text-align: center;
+    display: inline-block; 
+    box-sizing: border-box;
 }
 
 .navbar-links a:hover {
@@ -91,11 +94,16 @@
 }
 
 .navbar-links a[href="#chat"] {
-  color: #FFFFFF; 
-  background-color: #FDBF27; 
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-  padding: 21px 30px; 
-  transition: transform 0.2s ease; 
+    color: #FFFFFF; 
+    background-color: #FDBF27; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    padding: 0 30px; 
+    height: 70px; 
+    line-height: 70px; 
+    display: inline-block;
+    text-align: center; 
+    transition: transform 0.2s ease; 
+    box-sizing: border-box;
 }
 
 .navbar-links a[href="#chat"]:hover {
