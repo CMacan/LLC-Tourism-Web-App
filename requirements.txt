@@ -40,7 +40,7 @@ google-generativeai==0.8.3
 google-pasta==0.2.0
 googleapis-common-protos==1.66.0
 grpcio==1.69.0
-grpcio-status==1.69.0
+grpcio-status>=1.69.0
 gunicorn==23.0.0
 h5py==3.11.0
 httplib2==0.22.0
@@ -69,7 +69,7 @@ pillow==10.3.0
 pip-tools==7.4.1
 platformdirs==4.2.1
 proto-plus==1.25.0
-protobuf==3.20.2
+protobuf>=3.20.2,<4.21.0
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pyasn1==0.6.1
@@ -114,7 +114,7 @@ tqdm==4.66.5
 typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
-urllib3==2.2.1
+urllib3==2.2.1a
 wcwidth==0.2.13
 Werkzeug==3.0.4
 whitenoise==6.8.2
