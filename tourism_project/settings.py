@@ -31,7 +31,7 @@ GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['143.44.164.10', 'localhost', 'mydomain.com']
 
 
 # Application definition
@@ -73,6 +73,7 @@ LOGGING = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -103,19 +104,10 @@ WSGI_APPLICATION = 'tourism_project.wsgi.application'
 
 
 # Database
-# Load environment variables from .env file
-load_dotenv()
+import dj_database_url
 
-# Database settings
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+    'default': dj_database_url.config(default='postgresql://tourismlapulapu_postgre_user:d1O32RUvSidsX5Ll5ZX4cMVlb5ZwohZE@dpg-cu8fc10gph6c73cp5240-a.singapore-postgres.render.com/tourismlapulapu_postgre')
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -171,7 +163,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'js'),
 ]
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
