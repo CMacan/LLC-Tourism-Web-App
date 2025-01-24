@@ -29,7 +29,7 @@ GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['143.44.164.10', 'localhost', 'mydomain.com']
 
