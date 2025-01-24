@@ -31,7 +31,7 @@ GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['143.44.164.10', 'localhost', 'mydomain.com']
+ALLOWED_HOSTS = ['54.254.162.138', 'localhost', 'https://llc-tourism-web-app.onrender.com', '18.142.128.26', '18.142.128.26', '127.0.0.1', '127.0.0.0']
 
 
 # Application definition
