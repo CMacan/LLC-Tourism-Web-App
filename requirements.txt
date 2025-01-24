@@ -67,7 +67,7 @@ pandas==2.2.2
 pillow==10.3.0
 platformdirs==4.2.1
 proto-plus==1.25.0
-protobuf==5.29.2
+protobuf==4.25.5
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pyasn1==0.6.1
