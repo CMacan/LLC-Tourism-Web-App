@@ -15,6 +15,9 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3*_r@aa=t&(*3*vd*(k^wb#^+ov!r&8@!ft%*!rjiic*s4t&@+'
 
-GEMINI_API_KEY = 'AIzaSyDM4i5B-avNJGVbRdtKoxjG3lc4jMify0A'
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
