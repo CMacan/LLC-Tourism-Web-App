@@ -14,6 +14,10 @@ import logging
 
 
 logger = logging.getLogger(__name__)
+
+def login2(request):
+    return render(request, 'login2.html')
+
 def login(request):
     return render(request, 'login.html')
 

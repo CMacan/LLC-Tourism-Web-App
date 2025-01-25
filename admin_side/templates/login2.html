@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link href="{% static 'admin/admin_login.css'  %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left side - Login Form -->
+      <div class="login-form">
+        <div class="form-wrapper">
+          <div class="form-header">
+            <h1>LOGIN</h1>
+            <p>Please enter Admin credentials</p>
+          </div>
+
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <div class="form-options">
+              <div class="remember-me">
+                <input type="checkbox" id="remember" />
+                <label for="remember">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right side - Stacked Images -->
+      <div class="image-section">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rectangle%204-GpeWKS9KLtGtHw7wYjFlkfrO5Jygac.png"
+          alt="Background Pattern"
+          class="background-image"
+        />
+        <div class="image-overlay">
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rectangle%205-j76GZzYY5QqAcPYduySYLi12D6uwgn.png"
+            alt="Purple Background"
+            class="overlay-image"
+          />
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Tourism_high_res_logo__2_-removebg-jLxkRxIPQcqqtQKW6MELi9tOvHnIOA.png"
+            alt="Tourism Logo"
+            class="logo"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        // Handle login logic here
+      }
+    </script>
+  </body>
+</html>
