@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import psycopg2
 from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,12 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3*_r@aa=t&(*3*vd*(k^wb#^+ov!r&8@!ft%*!rjiic*s4t&@+'
 
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['54.254.162.138', 'localhost', 'llc-tourism-web-app.onrender.com', '18.142.128.26', '18.142.128.26', '127.0.0.1', '127.0.0.0']
 
 
 # Application definition
@@ -72,6 +75,7 @@ LOGGING = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -102,23 +106,15 @@ WSGI_APPLICATION = 'tourism_project.wsgi.application'
 
 
 # Database
-# Load environment variables from .env file
-load_dotenv()
+import dj_database_url
 
-# Database settings
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+    'default': dj_database_url.config(default='postgresql://tourismlapulapu_postgre_user:d1O32RUvSidsX5Ll5ZX4cMVlb5ZwohZE@dpg-cu8fc10gph6c73cp5240-a.singapore-postgres.render.com/tourismlapulapu_postgre')
 }
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
+EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
@@ -170,6 +166,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'js'),
 ]
 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 # Default primary key field type

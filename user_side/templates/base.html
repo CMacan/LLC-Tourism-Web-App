@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap Demo</title>
+<<<<<<< HEAD
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
@@ -22,27 +23,45 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <link href="{% static 'user/home2.css'  %}" rel="stylesheet" />
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="{% static 'user/home.css'  %}" rel="stylesheet" />
+>>>>>>> main
     <link href="{% static 'user/chatbox.css'  %}" rel="stylesheet" />
   </head>
   <body>
     <main>
       <header class="navbar">
         <div class="navbar-logo">
+<<<<<<< HEAD
           <img src="{% static '/assets/logo.png' %}" alt="logo" />
           <span>LLC TOURISM</span>
         </div>
+=======
+          <a href="{% url 'home' %}" style="text-decoration: none; display: inline-flex; align-items: center; color: inherit;">
+            <img src="{% static '/assets/logo.png' %}" alt="logo" />
+            <span style="font-size: 20px; font-weight: 500; color: #333;">LLC TOURISM</span>
+          </a>
+        </div>        
+>>>>>>> main
         <nav class="navbar-links">
           <a href="{% url 'user_side_destination_list' %}">DESTINATIONS</a>
           <a href="{% url 'activity' %}">ACTIVITIES</a>
-          <a href="{% url 'accommodation' %}">ACCOMODATIONS</a>
-          <a href="{% url 'food' %}">FOOD & DRINKS</a>
-          <a href="#chat">LET'S CHAT!</a>
+          <a href="{% url 'accommodation' %}">ACCOMMODATIONS</a>
+          <a href="{% url 'food' %}">FOOD &amp; DRINKS</a>
+          <button id="chat_button" class="chat-button" onclick="toggleChatbot()"><span class="chat-text">LET'S CHAT!</span></button>
         </nav>
       </header>
 
       <!-- Wrap content blocks in a div -->
       <div id="content-wrapper">
-        {% block home%} {% endblock %} {% block page-content%} {% endblock %}
+        {% block home%}
+        {% endblock %}
+        {% block page-content%}
+        {% endblock %}
       </div>
 
       <!-- Footer -->
@@ -72,5 +91,6 @@
       </footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static '/chatbot.js'  %}"></script>
   </body>
 </html>

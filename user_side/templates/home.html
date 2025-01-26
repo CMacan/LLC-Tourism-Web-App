@@ -1,17 +1,19 @@
 {% extends "base.html" %} {% load static %} {% block home %}
 <main>
+<<<<<<< HEAD
   <div class="container-fluid p-0">
     <!-- Top Band Image -->
+=======
+  <div class="container-fluid p-0" style="position: relative; z-index: 10">
+>>>>>>> main
     <div class="band-container">
       <img
         class="img-fluid w-100"
         src="{% static '/assets/band.jpg' %}"
         alt="Lapu-Lapu City"
-        style="height: 10vh"
+        style="height: 7vh; object-fit: cover"
       />
     </div>
-
-    <!-- Logo Section with Gradient Background -->
     <div class="logo-section">
       <div class="container text-center">
         <img
@@ -19,22 +21,45 @@
           src="{% static '/assets/lovetheph-logo.png' %}"
           alt="Lapu-Lapu City"
         />
-        <h1 class="text-white mb-4 fw-bold">LAPU-LAPU CITY</h1>
+        <h1
+          class="text-white mb-4"
+          style="font-family: 'Barabara-final', sans-serif; font-size: 50px"
+        >
+          LAPU-LAPU CITY
+        </h1>
 
-        <!-- Search Container -->
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6">
-            <div class="search-wrapper bg-white rounded-pill p-2 shadow">
-              <div class="d-flex align-items-center">
-                <div class="px-3">
-                  <i class="fas fa-search text-muted"></i>
-                </div>
-                <input
-                  type="text"
-                  id="search_input"
-                  class="form-control border-0 shadow-none"
-                  placeholder="What are you looking for?"
+        <div class="search-bar-container">
+          <div class="search-input">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.442 1.1a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"
+              />
+            </svg>
+            <input type="text" placeholder="What are you looking for?" />
+          </div>
+          <div class="dropdown">
+            <button onclick="toggleDropdown()">
+              <span id="selected-category">Destinations </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-chevron-down"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
                 />
+<<<<<<< HEAD
                 <select
                   id="category"
                   class="form-select border-0 shadow-none"
@@ -49,8 +74,24 @@
                   Search
                 </button>
               </div>
+=======
+              </svg>
+            </button>
+            <div class="dropdown-menu" id="dropdown-menu" style="display: none">
+              <button onclick="selectCategory('Destinations')">
+                Destinations
+              </button>
+              <button onclick="selectCategory('Activities')">Activities</button>
+              <button onclick="selectCategory('Accommodations')">
+                Accommodations
+              </button>
+              <button onclick="selectCategory('Food & Drinks')">
+                Food & Drinks
+              </button>
+>>>>>>> main
             </div>
           </div>
+          <button class="search-button">Search</button>
         </div>
       </div>
     </div>
@@ -63,7 +104,7 @@
     <div id="chatbot_header">
       <div id="chatbot_title_with_pic">
         <div id="profile_pic"></div>
-        <div id="chatbot_title">LLC Tourism Chatbot Assistant</div>
+        <div id="chatbot_title">LLC Tourism Chat Assistant</div>
       </div>
       <button id="exit_button" onclick="toggleChatbot()">✖</button>
     </div>
@@ -87,10 +128,16 @@
       <!-- Destinations Circle -->
       <div class="col-auto">
         <!-- Changed to col-auto -->
-        <a href="" class="text-decoration-none">
+        <a
+          href="{% url 'user_side_destination_list' %}"
+          class="text-decoration-none"
+        >
           <div class="circle-container">
             <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Destinations" />
+              <img
+                src="{% static '/assets/destination.jpg' %}"
+                alt="Destinations"
+              />
               <div class="circle-overlay">
                 <i class="fas fa-map-marker-alt"></i>
               </div>
@@ -102,10 +149,10 @@
 
       <!-- Activities Circle -->
       <div class="col-auto">
-        <a href="" class="text-decoration-none">
+        <a href="{% url 'activity' %}" class="text-decoration-none">
           <div class="circle-container">
             <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Activities" />
+              <img src="{% static '/assets/Island.jpg' %}" alt="Activities" />
               <div class="circle-overlay">
                 <i class="fas fa-hiking"></i>
               </div>
@@ -117,10 +164,10 @@
 
       <!-- Hotels Circle -->
       <div class="col-auto">
-        <a href="" class="text-decoration-none">
+        <a href="{% url 'accommodation' %}" class="text-decoration-none">
           <div class="circle-container">
             <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Hotels" />
+              <img src="{% static '/assets/hotel.jpg' %}" alt="Hotels" />
               <div class="circle-overlay">
                 <i class="fas fa-hotel"></i>
               </div>
@@ -132,10 +179,13 @@
 
       <!-- Restaurants Circle -->
       <div class="col-auto">
-        <a href="" class="text-decoration-none">
+        <a href="{% url 'food' %}" class="text-decoration-none">
           <div class="circle-container">
             <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Restaurants" />
+              <img
+                src="{% static '/assets/restaurant.jpg' %}"
+                alt="Restaurants"
+              />
               <div class="circle-overlay">
                 <i class="fas fa-utensils"></i>
               </div>
@@ -145,28 +195,12 @@
         </a>
       </div>
 
-      <!-- Events Circle -->
-      <div class="col-auto">
-        <a href="" class="text-decoration-none">
-          <div class="circle-container">
-            <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Event" />
-              <div class="circle-overlay">
-                <i class="fas fa-calendar-alt"></i>
-                <!-- Changed icon -->
-              </div>
-            </div>
-            <h3 class="circle-label">Events</h3>
-          </div>
-        </a>
-      </div>
-
       <!-- Article Circle -->
       <div class="col-auto">
-        <a href="" class="text-decoration-none">
+        <a href="{% url 'article_list' %}" class="text-decoration-none">
           <div class="circle-container">
             <div class="circle-image-wrapper">
-              <img src="{% static '/assets/food.jpg' %}" alt="Article" />
+              <img src="{% static '/assets/blog.png' %}" alt="Article" />
               <div class="circle-overlay">
                 <i class="fas fa-newspaper"></i>
                 <!-- Changed icon -->
@@ -178,11 +212,11 @@
       </div>
     </div>
   </div>
+
   <div class="container-fluid py-5">
     <!-- Changed to container-fluid for more width -->
     <!-- Section Title -->
     <div class="text-center mb-5 section-header">
-      <span class="section-subtitle">Explore!</span>
       <h2 class="display-5 fw-bold text-primary mb-2">Popular Activities</h2>
       <div class="title-underline mx-auto"></div>
       <p class="text-muted mt-3">
@@ -229,7 +263,7 @@
     <!-- See More Button -->
     <div class="text-center mt-5">
       <a
-        href=""
+        href="{% url 'activity' %}"
         class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn"
       >
         <span class="btn-text">Explore All Activities</span>
@@ -288,7 +322,7 @@
     <!-- See More Button -->
     <div class="text-center mt-5">
       <a
-        href=""
+        href="{% url 'user_side_destination_list' %}"
         class="btn btn-outline-primary rounded-pill px-5 py-3 see-more-btn"
       >
         <span class="btn-text">Explore All Destination</span>
@@ -309,14 +343,17 @@
         <div class="category-card">
           <div class="category-image">
             <img
-              src="{% static '/assets/food.jpg' %}"
+              src="{% static '/assets/hotel2.jpg' %}"
               alt="Hotels"
               class="img-fluid rounded"
             />
             <div class="image-overlay"></div>
           </div>
           <div class="category-button">
-            <a href="" class="btn btn-light btn-lg category-btn">
+            <a
+              href="{% url 'accommodation' %}"
+              class="btn btn-light btn-lg category-btn"
+            >
               <i class="fas fa-hotel me-2"></i>
               <span class="btn-label">Hotels</span>
             </a>
@@ -329,14 +366,17 @@
         <div class="category-card">
           <div class="category-image">
             <img
-              src="{% static '/assets/food.jpg' %}"
+              src="{% static '/assets/restaurant2.jpg' %}"
               alt="Restaurants"
               class="img-fluid rounded"
             />
             <div class="image-overlay"></div>
           </div>
           <div class="category-button">
-            <a href="" class="btn btn-light btn-lg category-btn">
+            <a
+              href="{% url 'food' %}"
+              class="btn btn-light btn-lg category-btn"
+            >
               <i class="fas fa-utensils me-2"></i>
               <span class="btn-label">Restaurants</span>
             </a>
@@ -392,5 +432,21 @@
     </a>
   </div>
 </main>
+<script>
+  function toggleDropdown() {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.style.display =
+      dropdownMenu.style.display === "none" ? "block" : "none";
+  }
+
+  function selectCategory(category) {
+    document.getElementById("selected-category").textContent = category;
+    toggleDropdown();
+  }
+</script>
 <script src="{% static '/chatbot.js'  %}"></script>
+<<<<<<< HEAD
+=======
+<script src="{% static '/home.js'  %}"></script>
+>>>>>>> main
 {% endblock %} {% block page-content%} {% endblock %}

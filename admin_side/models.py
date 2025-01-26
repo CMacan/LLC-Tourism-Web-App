@@ -1,3 +1,4 @@
+import hashlib
 from django.db import models
 from django.utils import timezone
 
@@ -83,6 +84,23 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+
+class User(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128) 
+
+
+    def __str__(self):
+        return self.username
+    
+    def set_password(self, raw_password):
+        """Hash password before saving"""
+        self.password = hashlib.sha256(raw_password.encode()).hexdigest()
+        self.save()
+    
+    class Meta:
+        app_label = 'admin_side'  
 
 
 class Article(models.Model):
