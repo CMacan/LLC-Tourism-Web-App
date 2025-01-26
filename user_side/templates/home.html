@@ -1,11 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block home %}
 <main>
-<<<<<<< HEAD
-  <div class="container-fluid p-0">
-    <!-- Top Band Image -->
-=======
   <div class="container-fluid p-0" style="position: relative; z-index: 10">
->>>>>>> main
     <div class="band-container">
       <img
         class="img-fluid w-100"
@@ -59,22 +54,6 @@
                   fill-rule="evenodd"
                   d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
                 />
-<<<<<<< HEAD
-                <select
-                  id="category"
-                  class="form-select border-0 shadow-none"
-                  style="max-width: 150px"
-                >
-                  <option value="destinations">Destinations</option>
-                  <option value="attractions">Activities</option>
-                  <option value="attractions">Hotels</option>
-                  <option value="food">Restaurants</option>
-                </select>
-                <button class="btn btn-primary rounded-pill px-4 ms-2">
-                  Search
-                </button>
-              </div>
-=======
               </svg>
             </button>
             <div class="dropdown-menu" id="dropdown-menu" style="display: none">
@@ -88,7 +67,6 @@
               <button onclick="selectCategory('Food & Drinks')">
                 Food & Drinks
               </button>
->>>>>>> main
             </div>
           </div>
           <button class="search-button">Search</button>
@@ -445,8 +423,5 @@
   }
 </script>
 <script src="{% static '/chatbot.js'  %}"></script>
-<<<<<<< HEAD
-=======
 <script src="{% static '/home.js'  %}"></script>
->>>>>>> main
 {% endblock %} {% block page-content%} {% endblock %}
