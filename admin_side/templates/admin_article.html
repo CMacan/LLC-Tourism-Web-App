@@ -135,35 +135,46 @@
             <div class="modal-body">
                 <form id="updateArticleForm" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="hidden" id="updateArticleId" name="article_id">
+                    <input type="hidden" id="updateArticleId" name="id" value="{{ article.id }}">
+                    
                     <div class="mb-3">
-                        <label for="updateTitle" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="updateTitle" name="title" required>
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               value="{{ article.title }}" required>
                     </div>
+                
                     <div class="mb-3">
-                        <label for="updateContent" class="form-label">Content</label>
-                        <textarea class="form-control" id="updateContent" name="content" rows="4" required></textarea>
+                        <label for="content" class="form-label">Content</label>
+                        <textarea class="form-control" id="content" name="content" 
+                                  required>{{ article.content }}</textarea>
                     </div>
+                
                     <div class="mb-3">
-                        <label for="updateAuthor" class="form-label">Author</label>
-                        <input type="text" class="form-control" id="updateAuthor" name="author" required>
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control" id="author" name="author" 
+                               value="{{ article.author }}" required>
                     </div>
+                
                     <div class="mb-3">
-                      <label for="image" class="form-label">Image</label>
-                      <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" class="mt-2" style="max-width: 200px">
+                        {% endif %}
                     </div>
+                
                     <div class="mb-3">
-                        <label for="updateTags" class="form-label">Tags</label>
-                        <select multiple class="form-control" id="updateTags" name="tags">
+                        <label for="tags" class="form-label">Tags</label>
+                        <select multiple class="form-control" id="tags" name="tags">
                             {% for tag in tags %}
-                                <option value="{{ tag.id }}">{{ tag.name }}</option>
+                                <option value="{{ tag.id }}" 
+                                    {% if tag in article.tags.all %}selected{% endif %}>
+                                    {{ tag.name }}
+                                </option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Update Article</button>
                 </form>
             </div>
         </div>

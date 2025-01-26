@@ -105,7 +105,7 @@ document.getElementById('addAccommodationForm')?.addEventListener('submit', func
     
     formData.set('data', JSON.stringify(jsonData));
     
-    fetch('/admin_side/accommodations/create/', {
+    fetch('/accommodations/create/', {
         method: 'POST',
         body: formData
     })
@@ -140,7 +140,7 @@ document.getElementById('updateAccommodationForm')?.addEventListener('submit', f
     
     formData.set('data', JSON.stringify(jsonData));
     
-    fetch(`/admin_side/accommodations/${id}/update/`, {
+    fetch(`/accommodations/${id}/update/`, {
         method: 'POST',
         body: formData
     })
@@ -159,7 +159,7 @@ document.getElementById('updateAccommodationForm')?.addEventListener('submit', f
 // Delete confirmation
 function confirmDeletion(id) {
     if (confirm('Are you sure you want to delete this accommodation?')) {
-        fetch(`/admin_side/accommodations/${id}/delete/`, {
+        fetch(`/accommodations/${id}/delete/`, {
             method: 'POST'
         })
         .then(response => response.json())
@@ -177,7 +177,7 @@ function confirmDeletion(id) {
 
 // Update modal population
 function populateUpdateModal(id) {
-    fetch(`/admin_side/accommodations/${id}/`)
+    fetch(`/accommodations/${id}/`)
     .then(response => response.json())
     .then(data => {
         const form = document.getElementById('updateAccommodationForm');

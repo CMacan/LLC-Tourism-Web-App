@@ -114,4 +114,24 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def set_tags(self, tag_ids):
+        """
+        Set tags for the article using a list of tag IDs.
+        """
+        self.tags.clear()
+        for tag_id in tag_ids:
+            tag = Tag.objects.get(id=tag_id)
+            self.tags.add(tag)
+
+def ensure_default_tags(sender, **kwargs):
+    """
+    Create default tags if they don't exist.
+    """
+    default_tags = [
+        'Travel', 'Tips', 'Beach', 'Adventure', 'Food',
+        'Culture', 'Nature', 'City', 'History', 'Photography'
+    ]
+    for tag_name in default_tags:
+        Tag.objects.get_or_create(name=tag_name)
 

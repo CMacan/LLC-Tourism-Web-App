@@ -39,9 +39,9 @@ urlpatterns = [
     path('admin_activity/get/<int:id>/', views.get_activity, name='get_activity'),
 
 
-    path('articles/', views.admin_article, name='admin_article'),
-    path('articles/<int:id>/', views.article_detail, name='article_detail'),
-    path('articles/create/', views.create_article, name='create_article'),
-    path('articles/<int:id>/update/', views.update_article, name='update_article'),
-    path('articles/<int:id>/delete/', views.delete_article, name='delete_article'),
+    path('admin_articles/', views.admin_articles, name='admin_article'),
+    path('admin_articles/<int:id>/', views.article_detail, name='article_detail'),
+    path('admin_articles/create/', views.create_article, name='create_article'),
+    path('admin_articles/<int:id>/update/', views.update_article, name='update_article'),
+    path('admin_articles/<int:id>/delete/', views.delete_article, name='delete_article'),
 ]

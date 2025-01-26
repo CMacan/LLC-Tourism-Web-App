@@ -91,7 +91,7 @@ function addRestaurant(e) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const restaurantData = new FormData(document.getElementById('addRestaurantForm'));
 
-    fetch('/admin_side/restaurants/create/', {  // Make sure this matches your URL pattern
+    fetch('/restaurants/create/', {  // Make sure this matches your URL pattern
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken,
@@ -149,7 +149,7 @@ document.getElementById('updateRestaurantForm')?.addEventListener('submit', func
     
     formData.set('data', JSON.stringify(jsonData));
     
-    fetch(`/admin_side/restaurants/${id}/update/`, {
+    fetch(`/restaurants/${id}/update/`, {
         method: 'POST',
         body: formData
     })
@@ -169,7 +169,7 @@ function deleteRestaurant(restaurantId) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const restaurantCard = document.querySelector(`[data-id="${restaurantId}"]`);
 
-    fetch(`/admin_side/restaurants/delete/${restaurantId}/`, {
+    fetch(`/restaurants/delete/${restaurantId}/`, {
         method: 'DELETE',
         headers: {
             'X-CSRFToken': csrftoken,
@@ -214,7 +214,7 @@ function confirmDeletion(restaurantId) {
 function populateUpdateModal(restaurantId) {
     console.log("Fetching restaurant data for ID:", restaurantId);
 
-    fetch(`/admin_side/restaurants/${restaurantId}/`)
+    fetch(`/restaurants/${restaurantId}/`)
         .then(response => response.json())
         .then(data => {
             console.log("Received data:", data);
@@ -271,7 +271,7 @@ document.getElementById('updateRestaurantForm').addEventListener('submit', funct
 
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    fetch(`/admin_side/restaurants/update/${restaurantId}/`, {
+    fetch(`/restaurants/update/${restaurantId}/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken

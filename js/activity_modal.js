@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(pair[0] + ': ' + pair[1]);
         }
 
-        fetch('/admin_side/admin_activity/add-activity/', {
+        fetch('/admin_activity/add-activity/', {
             method: 'POST',
             body: formData,
             headers: {
@@ -66,7 +66,7 @@ function confirmDeletion(activityId) {
 function deleteActivity(activityId) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     
-    fetch(`/admin_side/admin_activity/delete/${activityId}/`, {
+    fetch(`/admin_activity/delete/${activityId}/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken,
@@ -102,7 +102,7 @@ function deleteActivity(activityId) {
 
 // Function to populate the update modal with activity data
 function populateUpdateModal(activityId) {
-    fetch(`/admin_side/admin_activity/get/${activityId}/`)
+    fetch(`/admin_activity/get/${activityId}/`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -136,7 +136,7 @@ function updateActivity() {
         return;
     }
 
-    fetch(`/admin_side/admin_activity/update/${activityId}/`, {
+    fetch(`/admin_activity/update/${activityId}/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken

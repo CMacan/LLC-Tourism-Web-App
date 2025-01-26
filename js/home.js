@@ -8,7 +8,7 @@ function toggleDropdown() {
   }
   
   
-  
+
 function selectCategory(category) {
     document.getElementById('selected-category').textContent = category;
     toggleDropdown();
