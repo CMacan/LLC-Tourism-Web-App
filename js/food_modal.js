@@ -91,14 +91,17 @@ function addRestaurant(e) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const restaurantData = new FormData(document.getElementById('addRestaurantForm'));
 
-    fetch('/restaurants/create/', {  // Make sure this matches your URL pattern
+    console.log('Submitting restaurant data:');
+    for (let pair of restaurantData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    fetch('/restaurants/create/', {  
         method: 'POST',
         headers: {
-            'X-CSRFToken': csrftoken,
-            // Remove Content-Type header - let the browser set it with boundary for FormData
+            'X-CSRFToken': csrftoken, 
         },
         body: restaurantData,
-        // Don't set Content-Type header when sending FormData
     })
     .then(response => {
         if (!response.ok) {
@@ -110,11 +113,10 @@ function addRestaurant(e) {
     })
     .then(data => {
         console.log('Restaurant added successfully:', data);
-        // Close the modal
+
         const modal = bootstrap.Modal.getInstance(document.getElementById('addRestaurantModal'));
         modal.hide();
         
-        // Show success message
         alert('Restaurant added successfully!');
         
         // Optionally reload the page or update the UI
@@ -131,6 +133,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('addRestaurantForm');
     if (form) {
         form.addEventListener('submit', addRestaurant);
+    }
+    else {
+        console.error('Restaurant form not found in the document');
     }
 });
 

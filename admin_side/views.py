@@ -229,15 +229,17 @@ def admin_food_drink(request):
 def create_restaurant(request):
     if request.method == 'POST':
         try:
-            # Print received data for debugging
-            print("Received POST data:", request.POST)
-            print("Received FILES:", request.FILES)
+            # Debug logging
+            logger.info("Received restaurant creation request")
+            logger.debug(f"POST data: {request.POST}")
+            logger.debug(f"FILES data: {request.FILES}")
 
             # Validate required fields
             required_fields = ['name', 'address', 'facebook', 'instagram']
-            for field in required_fields:
-                if not request.POST.get(field):
-                    raise ValidationError(f'{field} is required')
+            missing_fields = [field for field in required_fields if not request.POST.get(field)]
+            
+            if missing_fields:
+                raise ValidationError(f'Missing required fields: {", ".join(missing_fields)}')
 
             # Create new restaurant
             restaurant = Restaurant.objects.create(
@@ -246,19 +248,19 @@ def create_restaurant(request):
                 facebook_link=request.POST.get('facebook'),
                 instagram_link=request.POST.get('instagram'),
                 website=request.POST.get('website', ''),
-                rating=request.POST.get('rating', 0.0),
+                rating=float(request.POST.get('rating', 0.0)),
             )
 
             # Handle image
             if 'image' in request.FILES:
-                print("Processing image upload...")
+                logger.debug("Processing image upload...")
                 image_file = request.FILES['image']
-                print(f"Image file name: {image_file.name}")
+                logger.debug(f"Image file name: {image_file.name}")
                 restaurant.image = image_file
                 restaurant.save()
-                print(f"Image saved. URL: {restaurant.image.url}")
+                logger.debug(f"Image saved. URL: {restaurant.image.url}")
 
-            return JsonResponse({
+            response_data = {
                 'status': 'success',
                 'message': 'Restaurant added successfully',
                 'restaurant': {
@@ -271,19 +273,29 @@ def create_restaurant(request):
                     'rating': float(restaurant.rating),
                     'image_url': restaurant.image.url if restaurant.image else None,
                 }
-            })
+            }
+            
+            logger.info(f"Successfully created restaurant: {restaurant.name}")
+            return JsonResponse(response_data)
 
         except ValidationError as e:
+            logger.error(f"Validation error: {str(e)}")
             return JsonResponse({
                 'status': 'error',
                 'message': str(e)
             }, status=400)
+        except ValueError as e:
+            logger.error(f"Value error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Invalid data format: {str(e)}'
+            }, status=400)
         except Exception as e:
-            print("Error:", str(e))
+            logger.error(f"Unexpected error: {str(e)}")
             return JsonResponse({
                 'status': 'error',
                 'message': f'Server error: {str(e)}'
-            }, status=400)
+            }, status=500)
 
     return JsonResponse({
         'status': 'error',
