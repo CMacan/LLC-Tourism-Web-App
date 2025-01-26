@@ -3,11 +3,9 @@ from . import views
 
 urlpatterns = [
     path('login2/', views.login2, name='login2'),
-    path('login/', views.login, name='login'),
-    path('send-otp/', views.send_otp, name='send_otp'),
-    path('verify-otp/', views.verify_otp, name='verify_otp'),
-    path('dashboard/', views.dashboard, name='dashboard'),
-
+    path('login/', views.login_user, name='login'),
+    path('reset_password/', views.reset_password, name='reset_password'),    path('dashboard/', views.dashboard, name='dashboard'),
+    path('logout/', views.logout_user, name='logout'),
     path('admin_destination/', views.admin_destination, name='admin_destination'),
     path('admin_destination/add-destination/', views.add_destination, name='add_destination'),
     path('admin_side/list-destination/', views.destination_list, name='destination_list'),

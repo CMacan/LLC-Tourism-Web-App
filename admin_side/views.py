@@ -1,118 +1,104 @@
-from django.shortcuts import render,  get_object_or_404
+from django.shortcuts import render,  get_object_or_404, redirect
 from django.http import HttpResponseBadRequest
-from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag
+from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag, User
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
-import json
-import os
+import os, random, hashlib, json, logging
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
-import random
-import logging
+
 
 
 logger = logging.getLogger(__name__)
 
 def login2(request):
+    if request.session.get('user_id'):
+        return redirect('dashboard')
     return render(request, 'login2.html')
 
-def login(request):
-    return render(request, 'login.html')
-
-@ensure_csrf_cookie
-def send_otp(request):
-    if request.method == 'POST':
+@csrf_exempt
+def login_user(request):
+    if request.method == "POST":
         try:
-            # Parse JSON data
+            data = json.loads(request.body)
+            username = data.get('username')
+            password = data.get('password')
+               
+            user = User.objects.filter(username=username).first()
+            
+            if user:
+                print(f"\nFound user: {user.username}")
+                input_hash = hashlib.sha256(password.encode()).hexdigest()
+                print(f"Input hash: {input_hash}")
+                print(f"Stored hash: {user.password}")
+                
+                if user.password == input_hash:
+                    request.session['user_id'] = user.id
+                    request.session['username'] = user.username
+                    return JsonResponse({'message': 'Login successful'})
+                else:
+                    return JsonResponse({'error': 'Invalid password'}, status=400)
+            else:
+                return JsonResponse({'error': 'User does not exist'}, status=400)
+                
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+
+@csrf_exempt
+def reset_password(request):
+    if request.method == "POST":
+        try:
             data = json.loads(request.body)
             email = data.get('email')
 
             if not email:
-                return JsonResponse({
-                    'error': 'Email is required'
-                }, status=400)
+                return JsonResponse({'error': 'Email is required'}, status=400)
 
-            # Generate OTP
-            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            user = User.objects.filter(email=email).first()
+            if not user:
+                return JsonResponse({'error': 'User with this email does not exist'}, status=400)
+
+            # Generate new random password
+            new_password = ''.join(random.choices(
+                'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+                k=12
+            ))
             
-            # Store OTP in session
-            request.session['otp'] = otp
-            request.session['email'] = email
-            
+            # Hash and save new password
+            user.password = hashlib.sha256(new_password.encode()).hexdigest()
+            user.save()
+
+            # Send email with new password
             try:
-                # Send email
                 send_mail(
-                    subject='Your Login Verification Code',
-                    message=f'Your verification code is: {otp}',
+                    subject="Password Reset",
+                    message=f"Your new password is: {new_password}\nPlease change it after logging in.",
                     from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[email],
+                    recipient_list=[user.email],
                     fail_silently=False,
                 )
-                
-                return JsonResponse({
-                    'message': 'OTP sent successfully'
-                })
-                
+                return JsonResponse({'message': 'New password has been sent to your email'})
             except Exception as e:
-                logger.error(f"Email sending failed: {str(e)}")
-                return JsonResponse({
-                    'error': 'Failed to send email'
-                }, status=500)
+                return JsonResponse({'error': f"Failed to send email: {str(e)}"}, status=500)
 
         except json.JSONDecodeError:
-            return JsonResponse({
-                'error': 'Invalid JSON data'
-            }, status=400)
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+        
         except Exception as e:
-            logger.error(f"Error in send_otp view: {str(e)}")
-            return JsonResponse({
-                'error': 'Internal server error'
-            }, status=500)
-    
-    return JsonResponse({
-        'error': 'Invalid request method'
-    }, status=405)
+            return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
 
-@ensure_csrf_cookie
-def verify_otp(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            email = data.get('email')
-            otp = data.get('otp')
-            
-            stored_otp = request.session.get('otp')
-            stored_email = request.session.get('email')
-            
-            if not all([email, otp, stored_otp, stored_email]):
-                return JsonResponse({
-                    'error': 'Missing required data'
-                }, status=400)
-            
-            if email == stored_email and otp == stored_otp:
-                request.session.flush()
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-                return JsonResponse({
-                    'message': 'Success'
-                })
-
-            
-            return JsonResponse({
-                'error': 'Invalid OTP'
-            }, status=400)
-            
-        except Exception as e:
-            logger.error(f"Error in verify_otp view: {str(e)}")
-            return JsonResponse({
-                'error': 'Internal server error'
-            }, status=500)
-    
-    return JsonResponse({
-        'error': 'Invalid request method'
-    }, status=405)
-
+def logout_user(request):
+    request.session.flush()
+    return redirect('login2')
 
 
 def dashboard(request):

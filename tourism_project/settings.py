@@ -112,8 +112,9 @@ DATABASES = {
     'default': dj_database_url.config(default='postgresql://tourismlapulapu_postgre_user:d1O32RUvSidsX5Ll5ZX4cMVlb5ZwohZE@dpg-cu8fc10gph6c73cp5240-a.singapore-postgres.render.com/tourismlapulapu_postgre')
 }
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
+EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
