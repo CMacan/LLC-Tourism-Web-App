@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import psycopg2
 from dotenv import load_dotenv
 
 
@@ -32,7 +31,7 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['54.254.162.138', 'localhost', 'llc-tourism-web-app.onrender.com', '18.142.128.26', '18.142.128.26', '127.0.0.1', '127.0.0.0']
 
