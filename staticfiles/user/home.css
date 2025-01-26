@@ -833,21 +833,22 @@
 }
 
 
-.article-card img {
-    height: 200px;
-    object-fit: cover;
-}
+.article-card:hover {
+    transform: translateY(-10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
 
-.article-card .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
+  .read-more:hover {
+    background-color: #004085;
+    transition: background-color 0.2s ease;
+  }
 
-.read-more {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: bold;
-}
+  .see-more-btn:hover {
+    background-color: #004085;
+    color: white;
+    transition: all 0.3s ease;
+  }
 
 
 
