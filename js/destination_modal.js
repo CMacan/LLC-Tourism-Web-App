@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        fetch('/admin_side/admin_destination/add-destination/', {
+        fetch('/admin_destination/add-destination/', {
             method: 'POST',
             headers: {
                 'X-CSRFToken': csrftoken
