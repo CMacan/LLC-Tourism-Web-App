@@ -107,7 +107,7 @@
       <img src="{% static '/assets/band.jpg' %}" alt="Logo" class="band" />
       <div class="top-header d-flex justify-content-between align-items-center">
         <h3 id="page-title" class="fw-bold m-0">
-          {% if page_title %} {{ page_title }} {% else %} Dashboard {% endif %}
+          {% block page_title %} Dashboard {% endblock %}
         </h3>
         <h5 class="text-center flex-grow-1 m-0">
           Lapu-Lapu City Department of Tourism
