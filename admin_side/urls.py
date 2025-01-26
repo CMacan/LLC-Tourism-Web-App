@@ -44,4 +44,10 @@ urlpatterns = [
     path('admin_articles/create/', views.create_article, name='create_article'),
     path('admin_articles/<int:id>/update/', views.update_article, name='update_article'),
     path('admin_articles/<int:id>/delete/', views.delete_article, name='delete_article'),
+
+    path('admin_chatbot_file/', views.admin_chatbot_file, name='admin_chatbot_file'),
+    path('admin_chatbot_file/add-chatbot_file/', views.add_chatbot_file, name='add_chatbot_file'),
+    path('admin_chatbot_file/list-chatbot_file/', views.chatbot_file_list, name='chatbot_file_list'),
+    path('admin_chatbot_file/delete/<int:id>/', views.delete_chatbot_file, name='delete_activity'),
+    path('admin_chatbot_file/get/<int:id>/', views.get_chatbot_file, name='get_chatbot_file'),
 ]

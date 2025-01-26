@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from admin_side.models import Destination, Activity, Accommodation, Restaurant, Article
+from admin_side.models import Destination, Activity, Accommodation, Restaurant, Article, UploadedFile
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 import logging
@@ -36,7 +36,7 @@ def search_api(request):
             model_type = 'Activity'
             
         elif category == 'hotels':
-            items = Hotel.objects.filter(
+            items = Accommodation.objects.filter(
                 Q(name__icontains=query) |
                 Q(description__icontains=query)
             )[:5]
@@ -193,3 +193,18 @@ def activity(request):
     return render(request, 'activity.html', {'activities': activity})
 
 
+def chatbot_file(request):
+    chatbot_file_list = UploadedFile.objects.all()
+    page = request.GET.get('page', 1)
+    
+    # Show 9 destinations per page
+    paginator = Paginator(chatbot_file_list, 9)
+    
+    try:
+        chatbot_file = paginator.page(page)
+    except PageNotAnInteger:
+        chatbot_file = paginator.page(1)
+    except EmptyPage:
+        chatbot_file = paginator.page(paginator.num_pages)
+
+    return render(request, 'chatbot_file.html', {'chatbot_files': chatbot_file})

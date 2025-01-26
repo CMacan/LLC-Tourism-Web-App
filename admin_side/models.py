@@ -135,3 +135,11 @@ def ensure_default_tags(sender, **kwargs):
     for tag_name in default_tags:
         Tag.objects.get_or_create(name=tag_name)
 
+class UploadedFile(models.Model):
+    name = models.CharField(max_length=255, default='Untitled')  # Set a default value
+    description = models.TextField(blank=True, null=True)
+    file = models.FileField(upload_to="uploaded_files/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

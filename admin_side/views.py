@@ -1,6 +1,6 @@
 from django.shortcuts import render,  get_object_or_404, redirect
 from django.http import HttpResponseBadRequest
-from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag, User
+from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag, User, UploadedFile
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -8,7 +8,6 @@ import os, random, hashlib, json, logging
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
-
 
 
 logger = logging.getLogger(__name__)
@@ -778,3 +777,60 @@ def get_accommodation(request, id):
         'image_url': accommodation.image.url if accommodation.image else None
     }
     return JsonResponse(data)
+
+
+def admin_chatbot_file(request):
+    chatbot_file = UploadedFile.objects.all()  # Check if this is correct
+    return render(request, 'admin_chatbot_file.html', {'chatbot_file': chatbot_file})
+
+
+@require_http_methods(["POST"])
+def add_chatbot_file(request):
+    try:
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        file = request.FILES.get('file')
+
+        chatbot_file = UploadedFile.objects.create(
+            name=name,
+            description=description,
+            file=file
+        )
+
+        return JsonResponse({'success': True, 'message': 'Chatbot file added successfully'})
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
+
+def chatbot_file_list(request):
+    chatbot_files = UploadedFile.objects.all().order_by('-id')
+    return render(request, 'admin_side/admin_chatbot_files.html', {
+        'chatbot_files': chatbot_files
+    })
+
+def get_chatbot_file(request, id):
+    try:
+        chatbot_file = UploadedFile.objects.get(id=id)
+        data = {
+            'id': chatbot_file.id,
+            'name': chatbot_file.name,
+            'description': chatbot_file.description,
+            'file_url': chatbot_file.file.url,
+        }
+        return JsonResponse(data)
+    except UploadedFile.DoesNotExist:
+        return JsonResponse({'error': 'Chatbot file not found'}, status=404)
+
+# Delete a chatbot file
+@require_http_methods(["POST"])
+def delete_chatbot_file(request, id):
+    try:
+        chatbot_file = UploadedFile.objects.get(id=id)
+        chatbot_file.delete()
+        return JsonResponse({'success': True, 'message': 'Chatbot file deleted successfully'})
+    except UploadedFile.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Chatbot file not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+

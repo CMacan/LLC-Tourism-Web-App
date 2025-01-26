@@ -1,0 +1,120 @@
+{% extends "admin_base.html" %} {% load static %} {% block page_title %} Chatbot
+Content {% endblock %} {% block content %}
+
+<div class="destination-content">
+  {% csrf_token %}
+  <!-- Search and Add -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="input-group" style="width: 70%">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input
+        type="text"
+        class="form-control"
+        id="searchFile"
+        placeholder="Search for Files..."
+      />
+      <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    <button
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#addChatbotFileModal"
+    >
+      <i class="bi bi-plus-circle me-2"></i> Upload a File
+    </button>
+  </div>
+
+  <!-- Files Section -->
+  <div class="row mt-4">
+    {% for file in chatbot_files %}
+    <div class="col-md-4 mb-3" data-id="{{ file.id }}">
+      <div class="card h-100">
+        <div class="card-body">
+          <h6 class="card-title">{{ file.name }}</h6>
+          <p class="card-text">{{ file.description }}</p>
+          <a href="{{ file.file.url }}" class="btn btn-primary" target="_blank"
+            >Download PDF</a
+          >
+          <div class="d-flex justify-content-center gap-2 mt-3">
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="deleteFile({{ file.id }})"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Add File Modal -->
+<div class="modal fade" id="addChatbotFileModal" tabindex="-1">
+  <div
+    class="modal-dialog modal-dialog-centered"
+    style="max-width: 600px; width: 100%; margin: 0 auto"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload File</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="addChatbotFileForm" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="name" class="form-label">File Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              name="description"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label">Choose File</label>
+            <input
+              type="file"
+              class="form-control"
+              id="file"
+              name="file"
+              required
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Upload File</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static '/chatbot_file_modal.js' %}"></script>
+{% endblock %}
