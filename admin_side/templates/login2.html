@@ -5,7 +5,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link href="{% static 'admin/admin_login.css'  %}" rel="stylesheet" />
+    <link href="{% static 'admin/admin_login.css' %}" rel="stylesheet" />
+    <style>
+      /* Modal Styles */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black with transparency */
+        padding-top: 60px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 8px;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -43,7 +83,9 @@
                 <input type="checkbox" id="remember" />
                 <label for="remember">Remember me</label>
               </div>
-              <a href="#" class="forgot-password">Forgot Password?</a>
+              <a href="#" class="forgot-password" id="forgotPasswordLink"
+                >Forgot Password?</a
+              >
             </div>
 
             <button type="submit" class="login-button">Login</button>
@@ -73,11 +115,74 @@
       </div>
     </div>
 
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Forgot Password</h2>
+        <p>Please enter your email to reset your password:</p>
+        <input
+          type="email"
+          id="resetEmail"
+          placeholder="Enter your email"
+          required
+          style="width: 95%"
+        />
+        <button
+          onclick="resetPassword()"
+          class="submit-button"
+          style="
+            width: 30%;
+            padding: 0.5rem;
+            background-color: #6c5dd3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+          "
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
     <script>
       function handleSubmit(event) {
         event.preventDefault();
         // Handle login logic here
       }
+
+      document
+        .getElementById("forgotPasswordLink")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("forgotPasswordModal").style.display =
+            "block";
+        });
+
+      document.querySelector(".close").addEventListener("click", function () {
+        document.getElementById("forgotPasswordModal").style.display = "none";
+      });
+
+      // Function to handle password reset (just a placeholder for now)
+      function resetPassword() {
+        const email = document.getElementById("resetEmail").value;
+        if (email) {
+          alert("Password reset instructions sent to " + email);
+          document.getElementById("forgotPasswordModal").style.display = "none";
+        } else {
+          alert("Please enter a valid email.");
+        }
+      }
+
+      // Close the modal if the user clicks outside of it
+      window.onclick = function (event) {
+        if (event.target == document.getElementById("forgotPasswordModal")) {
+          document.getElementById("forgotPasswordModal").style.display = "none";
+        }
+      };
     </script>
   </body>
 </html>
