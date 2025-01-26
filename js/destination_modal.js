@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        fetch('/admin_side/admin_destination/add-destination/', {
+        fetch('/admin_destination/add-destination/', {
             method: 'POST',
             headers: {
                 'X-CSRFToken': csrftoken
@@ -59,7 +59,7 @@ function confirmDeletion(destinationId) {
 function deleteDestination(destinationId) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     
-    fetch(`/admin_side/admin_destination/delete/${destinationId}/`, {
+    fetch(`/admin_destination/delete/${destinationId}/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken,
@@ -95,7 +95,7 @@ function deleteDestination(destinationId) {
 
 // Function to populate the update modal with destination data
 function populateUpdateModal(destinationId) {
-    fetch(`/admin_side/admin_destination/get/${destinationId}/`)
+    fetch(`/admin_destination/get/${destinationId}/`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('updateDestinationId').value = destinationId; // Set the ID
@@ -115,7 +115,7 @@ function populateUpdateModal(destinationId) {
 // Function to handle the update submission
 // Function to populate the update modal with destination data
 function populateUpdateModal(destinationId) {
-    fetch(`/admin_side/admin_destination/get/${destinationId}/`)
+    fetch(`/admin_destination/get/${destinationId}/`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -150,7 +150,7 @@ function updateDestination() {
         return;
     }
 
-    fetch(`/admin_side/admin_destination/update/${destinationId}/`, {
+    fetch(`/admin_destination/update/${destinationId}/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken

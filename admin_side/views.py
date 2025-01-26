@@ -416,7 +416,7 @@ def ensure_default_tags():
         Tag.objects.get_or_create(name=tag_name)
 
 
-def admin_article(request):
+def admin_articles(request):
     articles = Article.objects.all()
     tags = Tag.objects.all()
     return render(request, 'admin_article.html', {'articles': articles, 'tags': tags})
@@ -431,10 +431,11 @@ def article_detail(request, id):
                 'title': article.title,
                 'content': article.content,
                 'author': article.author,
-                'tags': list(article.tags.values_list('id', flat=True))
+                'image_url': article.image.url if article.image else None,
+                'tags': list(article.tags.values('id', 'name'))
             })
         else:
-            return HttpResponseBadRequest("Invalid HTTP method.")
+            return JsonResponse({"error": "Invalid HTTP method"}, status=405)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
 
@@ -442,66 +443,117 @@ def article_detail(request, id):
 def create_article(request):
     if request.method == 'POST':
         try:
+            # Get form data
             title = request.POST.get('title')
             content = request.POST.get('content')
             author = request.POST.get('author')
-            author_image = request.FILES.get('author_image') 
-            author_bio = request.POST.get('author_bio')
-            tags = request.POST.getlist('tags')  
-            image = request.FILES.get('image')  
+            image = request.FILES.get('image')
+            tag_ids = request.POST.getlist('tags')
 
+            # Validate required fields
+            if not all([title, content, author]):
+                return JsonResponse({
+                    'error': 'Title, content, and author are required'
+                }, status=400)
+
+            # Create article
             article = Article.objects.create(
                 title=title,
                 content=content,
                 author=author,
-                author_image=author_image,
-                author_bio=author_bio,  
-                image=image  
+                image=image if image else None
             )
 
+            # Add tags
+            if tag_ids:
+                tags = Tag.objects.filter(id__in=tag_ids)
+                article.tags.set(tags)
 
-            article.tags.set(tags)
-            article.save()
+            return JsonResponse({
+                'message': 'Article created successfully',
+                'id': article.id
+            })
 
-            return JsonResponse({'message': 'Article created successfully', 'article_id': article.id})
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    return HttpResponseBadRequest("Invalid HTTP method.")
+            print(f"Error creating article: {str(e)}")  # Debug log
+            return JsonResponse({
+                'error': 'Error creating article'
+            }, status=500)
 
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 @csrf_exempt
+@require_http_methods(["POST"])
 def update_article(request, id):
-    if request.method == 'POST':
+    try:
+        # Debug logging
+        logger.info(f"Received update request for article {id}")
+        logger.info(f"POST data: {request.POST}")
+        logger.info(f"FILES data: {request.FILES}")
+
+        # Get the article
+        article = get_object_or_404(Article, id=id)
+        
+        # Validate required fields
+        required_fields = ['title', 'content', 'author']
+        missing_fields = [field for field in required_fields if not request.POST.get(field)]
+        
+        if missing_fields:
+            return JsonResponse({
+                'error': f'Missing required fields: {", ".join(missing_fields)}'
+            }, status=400)
+
         try:
-            article = get_object_or_404(Article, id=id)
+            # Update basic fields
+            article.title = request.POST.get('title')
+            article.content = request.POST.get('content')
+            article.author = request.POST.get('author')
 
-            title = request.POST.get('title', article.title)
-            content = request.POST.get('content', article.content)
-            author = request.POST.get('author', article.author)
-            author_image = request.FILES.get('author_image', article.author_image)  
-            author_bio = request.POST.get('author_bio', article.author_bio)  
-            tags = request.POST.getlist('tags')  
-            image = request.FILES.get('image')  
+            if 'image' in request.FILES:
+                if article.image:
+                    article.image.delete(save=False)
+                article.image = request.FILES['image']
 
-            
-            article.title = title
-            article.content = content
-            article.author = author
-            article.author_bio = author_bio  
-            if author_image: 
-                article.author_image = author_image  
+            # Handle tags
+            if 'tags' in request.POST:
+                tags = request.POST.getlist('tags')
+                article.tags.set(tags)
 
-            if image:  
-                article.image = image
-
-            article.tags.set(tags)
+            # Save the article
             article.save()
 
-            return JsonResponse({'message': 'Article updated successfully'})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    return HttpResponseBadRequest("Invalid HTTP method.")
+            # Prepare success response
+            response_data = {
+                'message': 'Article updated successfully',
+                'article': {
+                    'id': article.id,
+                    'title': article.title,
+                    'content': article.content,
+                    'author': article.author,
+                    'image': article.image.url if article.image else None,
+                    'tags': list(article.tags.values('id', 'name'))
+                }
+            }
 
+            logger.info(f"Successfully updated article {id}")
+            return JsonResponse(response_data)
+
+        except Exception as e:
+            logger.error(f"Error saving article data: {str(e)}")
+            return JsonResponse({
+                'error': f'Error saving article: {str(e)}'
+            }, status=500)
+
+    except Article.DoesNotExist:
+        logger.error(f"Article {id} not found")
+        return JsonResponse({
+            'error': 'Article not found'
+        }, status=404)
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return JsonResponse({
+            'error': f'Server error: {str(e)}'
+        }, status=500)
 
 @csrf_exempt
 def delete_article(request, id):

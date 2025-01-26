@@ -4,11 +4,12 @@ from . import views
 urlpatterns = [
     path('login2/', views.login2, name='login2'),
     path('login/', views.login_user, name='login'),
-    path('reset_password/', views.reset_password, name='reset_password'),    path('dashboard/', views.dashboard, name='dashboard'),
+    path('reset_password/', views.reset_password, name='reset_password'),    
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('logout/', views.logout_user, name='logout'),
     path('admin_destination/', views.admin_destination, name='admin_destination'),
     path('admin_destination/add-destination/', views.add_destination, name='add_destination'),
-    path('admin_side/list-destination/', views.destination_list, name='destination_list'),
+    path('admin_destination/list-destination/', views.destination_list, name='destination_list'),
     path('admin_destination/update/<int:id>/', views.update_destination, name='update_destination'),
     path('admin_destination/delete/<int:id>/', views.delete_destination, name='delete_destination'),
     path('admin_destination/get/<int:id>/', views.get_destination, name='get_destination'),
@@ -32,15 +33,15 @@ urlpatterns = [
 
     path('admin_activity/', views.admin_activity, name='admin_activity'),
     path('admin_activity/add-activity/', views.add_activity, name='add_activity'),
-    path('admin_side/list-activity/', views.activity_list, name='activity_list'),
+    path('admin_activity/list-activity/', views.activity_list, name='activity_list'),
     path('admin_activity/update/<int:id>/', views.update_activity, name='update_activity'),
     path('admin_activity/delete/<int:id>/', views.delete_activity, name='delete_activity'),
     path('admin_activity/get/<int:id>/', views.get_activity, name='get_activity'),
 
 
-    path('articles/', views.admin_article, name='admin_article'),
-    path('articles/<int:id>/', views.article_detail, name='article_detail'),
-    path('articles/create/', views.create_article, name='create_article'),
-    path('articles/<int:id>/update/', views.update_article, name='update_article'),
-    path('articles/<int:id>/delete/', views.delete_article, name='delete_article'),
+    path('admin_articles/', views.admin_articles, name='admin_article'),
+    path('admin_articles/<int:id>/', views.article_detail, name='article_detail'),
+    path('admin_articles/create/', views.create_article, name='create_article'),
+    path('admin_articles/<int:id>/update/', views.update_article, name='update_article'),
+    path('admin_articles/<int:id>/delete/', views.delete_article, name='delete_article'),
 ]

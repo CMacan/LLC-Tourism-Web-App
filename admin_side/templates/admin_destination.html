@@ -1,6 +1,4 @@
-{% extends "admin_base.html" %}
-{% load static %}
-{% block content %}
+{% extends "admin_base.html" %} {% load static %} {% block content %}
 <!-- Main Content -->
 <div class="destination-content">
   {% csrf_token %}
@@ -9,17 +7,13 @@
     <div class="input-group" style="width: 70%">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input
-          type="text"
-          class="form-control"
-          id="searchDestination"
-          placeholder="Search for destination..."
+        type="text"
+        class="form-control"
+        id="searchDestination"
+        placeholder="Search for destination..."
       />
-      <button 
-          class="btn btn-outline-secondary" 
-          type="button"
-          id="clearSearch"
-      >
-          <i class="bi bi-x"></i>
+      <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+        <i class="bi bi-x"></i>
       </button>
     </div>
     <button
@@ -35,65 +29,64 @@
   <!-- Items Section -->
   <div class="row mt-4">
     {% for destination in destinations %}
-    <div class="col-md-4 mb-3" data-id="{{ destination.id }}">  
-
-    <div class="card h-100">
+    <div class="col-md-4 mb-3" data-id="{{ destination.id }}">
+      <div class="card h-100">
         <div class="img-container" style="height: 200px; overflow: hidden">
-            <img
-                src="{{ destination.image.url }}"
-                class="card-img-top"
-                alt="Destination Image"
-                style="width: 100%; height: 100%; object-fit: cover"
-            />
+          <img
+            src="{{ destination.image.url }}"
+            class="card-img-top"
+            alt="Destination Image"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
         </div>
         <div class="card-body text-center">
-            <h6 class="card-title">{{ destination.name }}</h6>
-            <span class="badge bg-primary mb-2">{{ destination.category }}</span>
-            <p class="card-text text-muted">{{ destination.location }}</p>
-            <div class="d-flex justify-content-center gap-2 mt-3">
-                <button
-                    class="btn btn-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#updateModal"
-                    data-id="{{ destination.id }}"
-                >
-                    Update
-                </button>
-                <button 
-                    class="btn btn-danger btn-sm" 
-                    onclick="confirmDeletion({{ destination.id }})"
-                >
-                    Delete
-                </button>
-            </div>
+          <h6 class="card-title">{{ destination.name }}</h6>
+          <span class="badge bg-primary mb-2">{{ destination.category }}</span>
+          <p class="card-text text-muted">{{ destination.location }}</p>
+          <div class="d-flex justify-content-center gap-2 mt-3">
+            <button
+              class="btn btn-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              data-id="{{ destination.id }}"
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="confirmDeletion({{ destination.id }})"
+            >
+              Delete
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-{% endfor %}
-
+    {% endfor %}
   </div>
 </div>
 <style>
-  <style>
-    .modal-lg {
-      max-width: 800px;
-    }
-    .form-check-inline {
-        margin-right: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .modal-body {
-        max-height: calc(100vh - 210px);
-        overflow-y: auto;
-    }
-    
-    .form-text {
-        font-size: 0.875em;
-        color: #6c757d;
-    }
+  <style > .modal-lg {
+    max-width: 800px;
+  }
+  .form-check-inline {
+    margin-right: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+  }
+
+  .form-text {
+    font-size: 0.875em;
+    color: #6c757d;
+  }
 </style>
-{% comment %} <!-- Modal for Adding a Destination --> {% endcomment %}
+{% comment %}
+<!-- Modal for Adding a Destination -->
+{% endcomment %}
 <div
   class="modal fade"
   id="addDestinationModal"
@@ -104,27 +97,64 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addDestinationModalLabel">Add Destination</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="addDestinationModalLabel">
+          Add Destination
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="modal-body">
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control" required />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input type="text" name="location" id="location" class="form-control" required />
+            <input
+              type="text"
+              name="location"
+              id="location"
+              class="form-control"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="latitude" class="form-label">Latitude</label>
-            <input type="number" name="latitude" id="latitude" class="form-control" step="0.000001" min="-90" max="90" required>
+            <input
+              type="number"
+              name="latitude"
+              id="latitude"
+              class="form-control"
+              step="0.000001"
+              min="-90"
+              max="90"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="longitude" class="form-label">Longitude</label>
-            <input type="number" name="longitude" id="longitude" class="form-control" step="0.000001" min="-180" max="180" required>
+            <input
+              type="number"
+              name="longitude"
+              id="longitude"
+              class="form-control"
+              step="0.000001"
+              min="-180"
+              max="180"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
@@ -138,7 +168,13 @@
           </div>
           <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input type="file" name="image" id="image" class="form-control" required />
+            <input
+              type="file"
+              name="image"
+              id="image"
+              class="form-control"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
@@ -151,73 +187,174 @@
           </div>
           <div class="mb-3">
             <label for="rating" class="form-label">Rating</label>
-            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" required />
+            <input
+              type="number"
+              name="rating"
+              id="rating"
+              class="form-control"
+              min="1"
+              max="5"
+              required
+            />
           </div>
           <div class="form-check">
-            <input type="checkbox" name="popular" id="popular" class="form-check-input" />
-            <label for="popular" class="form-check-label">Mark as Popular</label>
+            <input
+              type="checkbox"
+              name="popular"
+              id="popular"
+              class="form-check-input"
+            />
+            <label for="popular" class="form-check-label"
+              >Mark as Popular</label
+            >
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save Destination</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Save Destination
+          </button>
         </div>
       </form>
     </div>
   </div>
 </div>
-{% comment %} <!-- Update Modal --> {% endcomment %}
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Destination</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="updateDestinationForm" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" id="updateDestinationId" name="destination_id">
-                    <div class="mb-3">
-                        <label for="updateName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="updateName" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateLocation" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="updateLocation" name="location" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="latitude" class="form-label">Latitude</label>
-                      <input type="number" name="latitude" id="latitude" class="form-control" step="0.000001" min="-90" max="90" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="longitude" class="form-label">Longitude</label>
-                      <input type="number" name="longitude" id="longitude" class="form-control" step="0.000001" min="-180" max="180" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="updateDescription" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateCategory" class="form-label">Category</label>
-                        <input type="text" class="form-control" id="updateCategory" name="category" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateRating" class="form-label">Rating</label>
-                        <input type="number" class="form-control" id="updateRating" name="rating" min="1" max="5" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="updatePopular" name="popular">
-                        <label class="form-check-label" for="updatePopular">Popular</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="updateDestination()">Save Changes</button>
-            </div>
-        </div>
+{% comment %}
+<!-- Update Modal -->
+{% endcomment %}
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Destination</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="updateDestinationForm" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="hidden" id="updateDestinationId" name="destination_id" />
+          <div class="mb-3">
+            <label for="updateName" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateName"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="updateLocation" class="form-label">Location</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateLocation"
+              name="location"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input
+              type="number"
+              name="latitude"
+              id="latitude"
+              class="form-control"
+              step="0.000001"
+              min="-90"
+              max="90"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input
+              type="number"
+              name="longitude"
+              id="longitude"
+              class="form-control"
+              step="0.000001"
+              min="-180"
+              max="180"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="updateDescription" class="form-label"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              id="updateDescription"
+              name="description"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="updateCategory" class="form-label">Category</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateCategory"
+              name="category"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="updateRating" class="form-label">Rating</label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateRating"
+              name="rating"
+              min="1"
+              max="5"
+              required
+            />
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="updatePopular"
+              name="popular"
+            />
+            <label class="form-check-label" for="updatePopular">Popular</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="updateDestination()"
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
 <script src="{% static '/destination_modal.js'  %}"></script>
