@@ -1,17 +1,19 @@
 {% extends "admin_base.html" %}
 {% load static %}
 {% block content %}
-    <!-- Main Content -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <div class="card-container">
-      <div class="card">Total Destinations<br><span class="fw-bold">25</span></div>
-      <div class="card">Total Activities<br><span class="fw-bold">18</span></div>
-      <div class="card">Total Accommodations<br><span class="fw-bold">12</span></div>
-      <div class="card">Total Restaurants<br><span class="fw-bold">40</span></div>
+      <div class="card">Destinations<br><span class="fw-bold">{{ destination_count }}</span></div>
+      <div class="card">Activities<br><span class="fw-bold">{{ activity_count }}</span></div>
+      <div class="card">Accommodations<br><span class="fw-bold">{{ accommodation_count }}</span></div>
+      <div class="card">Restaurants<br><span class="fw-bold">{{ restaurant_count }}</span></div>
     </div>
     <div class="dash-content">
       <div class="d-flex gap-3">
         <div class="section pie-section">
           <h6>Top Categories of AI Chat Bot Inquiries</h6>
+          <div style="height: 300px;">
           <canvas id="pieChart"></canvas>
           <div class="legend">
             <div class="legend-item">
@@ -43,6 +45,62 @@
               LAPU-LAPU CITY WEATHER
             </a>
           </div>
+          {{ chat_inquiries|json_script:"chat-inquiry-data" }}
+          
+          <script>
+            Chart.register(ChartDataLabels);
+            
+            const chatInquiryData = JSON.parse(document.getElementById('chat-inquiry-data').textContent);
+            console.log("Chat Inquiry Data:", chatInquiryData);
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Accommodation', 'Activities', 'Food & Drinks', 'Destination', 'Articles'],
+                    datasets: [{
+                        data: chatInquiryData,
+                        backgroundColor: [
+                            '#ff6384',
+                            '#36a2eb',
+                            '#ffcd56',
+                            '#4bc0c0',
+                            '#9966ff'
+                        ]
+                    }]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${context.label}: ${percentage}%`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            formatter: (value, ctx) => {
+                                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return percentage + '%';
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            });
+          </script>
+
+          <!-- Weather widget initialization -->
           <script>
             !function(d,s,id){
               var js,fjs=d.getElementsByTagName(s)[0];
@@ -57,7 +115,4 @@
         </div>
       </div>           
     </div>
-    {% endblock %}
-  </body>
-</html>
-
+{% endblock %}

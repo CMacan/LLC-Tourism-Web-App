@@ -1,7 +1,8 @@
 from django.shortcuts import render,  get_object_or_404, redirect
 from django.http import HttpResponseBadRequest
-from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag, User
+from .models import Restaurant, Destination, Activity, Accommodation, Article, Tag, User, ChatInquiry
 from django.http import JsonResponse
+from django.db.models import Count
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
 import os, random, hashlib, json, logging
@@ -12,6 +13,37 @@ from django.conf import settings
 
 
 logger = logging.getLogger(__name__)
+
+def dashboard_view(request):
+    # Get counts for each category
+    inquiry_counts = ChatInquiry.objects.values('category')\
+        .annotate(count=Count('id'))\
+        .order_by('category')
+    
+    # Convert to list of counts in the same order as chart labels
+    categories_order = ['accommodation', 'activities', 'food', 'destination', 'articles']
+    chat_inquiries = [0] * len(categories_order)  # Initialize with zeros
+    
+    # Fill in actual counts
+    category_dict = {item['category']: item['count'] for item in inquiry_counts}
+    for i, category in enumerate(categories_order):
+        chat_inquiries[i] = category_dict.get(category, 0)
+    
+    context = {
+        'destination_count': Destination.objects.count(),
+        'activity_count': Activity.objects.count(),
+        'accommodation_count': Accommodation.objects.count(),
+        'restaurant_count': Restaurant.objects.count(),
+        'chat_inquiries': {
+            'accommodation': ChatInquiry.objects.filter(category='accommodation').count(),
+            'activities': ChatInquiry.objects.filter(category='activities').count(),
+            'food_drinks': ChatInquiry.objects.filter(category='food_drinks').count(),
+            'destination': ChatInquiry.objects.filter(category='destination').count(),
+            'articles': ChatInquiry.objects.filter(category='articles').count(),
+        }
+    }
+    return render(request, 'dashboard.html', context)
+
 
 def login2(request):
     if request.session.get('user_id'):

@@ -5,7 +5,7 @@ urlpatterns = [
     path('login2/', views.login2, name='login2'),
     path('login/', views.login_user, name='login'),
     path('reset_password/', views.reset_password, name='reset_password'),    
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard_view, name='dashboard'),
     path('logout/', views.logout_user, name='logout'),
     path('admin_destination/', views.admin_destination, name='admin_destination'),
     path('admin_destination/add-destination/', views.add_destination, name='add_destination'),
@@ -20,7 +20,6 @@ urlpatterns = [
     path('accommodations/<int:id>/update/', views.update_accommodation, name='update_accommodation'),
     path('accommodations/<int:id>/delete/', views.delete_accommodation, name='delete_accommodation'),
     path('accommodations/<int:id>/', views.get_accommodation, name='get_accommodation'),
-
     
 
     path('admin_food_drink/', views.admin_food_drink, name='admin_food_drink'),
