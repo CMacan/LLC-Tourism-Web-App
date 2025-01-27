@@ -30,12 +30,35 @@
         </nav>
       </header>
 
-      <!-- Wrap content blocks in a div -->
       <div id="content-wrapper">
         {% block home%}
         {% endblock %}
         {% block page-content%}
         {% endblock %}
+      </div>
+
+      <div id="chatbot_icon" onclick="toggleChatbot()">💬</div>
+      <div id="chatbot_container">
+        <div id="chatbot_header">
+          <div id="chatbot_title_with_pic">
+            <div id="profile_pic"></div>
+            <div id="chatbot_title">LLC Tourism Chat Assistant</div>
+          </div>
+          <button id="exit_button" onclick="toggleChatbot()">✖</button>
+        </div>
+        <div id="chat_box"></div>
+        <form id="input_area" method="POST" onsubmit="return false;">
+          {% csrf_token %}
+          <input
+            type="text"
+            id="user_message"
+            placeholder="Type your message here"
+            onkeydown="handleKeyPress(event)"
+          />
+          <button type="button" id="send_button" onclick="sendMessage()">
+            Send
+          </button>
+        </form>
       </div>
 
       <!-- Footer -->
