@@ -65,3 +65,13 @@ function toggleChatbot() {
       alert("An error occurred while sending the message.");
     }
 }
+function toggleDropdown() {
+  const dropdownMenu = document.getElementById("dropdown-menu");
+  dropdownMenu.style.display =
+    dropdownMenu.style.display === "none" ? "block" : "none";
+}
+
+function selectCategory(category) {
+  document.getElementById("selected-category").textContent = category;
+  toggleDropdown();
+}

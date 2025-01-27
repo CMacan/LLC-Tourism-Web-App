@@ -18,95 +18,16 @@
         />
         <h1
           class="text-white mb-4"
-          style="font-family: 'Barabara-final', sans-serif; font-size: 50px"
+          style="font-family: 'Barabara-final', sans-serif; font-size: 60px"
         >
           LAPU-LAPU CITY
         </h1>
-
-        <div class="search-bar-container">
-          <div class="search-input">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.442 1.1a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"
-              />
-            </svg>
-            <input type="text" placeholder="What are you looking for?" />
-          </div>
-          <div class="dropdown">
-            <button onclick="toggleDropdown()">
-              <span id="selected-category">Destinations </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-chevron-down"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="dropdown-menu" style="display: none">
-              <button onclick="selectCategory('Destinations')">
-                Destinations
-              </button>
-              <button onclick="selectCategory('Activities')">Activities</button>
-              <button onclick="selectCategory('Accommodations')">
-                Accommodations
-              </button>
-              <button onclick="selectCategory('Food & Drinks')">
-                Food & Drinks
-              </button>
-            </div>
-          </div>
-          <button class="search-button">Search</button>
-        </div>
       </div>
     </div>
-  </div>
-
-  <!-- Chatbot icon -->
-  <div id="chatbot_icon" onclick="toggleChatbot()">💬</div>
-
-  <!-- Chatbot container -->
-  <div id="chatbot_container">
-    <div id="chatbot_header">
-      <div id="chatbot_title_with_pic">
-        <div id="profile_pic"></div>
-        <div id="chatbot_title">LLC Tourism Chat Assistant</div>
-      </div>
-      <button id="exit_button" onclick="toggleChatbot()">✖</button>
-    </div>
-    <div id="chat_box"></div>
-    <form id="input_area" method="POST" onsubmit="return false;">
-      {% csrf_token %}
-      <input
-        type="text"
-        id="user_message"
-        placeholder="Type your message here"
-        onkeydown="handleKeyPress(event)"
-      />
-      <button type="button" id="send_button" onclick="sendMessage()">
-        Send
-      </button>
-    </form>
   </div>
   <div class="container-fluid py-5">
-    <!-- Changed to container-fluid for more width -->
     <div class="row justify-content-center g-4">
-      <!-- Destinations Circle -->
       <div class="col-auto">
-        <!-- Changed to col-auto -->
         <a
           href="{% url 'user_side_destination_list' %}"
           class="text-decoration-none"
@@ -426,18 +347,5 @@
     </div>
   </div>
 </main>
-<script>
-  function toggleDropdown() {
-    const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.style.display =
-      dropdownMenu.style.display === "none" ? "block" : "none";
-  }
-
-  function selectCategory(category) {
-    document.getElementById("selected-category").textContent = category;
-    toggleDropdown();
-  }
-</script>
-<script src="{% static '/chatbot.js'  %}"></script>
 <script src="{% static '/home.js'  %}"></script>
 {% endblock %} {% block page-content%} {% endblock %}
