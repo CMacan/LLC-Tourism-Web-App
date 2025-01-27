@@ -13,6 +13,12 @@
     background-color: #f4f4f4;
   }
 
+  html, body {
+    overflow-x: hidden; 
+    width: 100%; 
+}
+
+
 .hero p {
     font-family: 'BARABARA-FINAL';
     color:#fff;
@@ -145,7 +151,7 @@
 /* Logo section with gradient background */
 .logo-section {
     background: linear-gradient(to bottom, #2A1686 0%, #3D1370 34%, #640E44 100%);
-    padding: 3rem 0;
+    padding: 4rem 0;
     position: relative;
     z-index: 0;
 }
