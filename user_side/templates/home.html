@@ -25,38 +25,9 @@
       </div>
     </div>
   </div>
-  <!-- Chatbot icon -->
-  <div id="chatbot_icon" onclick="toggleChatbot()">💬</div>
-
-  <!-- Chatbot container -->
-  <div id="chatbot_container">
-    <div id="chatbot_header">
-      <div id="chatbot_title_with_pic">
-        <div id="profile_pic"></div>
-        <div id="chatbot_title">LLC Tourism Chat Assistant</div>
-      </div>
-      <button id="exit_button" onclick="toggleChatbot()">✖</button>
-    </div>
-    <div id="chat_box"></div>
-    <form id="input_area" method="POST" onsubmit="return false;">
-      {% csrf_token %}
-      <input
-        type="text"
-        id="user_message"
-        placeholder="Type your message here"
-        onkeydown="handleKeyPress(event)"
-      />
-      <button type="button" id="send_button" onclick="sendMessage()">
-        Send
-      </button>
-    </form>
-  </div>
   <div class="container-fluid py-5">
-    <!-- Changed to container-fluid for more width -->
     <div class="row justify-content-center g-4">
-      <!-- Destinations Circle -->
       <div class="col-auto">
-        <!-- Changed to col-auto -->
         <a
           href="{% url 'user_side_destination_list' %}"
           class="text-decoration-none"
@@ -376,18 +347,5 @@
     </div>
   </div>
 </main>
-<script>
-  function toggleDropdown() {
-    const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.style.display =
-      dropdownMenu.style.display === "none" ? "block" : "none";
-  }
-
-  function selectCategory(category) {
-    document.getElementById("selected-category").textContent = category;
-    toggleDropdown();
-  }
-</script>
-<script src="{% static '/chatbot.js'  %}"></script>
 <script src="{% static '/home.js'  %}"></script>
 {% endblock %} {% block page-content%} {% endblock %}
