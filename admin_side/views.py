@@ -13,6 +13,25 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
+def dashboard_view(request):
+    chat_data = {
+        'accommodation': Accommodation.objects.count(),
+        'activities': Activity.objects.count(),
+        'food': Restaurant.objects.count(),
+        'destination': Destination.objects.count(),
+        'articles': Article.objects.count(),
+    }
+
+    context = {
+        'destination_count': Destination.objects.count(),
+        'activity_count': Activity.objects.count(),
+        'accommodation_count': Accommodation.objects.count(),
+        'restaurant_count': Restaurant.objects.count(),
+        'chat_data': chat_data
+    }
+    
+    return render(request, 'dashboard.html', context)
+
 def login2(request):
     if request.session.get('user_id'):
         return redirect('dashboard')
@@ -71,11 +90,9 @@ def reset_password(request):
                 k=12
             ))
             
-            # Hash and save new password
             user.password = hashlib.sha256(new_password.encode()).hexdigest()
             user.save()
 
-            # Send email with new password
             try:
                 send_mail(
                     subject="Password Reset",

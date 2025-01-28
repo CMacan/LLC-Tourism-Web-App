@@ -18,94 +18,16 @@
         />
         <h1
           class="text-white mb-4"
-          style="font-family: 'Barabara-final', sans-serif; font-size: 50px"
+          style="font-family: 'Barabara-final', sans-serif; font-size: 60px"
         >
           LAPU-LAPU CITY
         </h1>
-
-        <div class="search-bar-container">
-          <div class="search-input">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.442 1.1a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"
-              />
-            </svg>
-            <input type="text" placeholder="What are you looking for?" />
-          </div>
-          <div class="dropdown">
-            <button onclick="toggleDropdown()">
-              <span id="selected-category">Destinations </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-chevron-down"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="dropdown-menu" style="display: none">
-              <button onclick="selectCategory('Destinations')">
-                Destinations
-              </button>
-              <button onclick="selectCategory('Activities')">Activities</button>
-              <button onclick="selectCategory('Accommodations')">
-                Accommodations
-              </button>
-              <button onclick="selectCategory('Food & Drinks')">
-                Food & Drinks
-              </button>
-            </div>
-          </div>
-          <button class="search-button">Search</button>
-        </div>
       </div>
     </div>
-  </div>
-  <!-- Chatbot icon -->
-  <div id="chatbot_icon" onclick="toggleChatbot()">💬</div>
-
-  <!-- Chatbot container -->
-  <div id="chatbot_container">
-    <div id="chatbot_header">
-      <div id="chatbot_title_with_pic">
-        <div id="profile_pic"></div>
-        <div id="chatbot_title">LLC Tourism Chat Assistant</div>
-      </div>
-      <button id="exit_button" onclick="toggleChatbot()">✖</button>
-    </div>
-    <div id="chat_box"></div>
-    <form id="input_area" method="POST" onsubmit="return false;">
-      {% csrf_token %}
-      <input
-        type="text"
-        id="user_message"
-        placeholder="Type your message here"
-        onkeydown="handleKeyPress(event)"
-      />
-      <button type="button" id="send_button" onclick="sendMessage()">
-        Send
-      </button>
-    </form>
   </div>
   <div class="container-fluid py-5">
-    <!-- Changed to container-fluid for more width -->
     <div class="row justify-content-center g-4">
-      <!-- Destinations Circle -->
       <div class="col-auto">
-        <!-- Changed to col-auto -->
         <a
           href="{% url 'user_side_destination_list' %}"
           class="text-decoration-none"
@@ -193,61 +115,66 @@
 
   <div class="container-fluid py-5">
     <!-- Activities Section -->
-<div class="container py-5">
-  <h2 class="display-5 fw-bold text-center text-success mb-5">
-    Explore Exciting Activities in Lapu Lapu
-  </h2>
+    <div class="container py-5">
+      <h2 class="display-5 fw-bold text-center text-success mb-5">
+        Explore Exciting Activities in Lapu Lapu
+      </h2>
 
-  <!-- Activity 1 -->
-  <div class="row align-items-center mb-5">
-    <div class="col-lg-6">
-      <img
-        src="{% static 'assets/activity.jpg' %}"
-        alt="Snorkeling Adventure"
-        class="img-fluid rounded-3 shadow"
-      />
-    </div>
-    <div class="col-lg-6">
-      <h3 class="fw-bold text-primary">Snorkeling Adventure</h3>
-      <p class="text-muted">
-        Dive into the crystal-clear waters of Cebu and explore the vibrant coral reefs teeming with marine life. A perfect adventure for underwater enthusiasts!
-      </p>
-    </div>
-  </div>
+      <!-- Activity 1 -->
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+          <img
+            src="{% static 'assets/activity.jpg' %}"
+            alt="Snorkeling Adventure"
+            class="img-fluid rounded-3 shadow"
+          />
+        </div>
+        <div class="col-lg-6">
+          <h3 class="fw-bold text-primary">Snorkeling Adventure</h3>
+          <p class="text-muted">
+            Dive into the crystal-clear waters of Cebu and explore the vibrant
+            coral reefs teeming with marine life. A perfect adventure for
+            underwater enthusiasts!
+          </p>
+        </div>
+      </div>
 
-  <!-- Activity 2 -->
-  <div class="row align-items-center mb-5 flex-lg-row-reverse">
-    <div class="col-lg-6">
-      <img
-        src="{% static 'assets/shrine-1.jpg' %}"
-        alt="Kawasan Falls Canyoneering"
-        class="img-fluid rounded-3 shadow"
-      />
-    </div>
-    <div class="col-lg-6">
-      <h3 class="fw-bold text-primary">Lapu Lapu Monument</h3>
-      <p class="text-muted">
-        Explore the stunning landscapes and attractions of Lapu Lapu Island. Visit the iconic Landmark of the Grand Mosque, the famous Cebu Cave, and the beautiful Puerto Nuevo Cebu.
-      </p>
-    </div>
-  </div>
-    <!-- Activity 3 -->
-    <div class="row align-items-center mb-5">
-      <div class="col-lg-6">
-        <img
-          src="{% static 'assets/Island.jpg' %}"
-          alt="Island Hopping"
-          class="img-fluid rounded-3 shadow"
-        />
+      <!-- Activity 2 -->
+      <div class="row align-items-center mb-5 flex-lg-row-reverse">
+        <div class="col-lg-6">
+          <img
+            src="{% static 'assets/shrine-1.jpg' %}"
+            alt="Kawasan Falls Canyoneering"
+            class="img-fluid rounded-3 shadow"
+          />
+        </div>
+        <div class="col-lg-6">
+          <h3 class="fw-bold text-primary">Lapu Lapu Monument</h3>
+          <p class="text-muted">
+            Explore the stunning landscapes and attractions of Lapu Lapu Island.
+            Visit the iconic Landmark of the Grand Mosque, the famous Cebu Cave,
+            and the beautiful Puerto Nuevo Cebu.
+          </p>
+        </div>
       </div>
-      <div class="col-lg-6">
-        <h3 class="fw-bold text-primary">Island Hopping</h3>
-        <p class="text-muted">
-          Discover the hidden gems of Cebu’s islands. Enjoy pristine beaches, turquoise waters, and the natural beauty of this tropical paradise.
-        </p>
+      <!-- Activity 3 -->
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+          <img
+            src="{% static 'assets/Island.jpg' %}"
+            alt="Island Hopping"
+            class="img-fluid rounded-3 shadow"
+          />
+        </div>
+        <div class="col-lg-6">
+          <h3 class="fw-bold text-primary">Island Hopping</h3>
+          <p class="text-muted">
+            Discover the hidden gems of Cebu’s islands. Enjoy pristine beaches,
+            turquoise waters, and the natural beauty of this tropical paradise.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- See More Button -->
     <div class="text-center mt-5">
@@ -263,34 +190,41 @@
 
   <div class="container-fluid py-5">
     <!-- Landing Page Section -->
-  <div class="container py-5">
-    <div class="row align-items-center">
-      <!-- Left Content -->
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <h2 class="display-5 fw-bold text-primary">Discover Lapu-Lapu City</h2>
-        <p class="lead text-muted">
-          Lapu-Lapu City, located in the heart of Cebu, is a must-visit destination for history buffs and beach lovers alike. Known for its pristine beaches, vibrant marine life, and rich historical significance, it offers a perfect mix of relaxation and adventure. Whether you're exploring the historic Mactan Shrine, diving in crystal-clear waters, or savoring delicious seafood, Lapu-Lapu City has something for everyone.
-        </p>
-      </div>
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <!-- Left Content -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="display-5 fw-bold text-primary">
+            Discover Lapu-Lapu City
+          </h2>
+          <p class="lead text-muted">
+            Lapu-Lapu City, located in the heart of Cebu, is a must-visit
+            destination for history buffs and beach lovers alike. Known for its
+            pristine beaches, vibrant marine life, and rich historical
+            significance, it offers a perfect mix of relaxation and adventure.
+            Whether you're exploring the historic Mactan Shrine, diving in
+            crystal-clear waters, or savoring delicious seafood, Lapu-Lapu City
+            has something for everyone.
+          </p>
+        </div>
 
-      <!-- Right Content (Image) -->
-      <div class="col-lg-6">
-        <div class="card border-0 shadow-lg overflow-hidden">
-          <img
-           src="{% static '/assets/destination.jpg' %}"
-            alt="Lapu-Lapu City"
-            class="img-fluid rounded-3"
-          />
-          <div class="card-body bg-light">
-            <h5 class="card-title text-center fw-bold text-primary">
-              Stunning History & Rich Heritage
-            </h5>
+        <!-- Right Content (Image) -->
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg overflow-hidden">
+            <img
+              src="{% static '/assets/destination.jpg' %}"
+              alt="Lapu-Lapu City"
+              class="img-fluid rounded-3"
+            />
+            <div class="card-body bg-light">
+              <h5 class="card-title text-center fw-bold text-primary">
+                Stunning History & Rich Heritage
+              </h5>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
 
     <!-- See More Button -->
     <div class="text-center mt-5">
@@ -369,24 +303,29 @@
             src="{{ post.image.url }}"
             class="card-img-top rounded-top-4 img-fluid"
             alt="{{ post.title }}"
-            style="height: 200px; object-fit: cover;"
+            style="height: 200px; object-fit: cover"
           />
           {% else %}
           <img
             src="{% static 'images/default.jpg' %}"
             class="card-img-top rounded-top-4 img-fluid"
             alt="Default Article Image"
-            style="height: 200px; object-fit: cover;"
+            style="height: 200px; object-fit: cover"
           />
           {% endif %}
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-center fw-semibold text-dark">{{ post.title }}</h5>
-            <p class="card-text text-muted text-center">{{ post.content|truncatechars:100 }}</p>
+            <h5 class="card-title text-center fw-semibold text-dark">
+              {{ post.title }}
+            </h5>
+            <p class="card-text text-muted text-center">
+              {{ post.content|truncatechars:100 }}
+            </p>
             <div class="mt-auto text-center">
               <a
                 href="{% url 'article_detail' post.id %}"
                 class="btn btn-primary read-more rounded-pill px-4 py-2"
-              >Read More</a>
+                >Read More</a
+              >
             </div>
           </div>
         </div>
@@ -408,18 +347,5 @@
     </div>
   </div>
 </main>
-<script>
-  function toggleDropdown() {
-    const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.style.display =
-      dropdownMenu.style.display === "none" ? "block" : "none";
-  }
-
-  function selectCategory(category) {
-    document.getElementById("selected-category").textContent = category;
-    toggleDropdown();
-  }
-</script>
-<script src="{% static '/chatbot.js'  %}"></script>
 <script src="{% static '/home.js'  %}"></script>
 {% endblock %} {% block page-content%} {% endblock %}
